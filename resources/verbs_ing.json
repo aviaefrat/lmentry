@@ -1,0 +1,4659 @@
+{
+  "paying": {
+    "original_word": "pay",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "A1",
+      "B1"
+    ]
+  },
+  "giving": {
+    "original_word": "give",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A1",
+      "A2",
+      "B1"
+    ]
+  },
+  "planting": {
+    "original_word": "plant",
+    "pos": [
+      "noun",
+      "verb"
+    ],
+    "levels": [
+      "A1",
+      "B1"
+    ]
+  },
+  "drawing": {
+    "original_word": "draw",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A1"
+    ]
+  },
+  "dying": {
+    "original_word": "die",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A1"
+    ]
+  },
+  "opening": {
+    "original_word": "open",
+    "pos": [
+      "adjective",
+      "verb"
+    ],
+    "levels": [
+      "A1",
+      "A2",
+      "B1"
+    ]
+  },
+  "inviting": {
+    "original_word": "invite",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A1"
+    ]
+  },
+  "learning": {
+    "original_word": "learn",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A1",
+      "B1"
+    ]
+  },
+  "driving": {
+    "original_word": "drive",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "A1",
+      "B1"
+    ]
+  },
+  "eating": {
+    "original_word": "eat",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A1"
+    ]
+  },
+  "hearing": {
+    "original_word": "hear",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A1",
+      "A2",
+      "B1"
+    ]
+  },
+  "studying": {
+    "original_word": "study",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "A1",
+      "B1"
+    ]
+  },
+  "stopping": {
+    "original_word": "stop",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "A1",
+      "A2",
+      "B1"
+    ]
+  },
+  "watching": {
+    "original_word": "watch",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "A1"
+    ]
+  },
+  "staying": {
+    "original_word": "stay",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "A1",
+      "A2",
+      "B1"
+    ]
+  },
+  "visiting": {
+    "original_word": "visit",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "A1",
+      "A2",
+      "B1"
+    ]
+  },
+  "using": {
+    "original_word": "use",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "A1",
+      "A2",
+      "B1"
+    ]
+  },
+  "parking": {
+    "original_word": "park",
+    "pos": [
+      "noun",
+      "verb"
+    ],
+    "levels": [
+      "A1",
+      "A2"
+    ]
+  },
+  "beginning": {
+    "original_word": "begin",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A1",
+      "A2"
+    ]
+  },
+  "ending": {
+    "original_word": "end",
+    "pos": [
+      "noun",
+      "verb"
+    ],
+    "levels": [
+      "A1",
+      "A2"
+    ]
+  },
+  "running": {
+    "original_word": "run",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "A1",
+      "B1"
+    ]
+  },
+  "leaving": {
+    "original_word": "leave",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A1",
+      "A2",
+      "B1"
+    ]
+  },
+  "liking": {
+    "original_word": "like",
+    "pos": [
+      "verb",
+      "preposition"
+    ],
+    "levels": [
+      "A1",
+      "A2",
+      "B1"
+    ]
+  },
+  "snowing": {
+    "original_word": "snow",
+    "pos": [
+      "noun",
+      "verb"
+    ],
+    "levels": [
+      "A1",
+      "A2"
+    ]
+  },
+  "cleaning": {
+    "original_word": "clean",
+    "pos": [
+      "adjective",
+      "verb"
+    ],
+    "levels": [
+      "A1"
+    ]
+  },
+  "helping": {
+    "original_word": "help",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "A1",
+      "A2"
+    ]
+  },
+  "dating": {
+    "original_word": "date",
+    "pos": [
+      "noun",
+      "verb"
+    ],
+    "levels": [
+      "A1",
+      "B1"
+    ]
+  },
+  "pleasing": {
+    "original_word": "please",
+    "pos": [
+      "exclamation",
+      "verb"
+    ],
+    "levels": [
+      "A1",
+      "B1"
+    ]
+  },
+  "dressing": {
+    "original_word": "dress",
+    "pos": [
+      "noun",
+      "verb"
+    ],
+    "levels": [
+      "A1",
+      "A2",
+      "B1"
+    ]
+  },
+  "answering": {
+    "original_word": "answer",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "A1",
+      "A2",
+      "B1"
+    ]
+  },
+  "listening": {
+    "original_word": "listen",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A1",
+      "B1"
+    ]
+  },
+  "doing": {
+    "original_word": "do",
+    "pos": [
+      "verb",
+      "auxiliary_verb"
+    ],
+    "levels": [
+      "A1",
+      "A2",
+      "B1"
+    ]
+  },
+  "going": {
+    "original_word": "go",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A1",
+      "B1"
+    ]
+  },
+  "smoking": {
+    "original_word": "smoke",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "A1",
+      "B1"
+    ]
+  },
+  "buying": {
+    "original_word": "buy",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A1"
+    ]
+  },
+  "getting": {
+    "original_word": "get",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A1",
+      "A2",
+      "B1"
+    ]
+  },
+  "riding": {
+    "original_word": "ride",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "A1",
+      "A2",
+      "B1"
+    ]
+  },
+  "practicing": {
+    "original_word": "practice",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "A1",
+      "A2"
+    ]
+  },
+  "reading": {
+    "original_word": "read",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A1",
+      "A2"
+    ]
+  },
+  "loving": {
+    "original_word": "love",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "A1",
+      "B1"
+    ]
+  },
+  "fishing": {
+    "original_word": "fish",
+    "pos": [
+      "noun",
+      "verb"
+    ],
+    "levels": [
+      "A1",
+      "B1"
+    ]
+  },
+  "swimming": {
+    "original_word": "swim",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "A1",
+      "A2"
+    ]
+  },
+  "singing": {
+    "original_word": "sing",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A1"
+    ]
+  },
+  "coloring": {
+    "original_word": "color",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "A1"
+    ]
+  },
+  "looking": {
+    "original_word": "look",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "A1",
+      "B1"
+    ]
+  },
+  "playing": {
+    "original_word": "play",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "A1",
+      "A2",
+      "B1"
+    ]
+  },
+  "coming": {
+    "original_word": "come",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A1",
+      "A2"
+    ]
+  },
+  "crossing": {
+    "original_word": "cross",
+    "pos": [
+      "noun",
+      "verb"
+    ],
+    "levels": [
+      "A1",
+      "A2",
+      "B1"
+    ]
+  },
+  "testing": {
+    "original_word": "test",
+    "pos": [
+      "noun",
+      "verb"
+    ],
+    "levels": [
+      "A1",
+      "B1"
+    ]
+  },
+  "asking": {
+    "original_word": "ask",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A1",
+      "A2",
+      "B1"
+    ]
+  },
+  "lighting": {
+    "original_word": "light",
+    "pos": [
+      "adjective",
+      "noun",
+      "verb"
+    ],
+    "levels": [
+      "A1",
+      "A2",
+      "B1"
+    ]
+  },
+  "thinking": {
+    "original_word": "think",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A1",
+      "A2",
+      "B1"
+    ]
+  },
+  "sleeping": {
+    "original_word": "sleep",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "A1",
+      "B1"
+    ]
+  },
+  "handing": {
+    "original_word": "hand",
+    "pos": [
+      "noun",
+      "verb"
+    ],
+    "levels": [
+      "A1",
+      "B1"
+    ]
+  },
+  "noting": {
+    "original_word": "note",
+    "pos": [
+      "noun",
+      "verb"
+    ],
+    "levels": [
+      "A1",
+      "B1"
+    ]
+  },
+  "closing": {
+    "original_word": "close",
+    "pos": [
+      "adjective",
+      "verb"
+    ],
+    "levels": [
+      "A1",
+      "A2",
+      "B1"
+    ]
+  },
+  "booking": {
+    "original_word": "book",
+    "pos": [
+      "noun",
+      "verb"
+    ],
+    "levels": [
+      "A1",
+      "B1"
+    ]
+  },
+  "being": {
+    "original_word": "be",
+    "pos": [
+      "verb",
+      "auxiliary_verb"
+    ],
+    "levels": [
+      "A1",
+      "A2"
+    ]
+  },
+  "carrying": {
+    "original_word": "carry",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A1",
+      "B1"
+    ]
+  },
+  "needing": {
+    "original_word": "need",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A1",
+      "B1"
+    ]
+  },
+  "making": {
+    "original_word": "make",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A1",
+      "A2",
+      "B1"
+    ]
+  },
+  "painting": {
+    "original_word": "paint",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "A1",
+      "A2"
+    ]
+  },
+  "meeting": {
+    "original_word": "meet",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A1",
+      "B1"
+    ]
+  },
+  "flying": {
+    "original_word": "fly",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "A1",
+      "A2",
+      "B1"
+    ]
+  },
+  "wearing": {
+    "original_word": "wear",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A1"
+    ]
+  },
+  "teaching": {
+    "original_word": "teach",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A1",
+      "A2",
+      "B1"
+    ]
+  },
+  "dancing": {
+    "original_word": "dance",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "A1",
+      "A2",
+      "B1"
+    ]
+  },
+  "cooking": {
+    "original_word": "cook",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "A1",
+      "A2"
+    ]
+  },
+  "finding": {
+    "original_word": "find",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A1",
+      "A2",
+      "B1"
+    ]
+  },
+  "sending": {
+    "original_word": "send",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A1"
+    ]
+  },
+  "catching": {
+    "original_word": "catch",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A1",
+      "A2",
+      "B1"
+    ]
+  },
+  "writing": {
+    "original_word": "write",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A1",
+      "A2",
+      "B1"
+    ]
+  },
+  "speaking": {
+    "original_word": "speak",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A1"
+    ]
+  },
+  "training": {
+    "original_word": "train",
+    "pos": [
+      "noun",
+      "verb"
+    ],
+    "levels": [
+      "A1",
+      "B1"
+    ]
+  },
+  "starting": {
+    "original_word": "start",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "A1",
+      "B1"
+    ]
+  },
+  "washing": {
+    "original_word": "wash",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A1"
+    ]
+  },
+  "kicking": {
+    "original_word": "kick",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "A1",
+      "A2"
+    ]
+  },
+  "checking": {
+    "original_word": "check",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "A1",
+      "A2",
+      "B1"
+    ]
+  },
+  "seeing": {
+    "original_word": "see",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A1",
+      "A2",
+      "B1"
+    ]
+  },
+  "boarding": {
+    "original_word": "board",
+    "pos": [
+      "noun",
+      "verb"
+    ],
+    "levels": [
+      "A1",
+      "A2",
+      "B1"
+    ]
+  },
+  "knowing": {
+    "original_word": "know",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A1",
+      "A2",
+      "B1"
+    ]
+  },
+  "travelling": {
+    "original_word": "travel",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "A1",
+      "B1"
+    ]
+  },
+  "finishing": {
+    "original_word": "finish",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "A1",
+      "B1"
+    ]
+  },
+  "naming": {
+    "original_word": "name",
+    "pos": [
+      "noun",
+      "verb"
+    ],
+    "levels": [
+      "A1",
+      "B1"
+    ]
+  },
+  "understanding": {
+    "original_word": "understand",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A1",
+      "A2",
+      "B1"
+    ]
+  },
+  "working": {
+    "original_word": "work",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "A1",
+      "A2",
+      "B1"
+    ]
+  },
+  "talking": {
+    "original_word": "talk",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "A1",
+      "B1"
+    ]
+  },
+  "facing": {
+    "original_word": "face",
+    "pos": [
+      "noun",
+      "verb"
+    ],
+    "levels": [
+      "A1",
+      "B1"
+    ]
+  },
+  "walking": {
+    "original_word": "walk",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "A1",
+      "A2"
+    ]
+  },
+  "wanting": {
+    "original_word": "want",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A1"
+    ]
+  },
+  "feeling": {
+    "original_word": "feel",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A1",
+      "B1"
+    ]
+  },
+  "saying": {
+    "original_word": "say",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A1",
+      "B1"
+    ]
+  },
+  "changing": {
+    "original_word": "change",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "A1",
+      "A2",
+      "B1"
+    ]
+  },
+  "waiting": {
+    "original_word": "wait",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A1"
+    ]
+  },
+  "remembering": {
+    "original_word": "remember",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A1"
+    ]
+  },
+  "having": {
+    "original_word": "have",
+    "pos": [
+      "verb",
+      "auxiliary_verb"
+    ],
+    "levels": [
+      "A1",
+      "A2",
+      "B1"
+    ]
+  },
+  "telling": {
+    "original_word": "tell",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A1"
+    ]
+  },
+  "taking": {
+    "original_word": "take",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A1",
+      "A2",
+      "B1"
+    ]
+  },
+  "sitting": {
+    "original_word": "sit",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A1",
+      "A2"
+    ]
+  },
+  "enjoying": {
+    "original_word": "enjoy",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A1"
+    ]
+  },
+  "showing": {
+    "original_word": "show",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "A1",
+      "A2",
+      "B1"
+    ]
+  },
+  "drinking": {
+    "original_word": "drink",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "A1",
+      "A2"
+    ]
+  },
+  "choosing": {
+    "original_word": "choose",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A1"
+    ]
+  },
+  "missing": {
+    "original_word": "miss",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A2",
+      "B1"
+    ]
+  },
+  "circling": {
+    "original_word": "circle",
+    "pos": [
+      "noun",
+      "verb"
+    ],
+    "levels": [
+      "A2",
+      "B1"
+    ]
+  },
+  "calling": {
+    "original_word": "call",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "A2",
+      "B1"
+    ]
+  },
+  "shopping": {
+    "original_word": "shop",
+    "pos": [
+      "noun",
+      "verb"
+    ],
+    "levels": [
+      "A2",
+      "B1"
+    ]
+  },
+  "losing": {
+    "original_word": "lose",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A2",
+      "B1"
+    ]
+  },
+  "lifting": {
+    "original_word": "lift",
+    "pos": [
+      "noun",
+      "verb"
+    ],
+    "levels": [
+      "A2",
+      "B1"
+    ]
+  },
+  "hitting": {
+    "original_word": "hit",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "A2",
+      "B1"
+    ]
+  },
+  "noticing": {
+    "original_word": "notice",
+    "pos": [
+      "noun",
+      "verb"
+    ],
+    "levels": [
+      "A2",
+      "B1"
+    ]
+  },
+  "copying": {
+    "original_word": "copy",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "A2",
+      "B1"
+    ]
+  },
+  "cutting": {
+    "original_word": "cut",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "A2",
+      "B1"
+    ]
+  },
+  "renting": {
+    "original_word": "rent",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "A2",
+      "B1"
+    ]
+  },
+  "hurrying": {
+    "original_word": "hurry",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "A2",
+      "B1"
+    ]
+  },
+  "lasting": {
+    "original_word": "last",
+    "pos": [
+      "adjective",
+      "verb",
+      "adverb"
+    ],
+    "levels": [
+      "A2",
+      "B1"
+    ]
+  },
+  "typing": {
+    "original_word": "type",
+    "pos": [
+      "noun",
+      "verb"
+    ],
+    "levels": [
+      "A2",
+      "B1"
+    ]
+  },
+  "printing": {
+    "original_word": "print",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A2"
+    ]
+  },
+  "covering": {
+    "original_word": "cover",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "A2",
+      "B1"
+    ]
+  },
+  "joining": {
+    "original_word": "join",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A2",
+      "B1"
+    ]
+  },
+  "clicking": {
+    "original_word": "click",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "A2"
+    ]
+  },
+  "turning": {
+    "original_word": "turn",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "A2",
+      "B1"
+    ]
+  },
+  "keeping": {
+    "original_word": "keep",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A2",
+      "B1"
+    ]
+  },
+  "filling": {
+    "original_word": "fill",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A2",
+      "B1"
+    ]
+  },
+  "including": {
+    "original_word": "include",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A2"
+    ]
+  },
+  "describing": {
+    "original_word": "describe",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A2"
+    ]
+  },
+  "lending": {
+    "original_word": "lend",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A2"
+    ]
+  },
+  "entering": {
+    "original_word": "enter",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A2",
+      "B1"
+    ]
+  },
+  "explaining": {
+    "original_word": "explain",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A2"
+    ]
+  },
+  "ordering": {
+    "original_word": "order",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "A2",
+      "B1"
+    ]
+  },
+  "shutting": {
+    "original_word": "shut",
+    "pos": [
+      "verb",
+      "adjective"
+    ],
+    "levels": [
+      "A2",
+      "B1"
+    ]
+  },
+  "preparing": {
+    "original_word": "prepare",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A2"
+    ]
+  },
+  "agreeing": {
+    "original_word": "agree",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A2",
+      "B1"
+    ]
+  },
+  "serving": {
+    "original_word": "serve",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A2"
+    ]
+  },
+  "preferring": {
+    "original_word": "prefer",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A2"
+    ]
+  },
+  "discussing": {
+    "original_word": "discuss",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A2"
+    ]
+  },
+  "completing": {
+    "original_word": "complete",
+    "pos": [
+      "verb",
+      "adjective"
+    ],
+    "levels": [
+      "A2",
+      "B1"
+    ]
+  },
+  "surfing": {
+    "original_word": "surf",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A2",
+      "B1"
+    ]
+  },
+  "costing": {
+    "original_word": "cost",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "A2"
+    ]
+  },
+  "pulling": {
+    "original_word": "pull",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A2"
+    ]
+  },
+  "kissing": {
+    "original_word": "kiss",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "A2"
+    ]
+  },
+  "saving": {
+    "original_word": "save",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A2",
+      "B1"
+    ]
+  },
+  "recording": {
+    "original_word": "record",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "A2",
+      "B1"
+    ]
+  },
+  "owning": {
+    "original_word": "own",
+    "pos": [
+      "adjective",
+      "verb"
+    ],
+    "levels": [
+      "A2",
+      "B1"
+    ]
+  },
+  "fitting": {
+    "original_word": "fit",
+    "pos": [
+      "adjective",
+      "verb"
+    ],
+    "levels": [
+      "A2",
+      "B1"
+    ]
+  },
+  "welcoming": {
+    "original_word": "welcome",
+    "pos": [
+      "exclamation",
+      "verb",
+      "noun",
+      "adjective"
+    ],
+    "levels": [
+      "A2",
+      "B1"
+    ]
+  },
+  "throwing": {
+    "original_word": "throw",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A2"
+    ]
+  },
+  "setting": {
+    "original_word": "set",
+    "pos": [
+      "noun",
+      "verb"
+    ],
+    "levels": [
+      "A2",
+      "B1"
+    ]
+  },
+  "hoping": {
+    "original_word": "hope",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "A2",
+      "B1"
+    ]
+  },
+  "roasting": {
+    "original_word": "roast",
+    "pos": [
+      "adjective",
+      "verb"
+    ],
+    "levels": [
+      "A2"
+    ]
+  },
+  "growing": {
+    "original_word": "grow",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A2",
+      "B1"
+    ]
+  },
+  "breaking": {
+    "original_word": "break",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "A2",
+      "B1"
+    ]
+  },
+  "guessing": {
+    "original_word": "guess",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "A2",
+      "B1"
+    ]
+  },
+  "starring": {
+    "original_word": "star",
+    "pos": [
+      "noun",
+      "verb"
+    ],
+    "levels": [
+      "A2",
+      "B1"
+    ]
+  },
+  "sharing": {
+    "original_word": "share",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A2",
+      "B1"
+    ]
+  },
+  "earning": {
+    "original_word": "earn",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A2"
+    ]
+  },
+  "forming": {
+    "original_word": "form",
+    "pos": [
+      "noun",
+      "verb"
+    ],
+    "levels": [
+      "A2",
+      "B1"
+    ]
+  },
+  "spelling": {
+    "original_word": "spell",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A2"
+    ]
+  },
+  "matching": {
+    "original_word": "match",
+    "pos": [
+      "noun",
+      "verb"
+    ],
+    "levels": [
+      "A2",
+      "B1"
+    ]
+  },
+  "pointing": {
+    "original_word": "point",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "A2",
+      "B1"
+    ]
+  },
+  "dreaming": {
+    "original_word": "dream",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "A2",
+      "B1"
+    ]
+  },
+  "camping": {
+    "original_word": "camp",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "A2",
+      "B1"
+    ]
+  },
+  "holding": {
+    "original_word": "hold",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A2",
+      "B1"
+    ]
+  },
+  "signing": {
+    "original_word": "sign",
+    "pos": [
+      "noun",
+      "verb"
+    ],
+    "levels": [
+      "A2",
+      "B1"
+    ]
+  },
+  "hating": {
+    "original_word": "hate",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A2"
+    ]
+  },
+  "guiding": {
+    "original_word": "guide",
+    "pos": [
+      "noun",
+      "verb"
+    ],
+    "levels": [
+      "A2",
+      "B1"
+    ]
+  },
+  "putting": {
+    "original_word": "put",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A2"
+    ]
+  },
+  "exiting": {
+    "original_word": "exit",
+    "pos": [
+      "noun",
+      "verb"
+    ],
+    "levels": [
+      "A2",
+      "B1"
+    ]
+  },
+  "selling": {
+    "original_word": "sell",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A2"
+    ]
+  },
+  "deciding": {
+    "original_word": "decide",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A2"
+    ]
+  },
+  "combing": {
+    "original_word": "comb",
+    "pos": [
+      "noun",
+      "verb"
+    ],
+    "levels": [
+      "A2",
+      "B1"
+    ]
+  },
+  "happening": {
+    "original_word": "happen",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A2"
+    ]
+  },
+  "believing": {
+    "original_word": "believe",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A2"
+    ]
+  },
+  "building": {
+    "original_word": "build",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A2"
+    ]
+  },
+  "baking": {
+    "original_word": "bake",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A2"
+    ]
+  },
+  "shouting": {
+    "original_word": "shout",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "A2",
+      "B1"
+    ]
+  },
+  "borrowing": {
+    "original_word": "borrow",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A2"
+    ]
+  },
+  "downloading": {
+    "original_word": "download",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "A2",
+      "B1"
+    ]
+  },
+  "sinking": {
+    "original_word": "sink",
+    "pos": [
+      "noun",
+      "verb"
+    ],
+    "levels": [
+      "A2",
+      "B1"
+    ]
+  },
+  "jumping": {
+    "original_word": "jump",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "A2",
+      "B1"
+    ]
+  },
+  "standing": {
+    "original_word": "stand",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A2"
+    ]
+  },
+  "following": {
+    "original_word": "follow",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A2",
+      "B1"
+    ]
+  },
+  "skating": {
+    "original_word": "skate",
+    "pos": [
+      "noun",
+      "verb"
+    ],
+    "levels": [
+      "A2",
+      "B1"
+    ]
+  },
+  "delaying": {
+    "original_word": "delay",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "A2",
+      "B1"
+    ]
+  },
+  "exercising": {
+    "original_word": "exercise",
+    "pos": [
+      "noun",
+      "verb"
+    ],
+    "levels": [
+      "A2",
+      "B1"
+    ]
+  },
+  "adding": {
+    "original_word": "add",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A2",
+      "B1"
+    ]
+  },
+  "falling": {
+    "original_word": "fall",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "A2",
+      "B1"
+    ]
+  },
+  "arriving": {
+    "original_word": "arrive",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A2"
+    ]
+  },
+  "offering": {
+    "original_word": "offer",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "A2",
+      "B1"
+    ]
+  },
+  "thanking": {
+    "original_word": "thank",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A2"
+    ]
+  },
+  "surprising": {
+    "original_word": "surprise",
+    "pos": [
+      "noun",
+      "verb"
+    ],
+    "levels": [
+      "A2",
+      "B1"
+    ]
+  },
+  "pushing": {
+    "original_word": "push",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "A2",
+      "B1"
+    ]
+  },
+  "bothering": {
+    "original_word": "bother",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A2"
+    ]
+  },
+  "mailing": {
+    "original_word": "mail",
+    "pos": [
+      "noun",
+      "verb"
+    ],
+    "levels": [
+      "A2",
+      "B1"
+    ]
+  },
+  "packing": {
+    "original_word": "pack",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A2"
+    ]
+  },
+  "winning": {
+    "original_word": "win",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A2",
+      "B1"
+    ]
+  },
+  "improving": {
+    "original_word": "improve",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A2"
+    ]
+  },
+  "spending": {
+    "original_word": "spend",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A2"
+    ]
+  },
+  "lying": {
+    "original_word": "lie",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "A2",
+      "B1"
+    ]
+  },
+  "kidding": {
+    "original_word": "kid",
+    "pos": [
+      "noun",
+      "verb"
+    ],
+    "levels": [
+      "A2",
+      "B1"
+    ]
+  },
+  "repairing": {
+    "original_word": "repair",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "A2",
+      "B1"
+    ]
+  },
+  "moving": {
+    "original_word": "move",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A2",
+      "B1"
+    ]
+  },
+  "texting": {
+    "original_word": "text",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "A2",
+      "B1"
+    ]
+  },
+  "barbecuing": {
+    "original_word": "barbecue",
+    "pos": [
+      "noun",
+      "verb"
+    ],
+    "levels": [
+      "A2",
+      "B1"
+    ]
+  },
+  "returning": {
+    "original_word": "return",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "A2",
+      "B1"
+    ]
+  },
+  "hurting": {
+    "original_word": "hurt",
+    "pos": [
+      "verb",
+      "adjective"
+    ],
+    "levels": [
+      "A2",
+      "B1"
+    ]
+  },
+  "resting": {
+    "original_word": "rest",
+    "pos": [
+      "noun",
+      "verb"
+    ],
+    "levels": [
+      "A2",
+      "B1"
+    ]
+  },
+  "trying": {
+    "original_word": "try",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A2",
+      "B1"
+    ]
+  },
+  "repeating": {
+    "original_word": "repeat",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A2",
+      "B1"
+    ]
+  },
+  "racing": {
+    "original_word": "race",
+    "pos": [
+      "noun",
+      "verb"
+    ],
+    "levels": [
+      "A2",
+      "B1"
+    ]
+  },
+  "passing": {
+    "original_word": "pass",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "A2",
+      "B1"
+    ]
+  },
+  "worrying": {
+    "original_word": "worry",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "A2",
+      "B1"
+    ]
+  },
+  "forgetting": {
+    "original_word": "forget",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A2",
+      "B1"
+    ]
+  },
+  "killing": {
+    "original_word": "kill",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A2"
+    ]
+  },
+  "mixing": {
+    "original_word": "mix",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "A2",
+      "B1"
+    ]
+  },
+  "failing": {
+    "original_word": "fail",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A2"
+    ]
+  },
+  "planning": {
+    "original_word": "plan",
+    "pos": [
+      "noun",
+      "verb"
+    ],
+    "levels": [
+      "A2",
+      "B1"
+    ]
+  },
+  "ringing": {
+    "original_word": "ring",
+    "pos": [
+      "noun",
+      "verb"
+    ],
+    "levels": [
+      "A2",
+      "B1"
+    ]
+  },
+  "collecting": {
+    "original_word": "collect",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A2",
+      "B1"
+    ]
+  },
+  "stealing": {
+    "original_word": "steal",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A2"
+    ]
+  },
+  "chatting": {
+    "original_word": "chat",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "A2"
+    ]
+  },
+  "touring": {
+    "original_word": "tour",
+    "pos": [
+      "noun",
+      "verb"
+    ],
+    "levels": [
+      "A2",
+      "B1"
+    ]
+  },
+  "crying": {
+    "original_word": "cry",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "A2",
+      "B1"
+    ]
+  },
+  "tying": {
+    "original_word": "tie",
+    "pos": [
+      "noun",
+      "verb"
+    ],
+    "levels": [
+      "A2",
+      "B1"
+    ]
+  },
+  "contacting": {
+    "original_word": "contact",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "A2",
+      "B1"
+    ]
+  },
+  "brushing": {
+    "original_word": "brush",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "A2"
+    ]
+  },
+  "praying": {
+    "original_word": "pray",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A2"
+    ]
+  },
+  "drying": {
+    "original_word": "dry",
+    "pos": [
+      "adjective",
+      "verb"
+    ],
+    "levels": [
+      "A2"
+    ]
+  },
+  "bringing": {
+    "original_word": "bring",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A2"
+    ]
+  },
+  "climbing": {
+    "original_word": "climb",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A2"
+    ]
+  },
+  "receiving": {
+    "original_word": "receive",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "A2"
+    ]
+  },
+  "mentioning": {
+    "original_word": "mention",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "beating": {
+    "original_word": "beat",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "disagreeing": {
+    "original_word": "disagree",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "persuading": {
+    "original_word": "persuade",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "recovering": {
+    "original_word": "recover",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "hanging": {
+    "original_word": "hang",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "declaring": {
+    "original_word": "declare",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "freezing": {
+    "original_word": "freeze",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "managing": {
+    "original_word": "manage",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "wrapping": {
+    "original_word": "wrap",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "diving": {
+    "original_word": "dive",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "boiling": {
+    "original_word": "boil",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "shining": {
+    "original_word": "shine",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "joking": {
+    "original_word": "joke",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "posting": {
+    "original_word": "post",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "replying": {
+    "original_word": "reply",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "breathing": {
+    "original_word": "breathe",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "defeating": {
+    "original_word": "defeat",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "blogging": {
+    "original_word": "blog",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "fighting": {
+    "original_word": "fight",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "developing": {
+    "original_word": "develop",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "wondering": {
+    "original_word": "wonder",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "intending": {
+    "original_word": "intend",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "screaming": {
+    "original_word": "scream",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "organizing": {
+    "original_word": "organize",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "attempting": {
+    "original_word": "attempt",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "attacking": {
+    "original_word": "attack",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "arresting": {
+    "original_word": "arrest",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "advising": {
+    "original_word": "advise",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "knocking": {
+    "original_word": "knock",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "allowing": {
+    "original_word": "allow",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "wasting": {
+    "original_word": "waste",
+    "pos": [
+      "verb",
+      "noun",
+      "adjective"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "tearing": {
+    "original_word": "tear",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "forgiving": {
+    "original_word": "forgive",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "trusting": {
+    "original_word": "trust",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "filming": {
+    "original_word": "film",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "canceling": {
+    "original_word": "cancel",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "raising": {
+    "original_word": "raise",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "ironing": {
+    "original_word": "iron",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "scoring": {
+    "original_word": "score",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "hugging": {
+    "original_word": "hug",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "requiring": {
+    "original_word": "require",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "sunbathing": {
+    "original_word": "sunbathe",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "exchanging": {
+    "original_word": "exchange",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "preventing": {
+    "original_word": "prevent",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "burning": {
+    "original_word": "burn",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "attracting": {
+    "original_word": "attract",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "exploring": {
+    "original_word": "explore",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "disappearing": {
+    "original_word": "disappear",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "clapping": {
+    "original_word": "clap",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "exploding": {
+    "original_word": "explode",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "picking": {
+    "original_word": "pick",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "reporting": {
+    "original_word": "report",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "departing": {
+    "original_word": "depart",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "attaching": {
+    "original_word": "attach",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "advertising": {
+    "original_word": "advertise",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "damaging": {
+    "original_word": "damage",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "folding": {
+    "original_word": "fold",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "employing": {
+    "original_word": "employ",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "confirming": {
+    "original_word": "confirm",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "shaking": {
+    "original_word": "shake",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "rising": {
+    "original_word": "rise",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "refusing": {
+    "original_word": "refuse",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "digging": {
+    "original_word": "dig",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "creating": {
+    "original_word": "create",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "applying": {
+    "original_word": "apply",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "behaving": {
+    "original_word": "behave",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "proving": {
+    "original_word": "prove",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "surrounding": {
+    "original_word": "surround",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "bleeding": {
+    "original_word": "bleed",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "predicting": {
+    "original_word": "predict",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "coughing": {
+    "original_word": "cough",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "quitting": {
+    "original_word": "quit",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "admitting": {
+    "original_word": "admit",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "disliking": {
+    "original_word": "dislike",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "living": {
+    "original_word": "live",
+    "pos": [
+      "verb",
+      "adjective"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "recognizing": {
+    "original_word": "recognize",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "sewing": {
+    "original_word": "sew",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "sticking": {
+    "original_word": "stick",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "avoiding": {
+    "original_word": "avoid",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "convincing": {
+    "original_word": "convince",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "supporting": {
+    "original_word": "support",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "touching": {
+    "original_word": "touch",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "leading": {
+    "original_word": "lead",
+    "pos": [
+      "verb",
+      "adjective"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "discovering": {
+    "original_word": "discover",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "succeeding": {
+    "original_word": "succeed",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "producing": {
+    "original_word": "produce",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "accepting": {
+    "original_word": "accept",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "letting": {
+    "original_word": "let",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "pressing": {
+    "original_word": "press",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "judging": {
+    "original_word": "judge",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "updating": {
+    "original_word": "update",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "hitchhiking": {
+    "original_word": "hitchhike",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "reducing": {
+    "original_word": "reduce",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "landing": {
+    "original_word": "land",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "marrying": {
+    "original_word": "marry",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "insisting": {
+    "original_word": "insist",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "searching": {
+    "original_word": "search",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "permitting": {
+    "original_word": "permit",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "encouraging": {
+    "original_word": "encourage",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "apologizing": {
+    "original_word": "apologize",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "interrupting": {
+    "original_word": "interrupt",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "biting": {
+    "original_word": "bite",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "shaving": {
+    "original_word": "shave",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "stirring": {
+    "original_word": "stir",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "interesting": {
+    "original_word": "interest",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "fixing": {
+    "original_word": "fix",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "arguing": {
+    "original_word": "argue",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "waving": {
+    "original_word": "wave",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "achieving": {
+    "original_word": "achieve",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "smelling": {
+    "original_word": "smell",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "undressing": {
+    "original_word": "undress",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "reviewing": {
+    "original_word": "review",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "complaining": {
+    "original_word": "complain",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "counting": {
+    "original_word": "count",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "punishing": {
+    "original_word": "punish",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "replacing": {
+    "original_word": "replace",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "removing": {
+    "original_word": "remove",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "suggesting": {
+    "original_word": "suggest",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "pausing": {
+    "original_word": "pause",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "competing": {
+    "original_word": "compete",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "frying": {
+    "original_word": "fry",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "controlling": {
+    "original_word": "control",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "attending": {
+    "original_word": "attend",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "blaming": {
+    "original_word": "blame",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "slipping": {
+    "original_word": "slip",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "promoting": {
+    "original_word": "promote",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "imagining": {
+    "original_word": "imagine",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "reaching": {
+    "original_word": "reach",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "inventing": {
+    "original_word": "invent",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "considering": {
+    "original_word": "consider",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "owing": {
+    "original_word": "owe",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "minding": {
+    "original_word": "mind",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "handling": {
+    "original_word": "handle",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "existing": {
+    "original_word": "exist",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "translating": {
+    "original_word": "translate",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "voting": {
+    "original_word": "vote",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "defending": {
+    "original_word": "defend",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "containing": {
+    "original_word": "contain",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "arranging": {
+    "original_word": "arrange",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "jogging": {
+    "original_word": "jog",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "selecting": {
+    "original_word": "select",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "unpacking": {
+    "original_word": "unpack",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "admiring": {
+    "original_word": "admire",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "relaxing": {
+    "original_word": "relax",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "greeting": {
+    "original_word": "greet",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "skiing": {
+    "original_word": "ski",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "displaying": {
+    "original_word": "display",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "floating": {
+    "original_word": "float",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "smiling": {
+    "original_word": "smile",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "retiring": {
+    "original_word": "retire",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "directing": {
+    "original_word": "direct",
+    "pos": [
+      "verb",
+      "adjective"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "grilling": {
+    "original_word": "grill",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "robbing": {
+    "original_word": "rob",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "providing": {
+    "original_word": "provide",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "warning": {
+    "original_word": "warn",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "rebuilding": {
+    "original_word": "rebuild",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "murdering": {
+    "original_word": "murder",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "experiencing": {
+    "original_word": "experience",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "recycling": {
+    "original_word": "recycle",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "bouncing": {
+    "original_word": "bounce",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "involving": {
+    "original_word": "involve",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "cycling": {
+    "original_word": "cycle",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "dividing": {
+    "original_word": "divide",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "expecting": {
+    "original_word": "expect",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "decreasing": {
+    "original_word": "decrease",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "performing": {
+    "original_word": "perform",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "entertaining": {
+    "original_word": "entertain",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "respecting": {
+    "original_word": "respect",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "charging": {
+    "original_word": "charge",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "striking": {
+    "original_word": "strike",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "decorating": {
+    "original_word": "decorate",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "weighing": {
+    "original_word": "weigh",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "postponing": {
+    "original_word": "postpone",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "pinning": {
+    "original_word": "pin",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "pouring": {
+    "original_word": "pour",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "reserving": {
+    "original_word": "reserve",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "dropping": {
+    "original_word": "drop",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "communicating": {
+    "original_word": "communicate",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "deleting": {
+    "original_word": "delete",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "rescuing": {
+    "original_word": "rescue",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "introducing": {
+    "original_word": "introduce",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "accompanying": {
+    "original_word": "accompany",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "knitting": {
+    "original_word": "knit",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "designing": {
+    "original_word": "design",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "regretting": {
+    "original_word": "regret",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "promising": {
+    "original_word": "promise",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "disappointing": {
+    "original_word": "disappoint",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "celebrating": {
+    "original_word": "celebrate",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "burying": {
+    "original_word": "bury",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "excusing": {
+    "original_word": "excuse",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "hunting": {
+    "original_word": "hunt",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "pronouncing": {
+    "original_word": "pronounce",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "fastening": {
+    "original_word": "fasten",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "reminding": {
+    "original_word": "remind",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "feeding": {
+    "original_word": "feed",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "connecting": {
+    "original_word": "connect",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "interviewing": {
+    "original_word": "interview",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "caring": {
+    "original_word": "care",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "concentrating": {
+    "original_word": "concentrate",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "bombing": {
+    "original_word": "bomb",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "spoiling": {
+    "original_word": "spoil",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "solving": {
+    "original_word": "solve",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "protecting": {
+    "original_word": "protect",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "destroying": {
+    "original_word": "destroy",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "appearing": {
+    "original_word": "appear",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "recommending": {
+    "original_word": "recommend",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "injuring": {
+    "original_word": "injure",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "increasing": {
+    "original_word": "increase",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "escaping": {
+    "original_word": "escape",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "requesting": {
+    "original_word": "request",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "tasting": {
+    "original_word": "taste",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "delivering": {
+    "original_word": "deliver",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "shooting": {
+    "original_word": "shoot",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "continuing": {
+    "original_word": "continue",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "comparing": {
+    "original_word": "compare",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "approving": {
+    "original_word": "approve",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "locking": {
+    "original_word": "lock",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "annoying": {
+    "original_word": "annoy",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "sailing": {
+    "original_word": "sail",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "operating": {
+    "original_word": "operate",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "realizing": {
+    "original_word": "realize",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "grabbing": {
+    "original_word": "grab",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "informing": {
+    "original_word": "inform",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "demanding": {
+    "original_word": "demand",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "transferring": {
+    "original_word": "transfer",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "registering": {
+    "original_word": "register",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "flooding": {
+    "original_word": "flood",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "faxing": {
+    "original_word": "fax",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "dragging": {
+    "original_word": "drag",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "announcing": {
+    "original_word": "announce",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "spilling": {
+    "original_word": "spill",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "crashing": {
+    "original_word": "crash",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "gaining": {
+    "original_word": "gain",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "publishing": {
+    "original_word": "publish",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "babysitting": {
+    "original_word": "babysit",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "hiding": {
+    "original_word": "hide",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "dialing": {
+    "original_word": "dial",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "acting": {
+    "original_word": "act",
+    "pos": [
+      "verb",
+      "noun"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "installing": {
+    "original_word": "install",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "uploading": {
+    "original_word": "upload",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  },
+  "underlining": {
+    "original_word": "underline",
+    "pos": [
+      "verb"
+    ],
+    "levels": [
+      "B1"
+    ]
+  }
+}

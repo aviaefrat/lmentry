@@ -1,0 +1,7 @@
+{
+    "animals": ["cat", "chicken", "cow", "dog", "duck", "fish", "goat", "mouse", "pig", "rabbit"],
+    "items of clothing": ["coat", "dress", "jacket", "jeans", "pants", "shirt", "shorts", "skirt", "socks", "sweater"],
+    "fruit": ["apple", "banana", "lemon", "mango", "melon", "peach", "pear", "pineapple", "strawberry", "watermelon"],
+    "furniture": ["armchair", "bed", "bookcase", "chair", "couch", "desk", "sofa", "table"],
+    "vehicles": ["bus", "car", "motorcycle", "tractor", "train", "tram", "truck", "van"]
+}

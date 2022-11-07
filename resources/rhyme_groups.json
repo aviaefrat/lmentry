@@ -1,0 +1,1831 @@
+{
+  "AE S T": [
+    "past",
+    "fast",
+    "last"
+  ],
+  "IH R": [
+    "near",
+    "dear",
+    "beer",
+    "year",
+    "clear",
+    "engineer",
+    "fear",
+    "souvenir",
+    "career",
+    "appear"
+  ],
+  "EH DH ER": [
+    "together",
+    "weather",
+    "leather",
+    "altogether"
+  ],
+  "EY": [
+    "pay",
+    "gray",
+    "stay",
+    "play",
+    "day",
+    "they",
+    "say",
+    "away",
+    "way",
+    "may",
+    "delay",
+    "hey",
+    "pray",
+    "bay",
+    "gay",
+    "display",
+    "weigh"
+  ],
+  "IH K": [
+    "quick",
+    "kick",
+    "click",
+    "sick",
+    "trick",
+    "pick",
+    "stick",
+    "thick"
+  ],
+  "IY": [
+    "she",
+    "me",
+    "he",
+    "tea",
+    "key",
+    "we",
+    "see",
+    "tree",
+    "sea",
+    "agree",
+    "degree",
+    "free",
+    "disagree",
+    "fee",
+    "bee",
+    "ski",
+    "pea",
+    "knee"
+  ],
+  "AW N": [
+    "down",
+    "town",
+    "brown",
+    "noun",
+    "clown",
+    "downtown"
+  ],
+  "AW TH": [
+    "mouth",
+    "south"
+  ],
+  "AW ER": [
+    "flower",
+    "shower",
+    "power",
+    "tower"
+  ],
+  "IH G": [
+    "big",
+    "pig",
+    "dig"
+  ],
+  "AE N T": [
+    "plant",
+    "ant"
+  ],
+  "AY T IH NG": [
+    "exciting",
+    "writing"
+  ],
+  "AY F": [
+    "wife",
+    "life",
+    "knife"
+  ],
+  "AH N": [
+    "fun",
+    "run",
+    "sun",
+    "son",
+    "none",
+    "gun"
+  ],
+  "ER D": [
+    "word",
+    "bird"
+  ],
+  "AY": [
+    "die",
+    "eye",
+    "buy",
+    "my",
+    "bye",
+    "goodbye",
+    "fly",
+    "hi",
+    "by",
+    "sky",
+    "high",
+    "guy",
+    "lie",
+    "try",
+    "cry",
+    "tie",
+    "dry",
+    "pie",
+    "spy",
+    "apply",
+    "fry",
+    "shy",
+    "nearby"
+  ],
+  "AY T": [
+    "invite",
+    "light",
+    "night",
+    "right",
+    "write",
+    "flight",
+    "bright",
+    "kite",
+    "polite",
+    "quite",
+    "site",
+    "might",
+    "fight",
+    "despite",
+    "overnight",
+    "tight",
+    "bite",
+    "sight",
+    "height"
+  ],
+  "AY N": [
+    "fine",
+    "wine",
+    "sign",
+    "mine",
+    "line",
+    "shine",
+    "design"
+  ],
+  "AO NG": [
+    "wrong",
+    "long",
+    "along",
+    "strong",
+    "song"
+  ],
+  "ER N": [
+    "learn",
+    "turn",
+    "earn",
+    "burn"
+  ],
+  "AE S": [
+    "grass",
+    "glass",
+    "class",
+    "gas",
+    "pass"
+  ],
+  "AH S": [
+    "bus",
+    "plus",
+    "discuss"
+  ],
+  "OW Z": [
+    "those",
+    "nose",
+    "rose"
+  ],
+  "AA R M": [
+    "farm",
+    "arm",
+    "alarm"
+  ],
+  "OW M": [
+    "home",
+    "comb"
+  ],
+  "IY R": [
+    "here",
+    "hear"
+  ],
+  "EY B AH L": [
+    "table",
+    "label",
+    "cable"
+  ],
+  "EH N IY": [
+    "any",
+    "many",
+    "penny"
+  ],
+  "EH R": [
+    "pair",
+    "chair",
+    "their",
+    "wear",
+    "hair",
+    "there",
+    "fair",
+    "prepare",
+    "share",
+    "square",
+    "repair",
+    "pear",
+    "bear",
+    "air",
+    "declare",
+    "questionnaire",
+    "spare",
+    "rare",
+    "fare",
+    "care",
+    "compare"
+  ],
+  "AE T": [
+    "bat",
+    "fat",
+    "at",
+    "hat",
+    "cat",
+    "rat",
+    "chat",
+    "flat"
+  ],
+  "EH V ER": [
+    "never",
+    "ever",
+    "however",
+    "forever",
+    "clever"
+  ],
+  "EY SH AH N": [
+    "station",
+    "vacation",
+    "conversation",
+    "invitation",
+    "examination",
+    "occupation",
+    "identification",
+    "information",
+    "preparation",
+    "operation",
+    "generation",
+    "celebration",
+    "situation",
+    "imagination",
+    "animation",
+    "relaxation",
+    "population",
+    "punctuation",
+    "reservation",
+    "presentation",
+    "location",
+    "transportation",
+    "registration",
+    "application",
+    "explanation",
+    "communication",
+    "relation",
+    "organization",
+    "immigration"
+  ],
+  "EY N": [
+    "plane",
+    "rain",
+    "train",
+    "explain",
+    "brain",
+    "chain",
+    "pain",
+    "champagne",
+    "stain",
+    "complain",
+    "contain",
+    "main",
+    "gain",
+    "plain"
+  ],
+  "OW D": [
+    "road",
+    "explode"
+  ],
+  "AO R N IH NG": [
+    "morning",
+    "warning"
+  ],
+  "AH N IY": [
+    "funny",
+    "money",
+    "sunny",
+    "honey"
+  ],
+  "OW T": [
+    "boat",
+    "coat",
+    "note",
+    "goat",
+    "promote",
+    "vote",
+    "float",
+    "throat"
+  ],
+  "AY V": [
+    "drive",
+    "arrive",
+    "dive",
+    "alive"
+  ],
+  "IY T": [
+    "eat",
+    "sweet",
+    "street",
+    "meet",
+    "meat",
+    "complete",
+    "seat",
+    "heat",
+    "beat",
+    "defeat",
+    "compete",
+    "greet",
+    "sheet",
+    "delete",
+    "neat"
+  ],
+  "AA R T": [
+    "part",
+    "start",
+    "heart",
+    "art",
+    "smart",
+    "depart",
+    "apart"
+  ],
+  "UW D": [
+    "food",
+    "include",
+    "rude",
+    "mood"
+  ],
+  "AA T": [
+    "hot",
+    "not",
+    "pot",
+    "spot",
+    "dot"
+  ],
+  "EH T ER": [
+    "letter",
+    "better",
+    "sweater"
+  ],
+  "AA P": [
+    "stop",
+    "shop",
+    "pop",
+    "crop"
+  ],
+  "AY N D": [
+    "behind",
+    "find",
+    "kind",
+    "blind",
+    "unkind",
+    "mind",
+    "remind"
+  ],
+  "AA R D": [
+    "hard",
+    "card",
+    "yard",
+    "guard"
+  ],
+  "AH DH ER": [
+    "brother",
+    "mother",
+    "other",
+    "another"
+  ],
+  "EY T": [
+    "late",
+    "plate",
+    "date",
+    "wait",
+    "great",
+    "straight",
+    "hate",
+    "skate",
+    "gate",
+    "state",
+    "create",
+    "weight"
+  ],
+  "AO R": [
+    "floor",
+    "more",
+    "store",
+    "door",
+    "war",
+    "drawer",
+    "anymore",
+    "score",
+    "explore",
+    "shore",
+    "pour",
+    "sore"
+  ],
+  "IY P": [
+    "sheep",
+    "sleep",
+    "cheap",
+    "keep",
+    "deep",
+    "asleep",
+    "steep"
+  ],
+  "AH M": [
+    "from",
+    "come",
+    "some",
+    "drum",
+    "thumb",
+    "sum"
+  ],
+  "UW P": [
+    "soup",
+    "group"
+  ],
+  "EH N": [
+    "then",
+    "pen"
+  ],
+  "AA R K": [
+    "park",
+    "dark",
+    "mark",
+    "shark"
+  ],
+  "ER L IY": [
+    "early",
+    "curly"
+  ],
+  "UW": [
+    "too",
+    "who",
+    "you",
+    "do",
+    "zoo",
+    "blue",
+    "shoe",
+    "view",
+    "shampoo",
+    "through",
+    "flu",
+    "review",
+    "crew",
+    "kangaroo",
+    "few"
+  ],
+  "ER S T": [
+    "first",
+    "worst"
+  ],
+  "AO R M": [
+    "warm",
+    "storm",
+    "form",
+    "perform",
+    "inform"
+  ],
+  "IH N": [
+    "begin",
+    "violin",
+    "thin",
+    "win",
+    "skin",
+    "pin",
+    "twin",
+    "chin"
+  ],
+  "EH N D": [
+    "end",
+    "send",
+    "friend",
+    "lend",
+    "spend",
+    "intend",
+    "attend",
+    "defend",
+    "recommend",
+    "trend"
+  ],
+  "AE D": [
+    "sad",
+    "ad",
+    "dad",
+    "bad",
+    "glad",
+    "mad",
+    "add"
+  ],
+  "UW L": [
+    "school",
+    "pool",
+    "cool",
+    "rule",
+    "fool"
+  ],
+  "AH N D ER": [
+    "under",
+    "wonder",
+    "thunder"
+  ],
+  "IY V": [
+    "leave",
+    "believe",
+    "sleeve",
+    "achieve"
+  ],
+  "UW S": [
+    "juice",
+    "loose",
+    "reduce"
+  ],
+  "AY K": [
+    "like",
+    "bike",
+    "alike",
+    "dislike",
+    "strike"
+  ],
+  "OW": [
+    "no",
+    "snow",
+    "go",
+    "slow",
+    "oh",
+    "know",
+    "show",
+    "toe",
+    "throw",
+    "grow",
+    "ago",
+    "so",
+    "low",
+    "sew",
+    "blow",
+    "row",
+    "owe"
+  ],
+  "AH CH": [
+    "much",
+    "touch"
+  ],
+  "OW N": [
+    "phone",
+    "alone",
+    "own",
+    "unknown",
+    "bone",
+    "stone",
+    "postpone",
+    "loan",
+    "zone"
+  ],
+  "AY S": [
+    "rice",
+    "price",
+    "ice",
+    "twice",
+    "slice",
+    "spice"
+  ],
+  "IH L": [
+    "until",
+    "bill",
+    "fill",
+    "till",
+    "hill",
+    "kill",
+    "still",
+    "skill",
+    "grill",
+    "pill",
+    "spill"
+  ],
+  "IY N": [
+    "clean",
+    "green",
+    "bean",
+    "screen",
+    "machine",
+    "mean",
+    "queen",
+    "scene",
+    "routine"
+  ],
+  "AW S": [
+    "blouse",
+    "house",
+    "mouse"
+  ],
+  "EY JH": [
+    "page",
+    "age",
+    "stage",
+    "wage",
+    "cage"
+  ],
+  "AE N": [
+    "man",
+    "fan",
+    "plan",
+    "pan",
+    "van"
+  ],
+  "AE K": [
+    "black",
+    "back",
+    "pack",
+    "snack",
+    "track",
+    "attack",
+    "unpack"
+  ],
+  "AA S AH B AH L": [
+    "possible",
+    "impossible"
+  ],
+  "AO L": [
+    "small",
+    "all",
+    "tall",
+    "baseball",
+    "ball",
+    "wall",
+    "call",
+    "hall",
+    "mall",
+    "stall",
+    "install"
+  ],
+  "AO T ER": [
+    "daughter",
+    "water"
+  ],
+  "ER T": [
+    "skirt",
+    "shirt",
+    "hurt",
+    "dessert",
+    "dirt"
+  ],
+  "AA R": [
+    "car",
+    "guitar",
+    "star",
+    "bar",
+    "far",
+    "jar"
+  ],
+  "IY CH": [
+    "beach",
+    "each",
+    "teach",
+    "peach",
+    "speech",
+    "reach"
+  ],
+  "IY Z": [
+    "please",
+    "these",
+    "cheese",
+    "freeze",
+    "disease",
+    "breeze"
+  ],
+  "EH S": [
+    "dress",
+    "yes",
+    "chess",
+    "guess",
+    "less",
+    "mess",
+    "press",
+    "undress",
+    "success",
+    "stress"
+  ],
+  "OW N L IY": [
+    "only",
+    "lonely"
+  ],
+  "AE N S ER": [
+    "answer",
+    "dancer",
+    "cancer"
+  ],
+  "EH R IY": [
+    "very",
+    "ferry",
+    "marry",
+    "scary",
+    "bury"
+  ],
+  "EH S T": [
+    "best",
+    "test",
+    "dressed",
+    "rest",
+    "guest",
+    "west",
+    "northwest",
+    "stressed",
+    "arrest",
+    "breast",
+    "depressed",
+    "southwest",
+    "suggest"
+  ],
+  "AO G": [
+    "dog",
+    "blog"
+  ],
+  "EH D": [
+    "red",
+    "head",
+    "bread",
+    "bed",
+    "instead",
+    "dead",
+    "ahead"
+  ],
+  "AW T": [
+    "about",
+    "shout",
+    "out",
+    "doubt"
+  ],
+  "UH T": [
+    "foot",
+    "put"
+  ],
+  "OW K": [
+    "smoke",
+    "joke",
+    "folk"
+  ],
+  "EH G": [
+    "egg",
+    "leg"
+  ],
+  "AY D": [
+    "ride",
+    "outside",
+    "guide",
+    "decide",
+    "wide",
+    "side",
+    "bride",
+    "provide",
+    "divide",
+    "hide"
+  ],
+  "AY L D": [
+    "child",
+    "wild",
+    "mild"
+  ],
+  "AO R T": [
+    "sport",
+    "short",
+    "sort",
+    "support",
+    "port",
+    "court"
+  ],
+  "IH T IY": [
+    "city",
+    "pretty"
+  ],
+  "AH V": [
+    "love",
+    "above",
+    "glove"
+  ],
+  "IH SH": [
+    "fish",
+    "dish"
+  ],
+  "IH M": [
+    "swim",
+    "slim",
+    "gym"
+  ],
+  "IH NG": [
+    "sing",
+    "thing",
+    "king",
+    "ring",
+    "bring",
+    "wing"
+  ],
+  "UW T": [
+    "boot",
+    "fruit",
+    "suit",
+    "flute",
+    "shoot"
+  ],
+  "EY M": [
+    "same",
+    "game",
+    "name",
+    "aim",
+    "frame",
+    "blame"
+  ],
+  "AH P": [
+    "cup",
+    "up"
+  ],
+  "IH V ER": [
+    "river",
+    "deliver"
+  ],
+  "EY S": [
+    "place",
+    "face",
+    "space",
+    "case",
+    "race"
+  ],
+  "UH K": [
+    "look",
+    "book",
+    "cook"
+  ],
+  "AO S": [
+    "cross",
+    "across",
+    "sauce"
+  ],
+  "AA K": [
+    "clock",
+    "sock",
+    "block",
+    "rock",
+    "knock",
+    "shock",
+    "lock"
+  ],
+  "AO R S": [
+    "horse",
+    "course",
+    "divorce"
+  ],
+  "IH NG K": [
+    "think",
+    "drink",
+    "sink",
+    "pink",
+    "ink",
+    "link"
+  ],
+  "UW N": [
+    "afternoon",
+    "noon",
+    "balloon",
+    "cartoon",
+    "soon",
+    "spoon"
+  ],
+  "AE N D": [
+    "hand",
+    "band",
+    "understand",
+    "stand",
+    "land",
+    "sand",
+    "demand"
+  ],
+  "EY B IY": [
+    "baby",
+    "maybe"
+  ],
+  "EH N S IH V": [
+    "expensive",
+    "inexpensive"
+  ],
+  "EY T ER": [
+    "waiter",
+    "later"
+  ],
+  "AE P IY": [
+    "happy",
+    "unhappy"
+  ],
+  "IY D": [
+    "need",
+    "speed",
+    "bleed",
+    "succeed",
+    "indeed",
+    "feed"
+  ],
+  "EY K": [
+    "make",
+    "cake",
+    "take",
+    "break",
+    "steak",
+    "snake",
+    "bake",
+    "lake",
+    "mistake",
+    "awake",
+    "shake",
+    "ache",
+    "brake"
+  ],
+  "EY N T": [
+    "paint",
+    "complaint"
+  ],
+  "EH T": [
+    "pet",
+    "yet",
+    "wet",
+    "set",
+    "cigarette",
+    "vet",
+    "let",
+    "jet",
+    "net"
+  ],
+  "AE N S": [
+    "dance",
+    "chance"
+  ],
+  "OY": [
+    "boy",
+    "enjoy",
+    "toy",
+    "destroy",
+    "annoy"
+  ],
+  "AE TH": [
+    "bath",
+    "math",
+    "path"
+  ],
+  "AE CH": [
+    "catch",
+    "match",
+    "attach"
+  ],
+  "IY K": [
+    "speak",
+    "week",
+    "weak",
+    "technique",
+    "cheek",
+    "peak",
+    "antique"
+  ],
+  "ER": [
+    "her",
+    "per",
+    "sir",
+    "stir",
+    "fur"
+  ],
+  "AE G": [
+    "bag",
+    "flag",
+    "drag"
+  ],
+  "AW": [
+    "now",
+    "how",
+    "cow",
+    "wow",
+    "allow"
+  ],
+  "AA SH": [
+    "wash",
+    "squash"
+  ],
+  "OW L D": [
+    "cold",
+    "old",
+    "hold",
+    "gold",
+    "fold"
+  ],
+  "IH L K": [
+    "milk",
+    "silk"
+  ],
+  "AH N CH": [
+    "lunch",
+    "bunch"
+  ],
+  "AA DH ER": [
+    "father",
+    "bother"
+  ],
+  "UW TH": [
+    "tooth",
+    "youth"
+  ],
+  "EH L": [
+    "hotel",
+    "well",
+    "tell",
+    "spell",
+    "sell",
+    "smell",
+    "bell",
+    "unwell"
+  ],
+  "EH K": [
+    "check",
+    "deck",
+    "neck"
+  ],
+  "AO R D": [
+    "board",
+    "bored"
+  ],
+  "UW T ER": [
+    "computer",
+    "scooter"
+  ],
+  "IH N ER": [
+    "dinner",
+    "winner",
+    "beginner"
+  ],
+  "IY L": [
+    "feel",
+    "meal",
+    "real",
+    "steal",
+    "heel"
+  ],
+  "AO R T AH N T": [
+    "important",
+    "unimportant"
+  ],
+  "AE NG K": [
+    "bank",
+    "thank",
+    "blank"
+  ],
+  "IY CH ER": [
+    "teacher",
+    "creature"
+  ],
+  "UW M": [
+    "room",
+    "perfume",
+    "groom"
+  ],
+  "EY N JH": [
+    "change",
+    "strange",
+    "exchange",
+    "arrange",
+    "range"
+  ],
+  "AY M": [
+    "time",
+    "climb",
+    "crime"
+  ],
+  "AO R T ER": [
+    "quarter",
+    "reporter"
+  ],
+  "AH NG": [
+    "young",
+    "tongue"
+  ],
+  "IH T": [
+    "sit",
+    "hit",
+    "fit",
+    "quit",
+    "admit",
+    "knit",
+    "bit",
+    "kit"
+  ],
+  "UW Z": [
+    "choose",
+    "lose",
+    "whose",
+    "cruise"
+  ],
+  "IH S": [
+    "miss",
+    "kiss"
+  ],
+  "AA G R AH F IY": [
+    "photography",
+    "geography",
+    "biography"
+  ],
+  "AW N D": [
+    "round",
+    "sound",
+    "surround"
+  ],
+  "ER CH": [
+    "church",
+    "search"
+  ],
+  "IH R L IY": [
+    "clearly",
+    "nearly"
+  ],
+  "IY T ER": [
+    "liter",
+    "meter",
+    "heater"
+  ],
+  "IH F T": [
+    "lift",
+    "gift"
+  ],
+  "AE M": [
+    "exam",
+    "gram",
+    "tram",
+    "jam",
+    "ham",
+    "lamb",
+    "damn"
+  ],
+  "IH P": [
+    "trip",
+    "ship",
+    "tip",
+    "slip",
+    "lip"
+  ],
+  "AY L": [
+    "file",
+    "smile",
+    "style",
+    "pile",
+    "mile"
+  ],
+  "EH L TH IY": [
+    "healthy",
+    "unhealthy"
+  ],
+  "AH T": [
+    "cut",
+    "shut",
+    "but",
+    "hut"
+  ],
+  "EH N T": [
+    "rent",
+    "cent",
+    "tent",
+    "percent",
+    "invent"
+  ],
+  "ER IY": [
+    "hurry",
+    "worry"
+  ],
+  "AH M F ER T AH B AH L": [
+    "comfortable",
+    "uncomfortable"
+  ],
+  "AY P": [
+    "type",
+    "stripe",
+    "pipe"
+  ],
+  "AH V ER": [
+    "cover",
+    "recover",
+    "discover",
+    "lover"
+  ],
+  "EY P": [
+    "grape",
+    "shape",
+    "escape"
+  ],
+  "OY N": [
+    "join",
+    "coin"
+  ],
+  "UH D": [
+    "wood",
+    "could",
+    "should",
+    "would"
+  ],
+  "EH R Z": [
+    "upstairs",
+    "stairs",
+    "downstairs",
+    "theirs"
+  ],
+  "EH L F": [
+    "myself",
+    "itself",
+    "shelf",
+    "himself",
+    "herself"
+  ],
+  "IY K ER": [
+    "speaker",
+    "sneaker"
+  ],
+  "AH G": [
+    "mug",
+    "hug",
+    "bug",
+    "rug",
+    "plug"
+  ],
+  "AW D": [
+    "cloud",
+    "crowd",
+    "loud",
+    "aloud",
+    "proud"
+  ],
+  "AA L AH JH IY": [
+    "biology",
+    "technology",
+    "apology"
+  ],
+  "AO R D ER": [
+    "order",
+    "border"
+  ],
+  "AE S T IH K": [
+    "plastic",
+    "fantastic"
+  ],
+  "IH R IY AH L": [
+    "cereal",
+    "material"
+  ],
+  "OY N T M AH N T": [
+    "appointment",
+    "disappointment"
+  ],
+  "ER V": [
+    "serve",
+    "deserve"
+  ],
+  "UH L": [
+    "pull",
+    "full",
+    "wool",
+    "bull"
+  ],
+  "AE M P": [
+    "lamp",
+    "camp",
+    "stamp"
+  ],
+  "EY V": [
+    "save",
+    "cave",
+    "brave",
+    "behave",
+    "shave",
+    "wave"
+  ],
+  "EH K T": [
+    "correct",
+    "collect",
+    "incorrect",
+    "select",
+    "expect",
+    "connect",
+    "protect"
+  ],
+  "IY S": [
+    "police",
+    "piece",
+    "niece",
+    "peace"
+  ],
+  "OW P": [
+    "soap",
+    "hope"
+  ],
+  "EY Z IY": [
+    "crazy",
+    "lazy"
+  ],
+  "AO R K": [
+    "fork",
+    "pork"
+  ],
+  "IY M": [
+    "cream",
+    "team",
+    "dream",
+    "scream",
+    "stream"
+  ],
+  "AY ER": [
+    "tire",
+    "buyer"
+  ],
+  "OW S T": [
+    "roast",
+    "toast",
+    "post",
+    "ghost",
+    "coast"
+  ],
+  "OW L": [
+    "bowl",
+    "whole",
+    "goal",
+    "soul",
+    "role",
+    "control",
+    "roll",
+    "hole"
+  ],
+  "EH F": [
+    "chef",
+    "deaf"
+  ],
+  "OY L": [
+    "oil",
+    "boil",
+    "spoil"
+  ],
+  "IY IH NG": [
+    "skiing",
+    "sightseeing"
+  ],
+  "AH S T": [
+    "must",
+    "trust",
+    "dust"
+  ],
+  "AY AH T": [
+    "quiet",
+    "diet"
+  ],
+  "AA R T M AH N T": [
+    "apartment",
+    "department"
+  ],
+  "EY D": [
+    "lemonade",
+    "grade",
+    "afraid",
+    "persuade",
+    "trade",
+    "shade"
+  ],
+  "IH S T": [
+    "list",
+    "insist",
+    "exist"
+  ],
+  "ER S": [
+    "purse",
+    "worse",
+    "nurse"
+  ],
+  "AW N T AH N": [
+    "mountain",
+    "fountain"
+  ],
+  "OY N T": [
+    "point",
+    "disappoint"
+  ],
+  "IH CH": [
+    "rich",
+    "switch"
+  ],
+  "IH SH AH N": [
+    "competition",
+    "condition",
+    "permission",
+    "position",
+    "politician",
+    "composition",
+    "ambition",
+    "intermission",
+    "expedition",
+    "musician",
+    "exhibition"
+  ],
+  "AY Z": [
+    "size",
+    "prize",
+    "rise",
+    "guys"
+  ],
+  "IH L D": [
+    "grilled",
+    "build",
+    "rebuild"
+  ],
+  "AE P": [
+    "rap",
+    "cap",
+    "map",
+    "wrap",
+    "clap"
+  ],
+  "AE F": [
+    "half",
+    "staff",
+    "calf",
+    "laugh",
+    "giraffe"
+  ],
+  "IY S T": [
+    "east",
+    "priest",
+    "northeast",
+    "least",
+    "southeast"
+  ],
+  "AH D": [
+    "blood",
+    "flood"
+  ],
+  "IH JH": [
+    "bridge",
+    "fridge"
+  ],
+  "AH K": [
+    "luck",
+    "duck",
+    "truck"
+  ],
+  "AH M P": [
+    "jump",
+    "pump"
+  ],
+  "OW L D ER": [
+    "folder",
+    "shoulder"
+  ],
+  "AH B AH L": [
+    "double",
+    "trouble"
+  ],
+  "AH K IY": [
+    "lucky",
+    "unlucky"
+  ],
+  "UH R": [
+    "sure",
+    "tour",
+    "brochure",
+    "pure"
+  ],
+  "AH Z AH N": [
+    "cousin",
+    "dozen"
+  ],
+  "ER T AH N": [
+    "curtain",
+    "certain"
+  ],
+  "EY L": [
+    "mail",
+    "fail",
+    "jail",
+    "male",
+    "rail",
+    "sail"
+  ],
+  "IY T IH NG": [
+    "meeting",
+    "greeting"
+  ],
+  "UW V": [
+    "improve",
+    "move",
+    "prove",
+    "remove",
+    "approve"
+  ],
+  "EY N JH ER": [
+    "danger",
+    "stranger"
+  ],
+  "AO R T S": [
+    "shorts",
+    "sports"
+  ],
+  "IY Z AH N": [
+    "reason",
+    "season"
+  ],
+  "EH S ER": [
+    "dresser",
+    "professor"
+  ],
+  "IH L OW": [
+    "kilo",
+    "pillow"
+  ],
+  "AE K T IH V": [
+    "attractive",
+    "active"
+  ],
+  "IY L IH NG": [
+    "ceiling",
+    "feeling"
+  ],
+  "IH K S": [
+    "mix",
+    "fix"
+  ],
+  "AE K T": [
+    "fact",
+    "attract",
+    "exact",
+    "act"
+  ],
+  "ER TH": [
+    "birth",
+    "earth"
+  ],
+  "AH M P AH N IY": [
+    "company",
+    "accompany"
+  ],
+  "AH P ER": [
+    "supper",
+    "upper"
+  ],
+  "IH N S": [
+    "since",
+    "prince",
+    "convince"
+  ],
+  "AY V ER": [
+    "driver",
+    "diver"
+  ],
+  "EH Z AH N T": [
+    "pleasant",
+    "unpleasant"
+  ],
+  "AA R JH": [
+    "large",
+    "charge"
+  ],
+  "AE SH": [
+    "cash",
+    "trash",
+    "crash"
+  ],
+  "AE N D IY": [
+    "candy",
+    "sandy"
+  ],
+  "EH N D L IY": [
+    "friendly",
+    "unfriendly"
+  ],
+  "EH N SH AH N": [
+    "mention",
+    "invention",
+    "attention"
+  ],
+  "AA M AH": [
+    "drama",
+    "comma"
+  ],
+  "EH TH": [
+    "death",
+    "breath"
+  ],
+  "EH R D": [
+    "prepared",
+    "scared"
+  ],
+  "IH L AH T IY": [
+    "possibility",
+    "ability"
+  ],
+  "AO D": [
+    "broad",
+    "abroad"
+  ],
+  "AY T L IY": [
+    "politely",
+    "lightly"
+  ],
+  "UW Z IH NG": [
+    "amusing",
+    "confusing"
+  ],
+  "AE K SH AH N": [
+    "attraction",
+    "action"
+  ],
+  "EH SH AH N": [
+    "profession",
+    "session"
+  ],
+  "AE B": [
+    "cab",
+    "lab",
+    "grab"
+  ],
+  "AY D ER": [
+    "spider",
+    "rider"
+  ],
+  "EH T AH L": [
+    "kettle",
+    "metal"
+  ],
+  "EY S T": [
+    "waste",
+    "taste"
+  ],
+  "EH S F AH L": [
+    "successful",
+    "stressful"
+  ],
+  "UW SH AH N": [
+    "solution",
+    "pollution"
+  ],
+  "EY Z": [
+    "raise",
+    "phrase"
+  ],
+  "EH R L IY": [
+    "rarely",
+    "fairly"
+  ],
+  "AA R B ER": [
+    "harbor",
+    "barber"
+  ],
+  "EH N S": [
+    "defense",
+    "sense",
+    "offense",
+    "tense"
+  ],
+  "AE K S": [
+    "tax",
+    "fax"
+  ],
+  "IH L IY": [
+    "silly",
+    "chili"
+  ],
+  "AY N IY": [
+    "shiny",
+    "tiny"
+  ],
+  "IH L ER": [
+    "killer",
+    "thriller"
+  ],
+  "AY S IY": [
+    "spicy",
+    "icy"
+  ],
+  "AH N T": [
+    "front",
+    "hunt"
+  ],
+  "OY D": [
+    "avoid",
+    "unemployed",
+    "annoyed"
+  ],
+  "AY T ER": [
+    "writer",
+    "lighter"
+  ],
+  "EH S AH S EH R IY": [
+    "unnecessary",
+    "necessary"
+  ],
+  "EH K SH AH N": [
+    "connection",
+    "correction",
+    "collection",
+    "election",
+    "section"
+  ],
+  "IH T AH N": [
+    "kitten",
+    "written"
+  ],
+  "AH F": [
+    "stuff",
+    "rough"
+  ],
+  "AE L ER IY": [
+    "salary",
+    "gallery"
+  ],
+  "AW N T": [
+    "account",
+    "count",
+    "amount"
+  ],
+  "UW Z D": [
+    "confused",
+    "used"
+  ],
+  "AO R M ER": [
+    "performer",
+    "former"
+  ],
+  "IH F IH K": [
+    "scientific",
+    "terrific"
+  ],
+  "IH P SH AH N": [
+    "prescription",
+    "description"
+  ],
+  "AE N D AH L": [
+    "handle",
+    "candle",
+    "sandal"
+  ],
+  "AO R N": [
+    "corn",
+    "warn"
+  ],
+  "AA G": [
+    "jog",
+    "frog"
+  ],
+  "AY K AH L": [
+    "recycle",
+    "cycle"
+  ],
+  "AW N S": [
+    "bounce",
+    "pronounce",
+    "announce"
+  ],
+  "AA L V": [
+    "involve",
+    "solve"
+  ],
+  "OY S": [
+    "choice",
+    "voice"
+  ],
+  "IY F": [
+    "beef",
+    "thief",
+    "leaf",
+    "brief"
+  ],
+  "EY V ER": [
+    "flavor",
+    "favor"
+  ],
+  "AA R M IH NG": [
+    "charming",
+    "farming"
+  ],
+  "IY D ER": [
+    "leader",
+    "reader"
+  ],
+  "AY K L IY": [
+    "unlikely",
+    "likely"
+  ]
+}
