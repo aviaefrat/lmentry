@@ -28,7 +28,7 @@ _Don't forget to activate the lmentry environment (created from `environment.yml
 Using the `--num-procs=N` optional argument will score the predictions much faster.  
 `evalutate.py` will also automatically create files analyzing the results in a separate `results` dir.
 
-To use `evalutate.py`, the predictions must follow the same structure of [lmentry_predictions.zip](https://anonymfile.com/ora9l/lmentry-predictions.zip) (if you used our functions from `predict.py`, your predictions already follow this structure):
+To use `evalutate.py`, the predictions must follow the same structure of [lmentry_predictions.zip](https://drive.google.com/file/d/1Ex1fde_PEzhIU5ctGkOJsacaGNnQeqke/view?usp=sharing) (if you used our functions from `predict.py`, your predictions already follow this structure):
 1. The top-level directory should be named `predictions`.
 2. `predictions` needs to contain exactly 41 directories, named after the 41 files in `data` (the 25 task names + the 16 files for the argument content robustness).
 3. Each of the 41 task predictions directories should contain a prediction file for each model you want to evaluate. For example, to evaluate the predictions of a model named `my-model`, each of the 41 directories should contain a file named `my-model.json` with the model's predictions for this task.
