@@ -62,6 +62,9 @@ def generate_task_hf_predictions(task_name, model: PreTrainedModel = None,
         batched_encoding = tokenizer(batch_of_strings, padding="longest", return_tensors="pt").to(device)
         tensor_inputs = batched_encoding["input_ids"]
         tensor_outputs = model.generate(tensor_inputs, max_length=max_length)
+        if device == torch.device("cuda"):
+            del tensor_inputs
+            torch.cuda.empty_cache()
         outputs = tokenizer.batch_decode(tensor_outputs, skip_special_tokens=True)
         predictions.extend(outputs)
         logging.info(f"generated {len(predictions)} predictions for {task.name}")
@@ -82,7 +85,7 @@ def generate_all_hf_predictions(task_names: list[str] = None, model_name: str = 
     hf_model_name = get_predictor_model_name(model_name)
     logging.info(f"loading model {hf_model_name}")
     # model = AutoModelForSeq2SeqLM.from_pretrained(hf_model_name)
-    model = AutoModelForCausalLM.from_pretrained(hf_model_name, low_cpu_mem_usage=True)
+    model = AutoModelForCausalLM.from_pretrained(hf_model_name, low_cpu_mem_usage=True, torch_dtype=torch.float16)
     logging.info(f"finished loading model {hf_model_name}")
     for task_name in task_names:
         generate_task_hf_predictions(task_name, model, model_name, max_length, batch_size)
