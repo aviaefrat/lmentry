@@ -33,6 +33,7 @@ paper_models = {
     "allenai-tk-instruct-11b-def": {"short_name": "Tk-d", "paper_name": "Tk-d 11B", "predictor_name": "allenai/tk-instruct-11b-def"},
     "google-t5-xxl-lm-adapt": {"short_name": "T5xxl", "paper_name": "T5-LM 11B", "predictor_name": "google/t5-xxl-lm-adapt"},
     "vicuna-7b-v1-3": {"short_name": "vicuna", "paper_name": "Vicuna-7b", "predictor_name": "lmsys/vicuna-7b-v1.3"},
+    "vicuna-7b-v1": {"short_name": "vicuna", "paper_name": "Vicuna-7b", "predictor_name": "lmsys/vicuna-7b-v1.3"},
 }
 
 text_001_models = [
