@@ -8,7 +8,7 @@ from pathlib import Path
 
 import openai
 import torch
-from transformers import AutoModelForSeq2SeqLM, PreTrainedModel, AutoTokenizer
+from transformers import AutoModelForCausalLM, AutoModelForSeq2SeqLM, PreTrainedModel, AutoTokenizer
 
 from lmentry.constants import get_predictor_model_name, hf_11b_models
 from lmentry.tasks.lmentry_tasks import all_tasks
@@ -38,7 +38,7 @@ def generate_task_hf_predictions(task_name, model: PreTrainedModel = None,
     logging.info(f"generating predictions for task \"{task_name}\" with model \"{hf_model_name}\"")
 
     # initialize tokenizer and model
-    tokenizer = AutoTokenizer.from_pretrained(hf_model_name)
+    tokenizer = AutoTokenizer.from_pretrained(hf_model_name, padding_side='left')
     model = model or AutoModelForSeq2SeqLM.from_pretrained(hf_model_name)
 
     # move model to gpu
@@ -81,7 +81,8 @@ def generate_all_hf_predictions(task_names: list[str] = None, model_name: str = 
     task_names = task_names or all_tasks
     hf_model_name = get_predictor_model_name(model_name)
     logging.info(f"loading model {hf_model_name}")
-    model = AutoModelForSeq2SeqLM.from_pretrained(hf_model_name)
+    # model = AutoModelForSeq2SeqLM.from_pretrained(hf_model_name)
+    model = AutoModelForCausalLM.from_pretrained(hf_model_name, low_cpu_mem_usage=True)
     logging.info(f"finished loading model {hf_model_name}")
     for task_name in task_names:
         generate_task_hf_predictions(task_name, model, model_name, max_length, batch_size)
