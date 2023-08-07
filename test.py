@@ -1,3 +1,33 @@
-from lmentry.predict import generate_all_hf_predictions
+import argparse
 
-generate_all_hf_predictions(task_names=["first_letter"], model_name="vicuna-7b-v1.3")
+from lmentry.predict import generate_all_hf_predictions
+from lmentry.tasks.lmentry_tasks import all_tasks
+
+
+def parse_args():
+  parser = argparse.ArgumentParser()
+  parser.add_argument('-m', '--model_name', type=str, default="vicuna-7b-v1-3",
+                      help="Model name")
+  parser.add_argument('-t', '--task_name', type=str, default=None,
+                      help=f"If need to predict only one task set its name. Name should be from the list: {all_tasks.keys()}")
+  parser.add_argument('-b', '--batch_size', type=int, default=100,
+                      help="For calculation on A10G batch size 100 is recommended")
+  parser.add_argument('-ml', '--max_length', type=int, default=53,
+                      help="Input max length")
+
+  args = parser.parse_args()
+  return args
+
+
+def main():
+  args = parse_args()
+
+  task_names = None
+  if args.task_name is not None:
+    task_names = [args.task_name]
+
+  generate_all_hf_predictions(task_names=task_names, model_name=args.model_name, batch_size=args.batch_size)
+
+
+if __name__ == "__main__":
+  main()
