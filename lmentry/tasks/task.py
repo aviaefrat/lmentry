@@ -19,7 +19,7 @@ class LMentryTask:
         self.name = name
         self.default_data_path = TASKS_DATA_DIR.joinpath(f"{self.name}.json")
         self.predictions_dir = PREDICTIONS_ROOT_DIR.joinpath(name)
-        self.predictions_dir.mkdir(exist_ok=True)
+        self.predictions_dir.mkdir(parents=True, exist_ok=True)
         self.parameter_names = None
 
     def create_data(self):
