@@ -26,7 +26,12 @@ def main():
   if args.task_name is not None:
     task_names = [args.task_name]
 
-  generate_all_hf_predictions(task_names=task_names, model_name=args.model_name, batch_size=args.batch_size)
+  generate_all_hf_predictions(
+    task_names=task_names,
+    model_name=args.model_name,
+    max_length=args.max_length,
+    batch_size=args.batch_size,
+  )
 
 
 if __name__ == "__main__":
