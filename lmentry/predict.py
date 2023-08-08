@@ -62,9 +62,6 @@ def generate_task_hf_predictions(task_name, model: PreTrainedModel = None,
         batched_encoding = tokenizer(batch_of_strings, padding="longest", return_tensors="pt").to(device)
         tensor_inputs = batched_encoding["input_ids"]
         tensor_outputs = model.generate(tensor_inputs, max_length=max_length)
-        if device == torch.device("cuda"):
-            del tensor_inputs
-            torch.cuda.empty_cache()
         outputs = tokenizer.batch_decode(tensor_outputs, skip_special_tokens=True)
         predictions.extend(outputs)
         logging.info(f"generated {len(predictions)} predictions for {task.name}")
