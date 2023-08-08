@@ -79,14 +79,14 @@ def sample_top_p(probs, p):
 class RelaxModelWrapper:
   def __init__(self,
                model: Callable,
-               tokenizer,
+               stop_tokens: List[int],
                args: argparse.Namespace,
+               # TODO(vchernov): control these parameters, just now it uses by default
                temperature: float = 1.1,
                top_p: float = 0.7,
   ):
     self.model = model
-    self.stop_tokens = [tokenizer.eos_token_id]
-    self.tokenizer = tokenizer
+    self.stop_tokens = stop_tokens
     self.args = args
 
     self.temperature = temperature
@@ -128,4 +128,4 @@ def get_relax_model(args):
   if args.model.startswith("dolly-"):
       # 50277 means "### End"
       tokenizer.eos_token_id = 50277
-  return RelaxModelWrapper(get_tvm_model(args), tokenizer, args)
+  return RelaxModelWrapper(get_tvm_model(args), [tokenizer.eos_token_id], args)
