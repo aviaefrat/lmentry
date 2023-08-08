@@ -8,11 +8,10 @@ from pathlib import Path
 
 import openai
 import torch
-from transformers import AutoModelForCausalLM, AutoModelForSeq2SeqLM, PreTrainedModel, AutoTokenizer
 
-from lmentry.constants import get_predictor_model_name, hf_11b_models
+from lmentry.constants import hf_11b_models
 from lmentry.tasks.lmentry_tasks import all_tasks
-from lmentry.relax_model_wrapper import RelaxModelWrapper
+from lmentry.model_manager import ModelManager
 
 logging.basicConfig(format='%(asctime)s %(message)s', datefmt='%Y/%m/%d %H:%M:%S', level=logging.INFO)
 
@@ -27,7 +26,7 @@ def _ms_since_epoch():
 
 
 def generate_task_hf_predictions(task_name,
-                                 model: [PreTrainedModel, RelaxModelWrapper] = None,
+                                 manager: ModelManager = None,
                                  model_name="",
                                  max_length=50,
                                  batch_size=200,
@@ -35,16 +34,16 @@ def generate_task_hf_predictions(task_name,
                                  output_path=None):
     task = all_tasks[task_name]()
 
-    if not model_name and not model:
-        raise ValueError("must provide either `model_name` or `model`")
+    if not model_name and not manager:
+        raise ValueError("must provide either `model_name` or `model manager`")
+    if not manager:
+        manager = ModelManager(model_name)
 
-    hf_model_name = model.name_or_path if model else get_predictor_model_name(model_name)
-
-    logging.info(f"generating predictions for task \"{task_name}\" with model \"{hf_model_name}\"")
+    logging.info(f"generating predictions for task \"{task_name}\" with model \"{manager.predictor_name}\"")
 
     # initialize tokenizer and model
-    tokenizer = AutoTokenizer.from_pretrained(hf_model_name, padding_side='left')
-    model = model or AutoModelForSeq2SeqLM.from_pretrained(hf_model_name)
+    tokenizer = manager.get_tokenizer()
+    model = manager.model
 
     # move model to gpu
     device = torch.device("cuda") if torch.cuda.is_available() else "cpu"
@@ -84,13 +83,9 @@ def generate_task_hf_predictions(task_name,
 def generate_all_hf_predictions(task_names: list[str] = None, model_name: str = "",
                                 max_length=50, batch_size=200):
     task_names = task_names or all_tasks
-    hf_model_name = get_predictor_model_name(model_name)
-    logging.info(f"loading model {hf_model_name}")
-    # model = AutoModelForSeq2SeqLM.from_pretrained(hf_model_name)
-    model = AutoModelForCausalLM.from_pretrained(hf_model_name, low_cpu_mem_usage=True, torch_dtype=torch.float16)
-    logging.info(f"finished loading model {hf_model_name}")
+    manager = ModelManager(model_name)
     for task_name in task_names:
-        generate_task_hf_predictions(task_name, model, model_name, max_length, batch_size)
+        generate_task_hf_predictions(task_name, manager, model_name, max_length, batch_size)
 
 
 # todo make the saving of the metadata optional (with a default yes as we do it ourselves)
