@@ -12,6 +12,7 @@ from transformers import AutoModelForCausalLM, AutoModelForSeq2SeqLM, PreTrained
 
 from lmentry.constants import get_predictor_model_name, hf_11b_models
 from lmentry.tasks.lmentry_tasks import all_tasks
+from lmentry.relax_model_wrapper import RelaxModelWrapper
 
 logging.basicConfig(format='%(asctime)s %(message)s', datefmt='%Y/%m/%d %H:%M:%S', level=logging.INFO)
 
@@ -25,9 +26,13 @@ def _ms_since_epoch():
     return time.perf_counter_ns() // 1000000
 
 
-def generate_task_hf_predictions(task_name, model: PreTrainedModel = None,
-                                 model_name="", max_length=50, batch_size=200,
-                                 data_path=None, output_path=None):
+def generate_task_hf_predictions(task_name,
+                                 model: [PreTrainedModel, RelaxModelWrapper] = None,
+                                 model_name="",
+                                 max_length=50,
+                                 batch_size=200,
+                                 data_path=None,
+                                 output_path=None):
     task = all_tasks[task_name]()
 
     if not model_name and not model:
