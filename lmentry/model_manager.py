@@ -3,7 +3,7 @@ import logging
 import torch
 from transformers import AutoModelForCausalLM, AutoModelForSeq2SeqLM, AutoTokenizer
 
-from lmentry.constants import paper_models, hf_models
+from lmentry.constants import paper_models, hf_models, hf_11b_models
 from lmentry.relax_model_wrapper import RelaxModelWrapper
 
 
@@ -28,5 +28,13 @@ class ModelManager:
       self.model = AutoModelForCausalLM.from_pretrained(self.predictor_name, low_cpu_mem_usage=True, torch_dtype=torch.float16)
     logging.info(f"finished loading model {self.predictor_name}")
 
+    self.device = torch.device("cuda") if torch.cuda.is_available() else "cpu"
+
   def get_tokenizer(self):
     return AutoTokenizer.from_pretrained(self.predictor_name, padding_side='left')
+
+  def to_device(self):
+    if self.model_name in hf_11b_models:  # 11B models have to be parallelized
+      self.model.parallelize()
+    else:
+      self.model.to(self.device)

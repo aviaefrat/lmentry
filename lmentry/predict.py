@@ -7,9 +7,7 @@ from multiprocessing import Pool
 from pathlib import Path
 
 import openai
-import torch
 
-from lmentry.constants import hf_11b_models
 from lmentry.tasks.lmentry_tasks import all_tasks
 from lmentry.model_manager import ModelManager
 
@@ -43,14 +41,10 @@ def generate_task_hf_predictions(task_name,
 
     # initialize tokenizer and model
     tokenizer = manager.get_tokenizer()
-    model = manager.model
 
-    # move model to gpu
-    device = torch.device("cuda") if torch.cuda.is_available() else "cpu"
-    if model_name in hf_11b_models:  # 11B models have to be parallelized
-        model.parallelize()
-    else:
-        model.to(device)
+    # move model to gpu if possible
+    manager.to_device()
+    model = manager.model
 
     # load task data
     data_path = data_path or task.default_data_path
@@ -63,7 +57,7 @@ def generate_task_hf_predictions(task_name,
     # generate predictions
     predictions: list[str] = []
     for batch_of_strings in _batcher(string_inputs, batch_size):
-        batched_encoding = tokenizer(batch_of_strings, padding="longest", return_tensors="pt").to(device)
+        batched_encoding = tokenizer(batch_of_strings, padding="longest", return_tensors="pt").to(manager.device)
         tensor_inputs = batched_encoding["input_ids"]
         tensor_outputs = model.generate(tensor_inputs, max_length=max_length)
         outputs = tokenizer.batch_decode(tensor_outputs, skip_special_tokens=True)
