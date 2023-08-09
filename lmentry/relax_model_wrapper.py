@@ -38,7 +38,7 @@ class TVMModel:
       self.prefill_func = None
 
   def forward(self, inputs: torch.Tensor) -> torch.Tensor:
-    inputs = inputs.numpy()
+    inputs = inputs.numpy().astype('int32')
     self.tot_seq_len += inputs.shape[1]
     seq_len_shape = tvm.runtime.ShapeTuple([self.tot_seq_len])
     if inputs.shape[1] > 1 and self.prefill_func:
