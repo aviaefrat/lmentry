@@ -1,4 +1,5 @@
 import logging
+import json
 from pathlib import Path
 
 import torch
@@ -11,17 +12,29 @@ class ModelManager:
   def __init__(self, model_name: str):
     self.model_name = model_name
     if model_name in paper_models.keys():
-      self.config = paper_models[model_name]
       self.type = "paper"
+      self.config = paper_models[model_name]
     elif model_name in hf_models.keys():
-      self.config = hf_models[model_name]
       self.type = "hf"
+      self.config = hf_models[model_name]
     elif Path(model_name).is_dir():
-      model_root = Path(model_name)
-      # TODO(vvchernov): get from json?
-      self.model_name = model_name
-      self.config ={"artifact_path": model_name}
       self.type = "mlc"
+      model_root = Path(model_name)
+      mlc_config_file = model_root.joinpath("params/mlc-chat-config.json")
+
+      mlc_config = {}
+      with open(mlc_config_file) as json_file:
+        mlc_config = json.load(json_file)
+
+      model_local_id = mlc_config["local_id"]
+      model_name_and_quant_list = model_local_id.split("-")
+      self.model_name = "".join(model_name_and_quant_list[:-1])
+
+      self.config ={
+        "artifact_path": model_name,
+        "temperature": mlc_config["temperature"],
+        "top_p": mlc_config["top_p"],
+      }
     else:
       raise ValueError(f"Model name {model_name} is not in the list and not the path to mlc-llm model")
 
