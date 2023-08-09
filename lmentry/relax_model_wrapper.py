@@ -38,7 +38,7 @@ class TVMModel:
       self.prefill_func = None
 
   def forward(self, inputs: torch.Tensor) -> torch.Tensor:
-    inputs = inputs.numpy().astype('int32')
+    inputs = inputs.numpy()
     self.tot_seq_len += inputs.shape[1]
     seq_len_shape = tvm.runtime.ShapeTuple([self.tot_seq_len])
     if inputs.shape[1] > 1 and self.prefill_func:
@@ -87,11 +87,13 @@ class RelaxModelWrapper:
 
   def generate(
     self,
-    tokens,
+    in_tokens: torch.Tensor,
     max_length: int,
   ):
-    prompt_len = tokens.shape[1]
+    prompt_len = in_tokens.shape[1]
     total_len = max_length + prompt_len
+    tokens = torch.full((1, total_len), 0).to(torch.int32)
+    tokens[0, : prompt_len] = in_tokens
     start_pos = prompt_len
     for cur_pos in range(start_pos, total_len):
       if cur_pos == start_pos:
