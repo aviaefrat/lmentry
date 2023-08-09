@@ -37,6 +37,9 @@ class TVMModel:
     except AttributeError:
       self.prefill_func = None
 
+  def reset_total_len(self):
+    self.tot_seq_len = 0
+
   def forward(self, inputs: torch.Tensor) -> torch.Tensor:
     inputs = inputs.numpy()
     self.tot_seq_len += inputs.shape[1]
@@ -112,6 +115,7 @@ class RelaxModelWrapper:
       if next_token[0] in self.stop_tokens:
         break
 
+    self.model.reset_total_len()
     return tokens[:, :cur_pos + 1]
 
 
