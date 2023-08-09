@@ -74,7 +74,7 @@ class ModelManager:
     return self.tokenizer
 
   def to_device(self):
-    if self.type is not "mlc":
+    if self.type != "mlc":
       if self.model_name in hf_11b_models:  # 11B models have to be parallelized
         self.model.parallelize()
       else:
