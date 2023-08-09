@@ -7,11 +7,11 @@ from lmentry.tasks.lmentry_tasks import all_tasks
 def parse_args():
   parser = argparse.ArgumentParser()
   parser.add_argument('-m', '--model_name', type=str, default="vicuna-7b-v1-3",
-                      help="Model name")
+                      help="Model name or path to the root directory of mlc-llm model")
   parser.add_argument('-t', '--task_name', type=str, default=None,
                       help=f"If need to predict only one task set its name. Name should be from the list: {all_tasks.keys()}")
   parser.add_argument('-b', '--batch_size', type=int, default=100,
-                      help="For calculation on A10G batch size 100 is recommended")
+                      help="For calculation on A10G batch size 100 is recommended. For mlc-llm models batch size is reduced to 1")
   parser.add_argument('-ml', '--max_length', type=int, default=53,
                       help="Input max length")
 
