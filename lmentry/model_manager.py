@@ -9,7 +9,7 @@ from lmentry.constants import paper_models, hf_models, hf_11b_models
 
 
 class ModelManager:
-  def __init__(self, model_name: str):
+  def __init__(self, model_name: str, device: str="cuda"):
     self.model_name = model_name
     if model_name in paper_models.keys():
       self.type = "paper"
@@ -32,6 +32,8 @@ class ModelManager:
 
       self.config ={
         "artifact_path": model_name,
+        "mlc_model_name": model_local_id,
+        "device": device,
         "temperature": mlc_config["temperature"],
         "top_p": mlc_config["top_p"],
       }

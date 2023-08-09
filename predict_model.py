@@ -10,6 +10,8 @@ def parse_args():
                       help="Model name or path to the root directory of mlc-llm model")
   parser.add_argument('-t', '--task_name', type=str, default=None,
                       help=f"If need to predict only one task set its name. Name should be from the list: {all_tasks.keys()}")
+  parser.add_argument('-d', '--device', type=str, default="cuda",
+                      help="Device name. It is needed and used by mlc model only")
   parser.add_argument('-b', '--batch_size', type=int, default=100,
                       help="For calculation on A10G batch size 100 is recommended. For mlc-llm models batch size is reduced to 1")
   parser.add_argument('-ml', '--max_length', type=int, default=53,
@@ -31,6 +33,7 @@ def main():
     model_name=args.model_name,
     max_length=args.max_length,
     batch_size=args.batch_size,
+    device_name = args.device,
   )
 
 

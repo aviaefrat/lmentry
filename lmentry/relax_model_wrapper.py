@@ -1,11 +1,9 @@
 import os
-import argparse
 from typing import Callable, List
 
 import torch
 import tvm
 from tvm import relax
-from transformers import AutoTokenizer
 
 
 def load_params(artifact_path: str, device) -> List[tvm.nd.NDArray]:
@@ -20,21 +18,20 @@ def load_params(artifact_path: str, device) -> List[tvm.nd.NDArray]:
 
 
 class TVMModel:
-  def __init__(self, args) -> None:
-    self.device = tvm.device(args.device_name)
-    self.const_params = load_params(args.artifact_path, self.device)
+  def __init__(self, config: dict) -> None:
+    self.device = tvm.device(config["device"])
+    self.const_params = load_params(config["artifact_path"], self.device)
     ex = tvm.runtime.load_module(
       os.path.join(
-        args.artifact_path,
-        # TODO(vchernov): check input args, refactor to json config
-        f"{args.model}-{args.quantization.name}-{args.device_name}.so",
+        config["artifact_path"],
+        f"{config['mlc_model_name']}-{config['device']}.so",
       )
     )
     self.vm = relax.VirtualMachine(ex, self.device)
 
     self.tot_seq_len = 0
     self.kv_cache = self.vm["create_kv_cache"]()
-    self.args = args
+
     try:
       self.prefill_func = self.vm["prefill"]
     except AttributeError:
@@ -60,8 +57,8 @@ class TVMModel:
     return torch.from_numpy(logits.numpy())
 
 
-def get_tvm_model(args):
-    model = TVMModel(args)
+def get_tvm_model(config):
+    model = TVMModel(config)
     return model.forward
 
 
@@ -80,17 +77,13 @@ class RelaxModelWrapper:
   def __init__(self,
                model: Callable,
                stop_tokens: List[int],
-               args: argparse.Namespace,
-               # TODO(vchernov): control these parameters, just now it uses by default
-               temperature: float = 1.1,
-               top_p: float = 0.7,
+               config: dict,
   ):
     self.model = model
     self.stop_tokens = stop_tokens
-    self.args = args
 
-    self.temperature = temperature
-    self.top_p = top_p
+    self.temperature = config["temperature"]
+    self.top_p = config["top_p"]
 
   def generate(
     self,

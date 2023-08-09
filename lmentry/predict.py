@@ -25,9 +25,10 @@ def _ms_since_epoch():
 
 def generate_task_hf_predictions(task_name,
                                  manager: ModelManager = None,
-                                 model_name="",
-                                 max_length=50,
-                                 batch_size=200,
+                                 model_name: str="",
+                                 max_length: int=50,
+                                 batch_size: int=200,
+                                 device: str="cuda",
                                  data_path=None,
                                  output_path=None):
     task = all_tasks[task_name]()
@@ -35,7 +36,7 @@ def generate_task_hf_predictions(task_name,
     if not model_name and not manager:
         raise ValueError("must provide either `model_name` or `model manager`")
     if not manager:
-        manager = ModelManager(model_name)
+        manager = ModelManager(model_name, device)
     if manager.type == "mlc":
         batch_size = 1
 
@@ -77,13 +78,13 @@ def generate_task_hf_predictions(task_name,
 
 
 def generate_all_hf_predictions(task_names: list[str] = None, model_name: str = "",
-                                max_length=50, batch_size=200):
+                                max_length=50, batch_size=200, device: str="cuda"):
     task_names = task_names or all_tasks
-    manager = ModelManager(model_name)
+    manager = ModelManager(model_name, device)
     if manager.type == "mlc":
         batch_size = 1
     for task_name in task_names:
-        generate_task_hf_predictions(task_name, manager, model_name, max_length, batch_size)
+        generate_task_hf_predictions(task_name, manager, model_name, max_length, batch_size, device)
 
 
 # todo make the saving of the metadata optional (with a default yes as we do it ourselves)
