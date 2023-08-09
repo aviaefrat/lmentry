@@ -33,7 +33,7 @@ def main():
     model_name=args.model_name,
     max_length=args.max_length,
     batch_size=args.batch_size,
-    device_name = args.device,
+    device=args.device,
   )
 
 
