@@ -40,7 +40,9 @@ class TVMModel:
   def reset_total_len(self):
     self.tot_seq_len = 0
 
-  def forward(self, inputs: torch.Tensor) -> torch.Tensor:
+  def forward(self, inputs: torch.Tensor, reset: bool=False) -> torch.Tensor:
+    if reset:
+      self.reset_total_len()
     inputs = inputs.numpy()
     self.tot_seq_len += inputs.shape[1]
     seq_len_shape = tvm.runtime.ShapeTuple([self.tot_seq_len])
@@ -100,7 +102,7 @@ class RelaxModelWrapper:
     start_pos = prompt_len
     for cur_pos in range(start_pos, total_len):
       if cur_pos == start_pos:
-        logits = self.model(tokens[:, :cur_pos])
+        logits = self.model(tokens[:, :cur_pos], reset=True)
       else:
         logits = self.model(tokens[:, cur_pos - 1 : cur_pos])
       logits = logits[:, -1, :].to(torch.float64)
@@ -115,7 +117,6 @@ class RelaxModelWrapper:
       if next_token[0] in self.stop_tokens:
         break
 
-    self.model.reset_total_len()
     return tokens[:, :cur_pos + 1]
 
 
