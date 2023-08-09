@@ -42,7 +42,7 @@ class TVMModel:
     self.tot_seq_len += inputs.shape[1]
     seq_len_shape = tvm.runtime.ShapeTuple([self.tot_seq_len])
     if inputs.shape[1] > 1 and self.prefill_func:
-      inputs = tvm.nd.array(inputs.numpy(), device=self.device)
+      inputs = tvm.nd.array(inputs, device=self.device)
       logits, kv_cache = self.prefill_func(
           inputs, seq_len_shape, self.kv_cache, self.const_params
       )
