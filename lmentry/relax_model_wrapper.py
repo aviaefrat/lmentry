@@ -120,12 +120,5 @@ class RelaxModelWrapper:
     return tokens[:, :cur_pos + 1]
 
 
-def get_relax_model(args):
-  tokenizer = AutoTokenizer.from_pretrained(
-    os.path.join(args.artifact_path, "params"), trust_remote_code=True
-  )
-  tokenizer.pad_token_id = tokenizer.eos_token_id
-  if args.model.startswith("dolly-"):
-      # 50277 means "### End"
-      tokenizer.eos_token_id = 50277
-  return RelaxModelWrapper(get_tvm_model(args), [tokenizer.eos_token_id], args)
+def get_relax_model(config, eos_token_id):
+  return RelaxModelWrapper(get_tvm_model(config), [eos_token_id], config)
