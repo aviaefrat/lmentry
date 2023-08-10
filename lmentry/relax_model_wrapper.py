@@ -115,6 +115,9 @@ class RelaxModelWrapper:
     total_len = max_length + prompt_len
     tvm_tokens = tvm.nd.array(np.zeros((1, total_len), dtype="int32"), device=self.device)
     tokens = torch.from_dlpack(tvm_tokens)
+    print("IS CONTIGUOUS:", tokens.is_contiguous())
+    print("INPUTS SHAPE:", tokens.shape)
+    print("INPUTS STRIDES:", tokens.stride())
     tokens[0, : prompt_len] = in_tokens
     start_pos = prompt_len
     for cur_pos in range(start_pos, total_len):
