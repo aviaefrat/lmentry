@@ -7,8 +7,6 @@ import numpy as np
 import tvm
 from tvm import relax
 
-from time import perf_counter
-
 
 def load_params(artifact_path: str, device) -> List[tvm.nd.NDArray]:
   from tvm.contrib import tvmjs  # pylint: disable=import-outside-toplevel
@@ -53,9 +51,6 @@ class TVMModel:
     return(torch.utils.dlpack.from_dlpack(tvm_t.to_dlpack()))
 
   def forward(self, inputs: torch.Tensor, seq_len: int=1, reset: bool=False) -> torch.Tensor:
-    print("IS CONTIGUOUS:", inputs.is_contiguous())
-    print("INPUTS SHAPE:", inputs.shape)
-    print("INPUTS STRIDES:", inputs.stride())
     if reset:
       self.reset()
     self.tot_seq_len += seq_len
@@ -118,19 +113,12 @@ class RelaxModelWrapper:
     start_pos = prompt_len
     for cur_pos in range(start_pos, total_len):
       if cur_pos == start_pos:
-        t1_start = perf_counter()
         logits = self.model(tokens[:, :cur_pos], cur_pos, reset=True)
-        t1_stop = perf_counter()
-        print("Elapsed time during prefill in ms:", 1000*(t1_stop-t1_start))
       else:
-        t1_start = perf_counter()
         tvm_to_model = tvm.nd.array(np.zeros((1, 1), dtype="int32"), device=self.device)
         to_model = torch.from_dlpack(tvm_to_model)
         to_model[0, 0] = tokens[:, cur_pos - 1 : cur_pos]
         logits = self.model(to_model)
-        t1_stop = perf_counter()
-        print("Elapsed time during decode in ms:", 1000*(t1_stop-t1_start))
-      t1_start = perf_counter()
       logits = logits[:, -1, :].to(torch.float32)
       # if self.temperature > 0:
       #   probs = torch.softmax(logits / self.temperature, dim=-1)
@@ -139,8 +127,6 @@ class RelaxModelWrapper:
       next_token = torch.argmax(logits, dim=-1)
       next_token = next_token.reshape(-1)
       tokens[:, cur_pos] = next_token
-      t1_stop = perf_counter()
-      print("Elapsed time during postprocess in ms:", 1000*(t1_stop-t1_start))
 
       if next_token[0] in self.stop_tokens:
         break
