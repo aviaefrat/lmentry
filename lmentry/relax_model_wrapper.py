@@ -123,7 +123,8 @@ class RelaxModelWrapper:
     for cur_pos in range(start_pos, total_len):
       if cur_pos == start_pos:
         t1_start = perf_counter()
-        logits = self.model(tokens[:, :cur_pos], cur_pos, reset=True)
+        to_model = tokens[:, :cur_pos].to(torch.int32)
+        logits = self.model(to_model, cur_pos, reset=True)
         t1_stop = perf_counter()
         print("Elapsed time during prefill in ms:", 1000*(t1_stop-t1_start))
       else:
