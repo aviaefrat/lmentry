@@ -98,6 +98,7 @@ class RelaxModelWrapper:
                stop_tokens: List[int],
                config: dict,
   ):
+    self.device = tvm.device(config["device"])
     self.model = model
     self.stop_tokens = stop_tokens
 
@@ -112,7 +113,7 @@ class RelaxModelWrapper:
     print("GENERATION STARTS")
     prompt_len = in_tokens.shape[1]
     total_len = max_length + prompt_len
-    tvm_tokens = tvm.nd.array(np.zeros((1, total_len), dtype="int32"), device="cuda")
+    tvm_tokens = tvm.nd.array(np.zeros((1, total_len), dtype="int32"), device=self.device)
     tokens = torch.from_dlpack(tvm_tokens)
     tokens[0, : prompt_len] = in_tokens
     start_pos = prompt_len
