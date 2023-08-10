@@ -112,7 +112,7 @@ class RelaxModelWrapper:
     print("GENERATION STARTS")
     prompt_len = in_tokens.shape[1]
     total_len = max_length + prompt_len
-    tvm_tokens = tvm.nd.array(np.zeros((1, total_len), dtype="int32"), device=in_tokens.device)
+    tvm_tokens = tvm.nd.array(np.zeros((1, total_len), dtype="int32"), device="cuda")
     tokens = torch.from_dlpack(tvm_tokens)
     tokens[0, : prompt_len] = in_tokens
     start_pos = prompt_len
