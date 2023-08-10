@@ -45,37 +45,32 @@ class TVMModel:
     self.kv_cache_clear(self.kv_cache)
     self.tot_seq_len = 0
 
-  def torch_to_tvm(self, t):
-    return tvm.nd.from_dlpack(torch.utils.dlpack.to_dlpack(t))
+  def torch_to_tvm(self, torch_t):
+    return tvm.nd.from_dlpack(torch.utils.dlpack.to_dlpack(torch_t))
+  
+  def torch_from_tvm(self, tvm_t):
+    return(torch.utils.dlpack.from_dlpack(tvm_t.to_dlpack()))
 
   def forward(self, inputs: torch.Tensor, reset: bool=False) -> torch.Tensor:
-    t1_start = perf_counter()
     if reset:
       self.reset()
-    np_inputs = inputs.numpy()
-    seq_len = np_inputs.shape[1]
+    seq_len = torch.count_nonzero(inputs)
     self.tot_seq_len += seq_len
     seq_len_shape = tvm.runtime.ShapeTuple([self.tot_seq_len])
     if seq_len > 1 and self.prefill_func:
-      inputs = tvm.nd.array(np_inputs, device=self.device)
+      inputs = tvm.nd.from_dlpack(inputs)
       logits, kv_cache = self.prefill_func(
           inputs, seq_len_shape, self.kv_cache, self.const_params
       )
     else:
       for i in range(seq_len):
-        input_slice = tvm.nd.array(np_inputs[:, i : i + 1], device=self.device)
+        input_slice = tvm.nd.from_dlpack(inputs[:, i : i + 1])
         logits, kv_cache = self.vm["decode"](
             input_slice, seq_len_shape, self.kv_cache, self.const_params
         )
     self.kv_cache = kv_cache
-    t1_stop = perf_counter()
-    print("Elapsed time during forward in ms:", 1000*(t1_stop-t1_start))
-    t1_start = perf_counter()
-    np_logits = logits.numpy()
-    t1_stop = perf_counter()
-    print("Elapsed time during logits to numpy in ms:", 1000*(t1_stop-t1_start))
 
-    return torch.from_numpy(np_logits)
+    return torch.from_dlpack(logits)
 
 
 def get_tvm_model(config):

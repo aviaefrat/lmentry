@@ -61,8 +61,8 @@ def generate_task_hf_predictions(task_name,
     predictions: list[str] = []
     for batch_of_strings in _batcher(string_inputs, batch_size):
         batched_encoding = tokenizer(batch_of_strings, padding="longest", return_tensors="pt")
-        if manager.type != "mlc":
-            batched_encoding = batched_encoding.to(manager.device)
+        # if manager.type != "mlc":
+        batched_encoding = batched_encoding.to(manager.device)
         tensor_inputs = batched_encoding["input_ids"]
         tensor_outputs = model.generate(tensor_inputs, max_length=max_length)
         outputs = tokenizer.batch_decode(tensor_outputs, skip_special_tokens=True)
