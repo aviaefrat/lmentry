@@ -89,8 +89,11 @@ def generate_all_hf_predictions(task_names: list[str] = None, model_name: str = 
         task = all_tasks[task_name]()
         output_file = task.predictions_dir.joinpath(model_name).with_suffix(".json")
         if output_file.exists():
-            logging.info(f"Task {task.name} was skipped due to it was done before")
-            continue
+            with open(output_file) as task_json:
+                task_config = json.load(task_json)
+            if not bool(task_config):
+                logging.info(f"Task {task.name} was skipped due to it was done before")
+                continue
         generate_task_hf_predictions(task_name, manager, model_name, max_length, batch_size, device)
 
 
