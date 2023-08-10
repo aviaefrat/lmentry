@@ -110,14 +110,10 @@ class RelaxModelWrapper:
     in_tokens: torch.Tensor,
     max_length: int,
   ):
-    print("GENERATION STARTS")
     prompt_len = in_tokens.shape[1]
     total_len = max_length + prompt_len
     tvm_tokens = tvm.nd.array(np.zeros((1, total_len), dtype="int32"), device=self.device)
     tokens = torch.from_dlpack(tvm_tokens)
-    print("IS CONTIGUOUS:", tokens.is_contiguous())
-    print("INPUTS SHAPE:", tokens.shape)
-    print("INPUTS STRIDES:", tokens.stride())
     tokens[0, : prompt_len] = in_tokens
     start_pos = prompt_len
     for cur_pos in range(start_pos, total_len):
@@ -135,12 +131,12 @@ class RelaxModelWrapper:
         t1_stop = perf_counter()
         print("Elapsed time during decode in ms:", 1000*(t1_stop-t1_start))
       t1_start = perf_counter()
-      logits = logits[:, -1, :].to(torch.float64)
-      if self.temperature > 0:
-        probs = torch.softmax(logits / self.temperature, dim=-1)
-        next_token = sample_top_p(probs, self.top_p)
-      else:
-        next_token = torch.argmax(logits, dim=-1)
+      logits = logits[:, -1, :].to(torch.float32)
+      # if self.temperature > 0:
+      #   probs = torch.softmax(logits / self.temperature, dim=-1)
+      #   next_token = sample_top_p(probs, self.top_p)
+      # else:
+      next_token = torch.argmax(logits, dim=-1)
       next_token = next_token.reshape(-1)
       tokens[:, cur_pos] = next_token
       t1_stop = perf_counter()
@@ -148,8 +144,6 @@ class RelaxModelWrapper:
 
       if next_token[0] in self.stop_tokens:
         break
-
-    print("GENERATION STOPS")
 
     return tokens[:, :cur_pos + 1]
 
