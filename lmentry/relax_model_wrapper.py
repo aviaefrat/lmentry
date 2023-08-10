@@ -51,10 +51,9 @@ class TVMModel:
   def torch_from_tvm(self, tvm_t):
     return(torch.utils.dlpack.from_dlpack(tvm_t.to_dlpack()))
 
-  def forward(self, inputs: torch.Tensor, reset: bool=False) -> torch.Tensor:
+  def forward(self, inputs: torch.Tensor, seq_len: int=1, reset: bool=False) -> torch.Tensor:
     if reset:
       self.reset()
-    seq_len = torch.count_nonzero(inputs)
     self.tot_seq_len += seq_len
     seq_len_shape = tvm.runtime.ShapeTuple([self.tot_seq_len])
     if seq_len > 1 and self.prefill_func:
@@ -115,7 +114,7 @@ class RelaxModelWrapper:
     for cur_pos in range(start_pos, total_len):
       if cur_pos == start_pos:
         t1_start = perf_counter()
-        logits = self.model(tokens[:, :cur_pos], reset=True)
+        logits = self.model(tokens[:, :cur_pos], cur_pos, reset=True)
         t1_stop = perf_counter()
         print("Elapsed time during prefill in ms:", 1000*(t1_stop-t1_start))
       else:
