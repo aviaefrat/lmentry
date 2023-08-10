@@ -2,6 +2,7 @@ import os
 from typing import Callable, List
 
 import torch
+
 import tvm
 from tvm import relax
 
@@ -31,18 +32,20 @@ class TVMModel:
 
     self.tot_seq_len = 0
     self.kv_cache = self.vm["create_kv_cache"]()
+    self.kv_cache_clear = tvm.get_global_func("vm.builtin.attention_kv_cache_array_clear")
 
     try:
       self.prefill_func = self.vm["prefill"]
     except AttributeError:
       self.prefill_func = None
 
-  def reset_total_len(self):
+  def reset(self):
+    self.kv_cache_clear(self.kv_cache)
     self.tot_seq_len = 0
 
   def forward(self, inputs: torch.Tensor, reset: bool=False) -> torch.Tensor:
     if reset:
-      self.reset_total_len()
+      self.reset()
     inputs = inputs.numpy()
     self.tot_seq_len += inputs.shape[1]
     seq_len_shape = tvm.runtime.ShapeTuple([self.tot_seq_len])
