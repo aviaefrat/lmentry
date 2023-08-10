@@ -49,6 +49,7 @@ class TVMModel:
     return tvm.nd.from_dlpack(torch.utils.dlpack.to_dlpack(t))
 
   def forward(self, inputs: torch.Tensor, reset: bool=False) -> torch.Tensor:
+    t1_start = perf_counter()
     if reset:
       self.reset()
     np_inputs = inputs.numpy()
@@ -67,8 +68,14 @@ class TVMModel:
             input_slice, seq_len_shape, self.kv_cache, self.const_params
         )
     self.kv_cache = kv_cache
+    t1_stop = perf_counter()
+    print("Elapsed time during forward in ms:", 1000*(t1_stop-t1_start))
+    t1_start = perf_counter()
+    np_logits = logits.numpy()
+    t1_stop = perf_counter()
+    print("Elapsed time during logits to numpy in ms:", 1000*(t1_stop-t1_start))
 
-    return torch.from_numpy(logits.numpy())
+    return torch.from_numpy(np_logits)
 
 
 def get_tvm_model(config):
