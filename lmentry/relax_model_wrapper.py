@@ -52,6 +52,7 @@ class TVMModel:
     return(torch.utils.dlpack.from_dlpack(tvm_t.to_dlpack()))
 
   def forward(self, inputs: torch.Tensor, seq_len: int=1, reset: bool=False) -> torch.Tensor:
+    print("IS CONTIGUOUS:", inputs.is_contiguous())
     if reset:
       self.reset()
     self.tot_seq_len += seq_len
