@@ -37,8 +37,8 @@ def generate_task_hf_predictions(task_name,
         raise ValueError("must provide either `model_name` or `model manager`")
     if not manager:
         manager = ModelManager(model_name, device)
-    # if manager.type == "mlc":
-    #     batch_size = 1
+    if manager.type == "mlc":
+        batch_size = 1
 
     logging.info(f"generating predictions for task \"{task_name}\" with model \"{manager.predictor_name}\"")
 
@@ -82,8 +82,8 @@ def generate_all_hf_predictions(task_names: list[str] = None, model_name: str = 
                                 max_length=50, batch_size=200, device: str="cuda"):
     task_names = task_names or all_tasks
     manager = ModelManager(model_name, device)
-    # if manager.type == "mlc":
-    #     batch_size = 1
+    if manager.type == "mlc":
+        batch_size = 1
     for task_name in task_names:
         # check task and skip it if it has been done
         task = all_tasks[task_name]()
