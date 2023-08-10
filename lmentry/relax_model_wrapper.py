@@ -43,20 +43,24 @@ class TVMModel:
     self.kv_cache_clear(self.kv_cache)
     self.tot_seq_len = 0
 
+  def torch_to_tvm(self, t):
+    return tvm.nd.from_dlpack(torch.utils.dlpack.to_dlpack(t))
+
   def forward(self, inputs: torch.Tensor, reset: bool=False) -> torch.Tensor:
     if reset:
       self.reset()
-    inputs = inputs.numpy()
-    self.tot_seq_len += inputs.shape[1]
+    np_inputs = inputs.numpy()
+    seq_len = np_inputs.shape[1]
+    self.tot_seq_len += seq_len
     seq_len_shape = tvm.runtime.ShapeTuple([self.tot_seq_len])
-    if inputs.shape[1] > 1 and self.prefill_func:
-      inputs = tvm.nd.array(inputs, device=self.device)
+    if seq_len > 1 and self.prefill_func:
+      inputs = tvm.nd.array(self.torch_to_tvm(inputs), device=self.device)
       logits, kv_cache = self.prefill_func(
           inputs, seq_len_shape, self.kv_cache, self.const_params
       )
     else:
-      for i in range(inputs.shape[1]):
-        input_slice = tvm.nd.array(inputs[:, i : i + 1], device=self.device)
+      for i in range(seq_len):
+        input_slice = tvm.nd.array(self.torch_to_tvm(inputs[:, i : i + 1]), device=self.device)
         logits, kv_cache = self.vm["decode"](
             input_slice, seq_len_shape, self.kv_cache, self.const_params
         )
@@ -98,6 +102,7 @@ class RelaxModelWrapper:
     in_tokens: torch.Tensor,
     max_length: int,
   ):
+    batch_size = in_tokens.shape[1]
     prompt_len = in_tokens.shape[1]
     total_len = max_length + prompt_len
     tokens = torch.full((1, total_len), 0).to(torch.int32)
