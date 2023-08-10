@@ -6,6 +6,8 @@ import torch
 import tvm
 from tvm import relax
 
+from time import perf_counter
+
 
 def load_params(artifact_path: str, device) -> List[tvm.nd.NDArray]:
   from tvm.contrib import tvmjs  # pylint: disable=import-outside-toplevel
@@ -102,6 +104,7 @@ class RelaxModelWrapper:
     in_tokens: torch.Tensor,
     max_length: int,
   ):
+    print("GENERATION STARTS")
     prompt_len = in_tokens.shape[1]
     total_len = max_length + prompt_len
     tokens = torch.full((1, total_len), 0).to(torch.int32)
@@ -109,9 +112,16 @@ class RelaxModelWrapper:
     start_pos = prompt_len
     for cur_pos in range(start_pos, total_len):
       if cur_pos == start_pos:
+        t1_start = perf_counter()
         logits = self.model(tokens[:, :cur_pos], reset=True)
+        t1_stop = perf_counter()
+        print("Elapsed time during prefill in ms:", 1000*(t1_stop-t1_start))
       else:
+        t1_start = perf_counter()
         logits = self.model(tokens[:, cur_pos - 1 : cur_pos])
+        t1_stop = perf_counter()
+        print("Elapsed time during decode in ms:", 1000*(t1_stop-t1_start))
+      t1_start = perf_counter()
       logits = logits[:, -1, :].to(torch.float64)
       if self.temperature > 0:
         probs = torch.softmax(logits / self.temperature, dim=-1)
@@ -120,9 +130,13 @@ class RelaxModelWrapper:
         next_token = torch.argmax(logits, dim=-1)
       next_token = next_token.reshape(-1)
       tokens[:, cur_pos] = next_token
+      t1_stop = perf_counter()
+      print("Elapsed time during postprocess in ms:", 1000*(t1_stop-t1_start))
 
       if next_token[0] in self.stop_tokens:
         break
+
+    print("GENERATION STOPS")
 
     return tokens[:, :cur_pos + 1]
 
