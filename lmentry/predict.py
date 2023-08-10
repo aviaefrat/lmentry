@@ -37,8 +37,8 @@ def generate_task_hf_predictions(task_name,
         raise ValueError("must provide either `model_name` or `model manager`")
     if not manager:
         manager = ModelManager(model_name, device)
-    if manager.type == "mlc":
-        batch_size = 1
+    # if manager.type == "mlc":
+    #     batch_size = 1
 
     logging.info(f"generating predictions for task \"{task_name}\" with model \"{manager.predictor_name}\"")
 
@@ -61,7 +61,6 @@ def generate_task_hf_predictions(task_name,
     predictions: list[str] = []
     for batch_of_strings in _batcher(string_inputs, batch_size):
         batched_encoding = tokenizer(batch_of_strings, padding="longest", return_tensors="pt")
-        # if manager.type != "mlc":
         batched_encoding = batched_encoding.to(manager.device)
         tensor_inputs = batched_encoding["input_ids"]
         tensor_outputs = model.generate(tensor_inputs, max_length=max_length)
@@ -83,8 +82,8 @@ def generate_all_hf_predictions(task_names: list[str] = None, model_name: str = 
                                 max_length=50, batch_size=200, device: str="cuda"):
     task_names = task_names or all_tasks
     manager = ModelManager(model_name, device)
-    if manager.type == "mlc":
-        batch_size = 1
+    # if manager.type == "mlc":
+    #     batch_size = 1
     for task_name in task_names:
         generate_task_hf_predictions(task_name, manager, model_name, max_length, batch_size, device)
 

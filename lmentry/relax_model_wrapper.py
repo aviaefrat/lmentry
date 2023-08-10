@@ -105,33 +105,39 @@ class RelaxModelWrapper:
     in_tokens: torch.Tensor,
     max_length: int,
   ):
-    prompt_len = in_tokens.shape[1]
-    total_len = max_length + prompt_len
-    tvm_tokens = tvm.nd.array(np.zeros((1, total_len), dtype="int32"), device=self.device)
-    tokens = torch.from_dlpack(tvm_tokens)
-    tokens[0, : prompt_len] = in_tokens
-    start_pos = prompt_len
-    for cur_pos in range(start_pos, total_len):
-      if cur_pos == start_pos:
-        logits = self.model(tokens[:, :cur_pos], cur_pos, reset=True)
-      else:
-        tvm_to_model = tvm.nd.array(np.zeros((1, 1), dtype="int32"), device=self.device)
-        to_model = torch.from_dlpack(tvm_to_model)
-        to_model[0, 0] = tokens[:, cur_pos - 1 : cur_pos]
-        logits = self.model(to_model)
-      logits = logits[:, -1, :].to(torch.float32)
-      # if self.temperature > 0:
-      #   probs = torch.softmax(logits / self.temperature, dim=-1)
-      #   next_token = sample_top_p(probs, self.top_p)
-      # else:
-      next_token = torch.argmax(logits, dim=-1)
-      next_token = next_token.reshape(-1)
-      tokens[:, cur_pos] = next_token
+    out_tokens = []
+    splitted_tokens = in_tokens.split()
+    for in_token in splitted_tokens:
+      in_token = torch.squeeze(in_token)
+      prompt_len = in_token.count_nonzero()
+      total_len = max_length + prompt_len
+      tvm_tokens = tvm.nd.array(np.zeros((1, total_len), dtype="int32"), device=self.device)
+      tokens = torch.from_dlpack(tvm_tokens)
+      tokens[0, : prompt_len] = in_token[: prompt_len]
+      start_pos = prompt_len
+      for cur_pos in range(start_pos, total_len):
+        if cur_pos == start_pos:
+          logits = self.model(tokens[:, :cur_pos], cur_pos, reset=True)
+        else:
+          tvm_to_model = tvm.nd.array(np.zeros((1, 1), dtype="int32"), device=self.device)
+          to_model = torch.from_dlpack(tvm_to_model)
+          to_model[0, 0] = tokens[:, cur_pos - 1 : cur_pos]
+          logits = self.model(to_model)
+        logits = logits[:, -1, :].to(torch.float32)
+        # if self.temperature > 0:
+        #   probs = torch.softmax(logits / self.temperature, dim=-1)
+        #   next_token = sample_top_p(probs, self.top_p)
+        # else:
+        next_token = torch.argmax(logits, dim=-1)
+        next_token = next_token.reshape(-1)
+        tokens[:, cur_pos] = next_token
 
-      if next_token[0] in self.stop_tokens:
-        break
+        if next_token[0] in self.stop_tokens:
+          break
 
-    return tokens[:, :cur_pos + 1]
+      out_tokens.append(tokens[:, :cur_pos + 1])
+
+    return torch.cat(out_tokens)
 
 
 def get_relax_model(config, eos_token_id):
