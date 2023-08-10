@@ -2,6 +2,7 @@ import os
 from typing import Callable, List
 
 import torch
+import numpy as np
 
 import tvm
 from tvm import relax
@@ -111,7 +112,8 @@ class RelaxModelWrapper:
     print("GENERATION STARTS")
     prompt_len = in_tokens.shape[1]
     total_len = max_length + prompt_len
-    tokens = torch.full((1, total_len), 0).to(torch.int32)
+    tvm_tokens = tvm.nd.array(np.zeros((1, total_len), dtype="int32"), device=in_tokens.device)
+    tokens = torch.from_dlpack(tvm_tokens)
     tokens[0, : prompt_len] = in_tokens
     start_pos = prompt_len
     for cur_pos in range(start_pos, total_len):
