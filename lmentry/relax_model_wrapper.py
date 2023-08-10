@@ -53,6 +53,8 @@ class TVMModel:
 
   def forward(self, inputs: torch.Tensor, seq_len: int=1, reset: bool=False) -> torch.Tensor:
     print("IS CONTIGUOUS:", inputs.is_contiguous())
+    print("INPUTS SHAPE:", inputs.shape)
+    print("INPUTS STRIDES:", inputs.stride())
     if reset:
       self.reset()
     self.tot_seq_len += seq_len
