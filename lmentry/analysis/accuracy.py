@@ -8,7 +8,7 @@ from pathlib import Path
 import numpy as np
 
 from lmentry.constants import (
-    RESULTS_DIR, paper_models, get_short_model_name, PREDICTIONS_ROOT_DIR, TASKS_DATA_DIR
+    RESULTS_DIR, paper_models, hf_models, PREDICTIONS_ROOT_DIR, TASKS_DATA_DIR
 )
 from lmentry.tasks.lmentry_tasks import all_tasks, core_tasks
 
@@ -89,13 +89,38 @@ def get_accuracy_and_certainty(task_name: str, model_name: str) -> dict:
     return output
 
 
+def get_short_model_names(model_names):
+    short_model_names = []
+    for model_name in model_names:
+        short_name = ""
+        if model_name in paper_models.keys():
+            short_name = paper_models[model_name].get("short_name", model_name)
+        elif model_name in hf_models.keys():
+            short_name = hf_models[model_name].get("short_name", model_name)
+        elif Path(model_name).is_dir():
+            model_root = Path(model_name)
+            mlc_config_file = model_root.joinpath("params/mlc-chat-config.json")
+
+            mlc_config = {}
+            with open(mlc_config_file) as json_file:
+                mlc_config = json.load(json_file)
+
+            model_local_id = mlc_config["local_id"]
+            short_name = model_local_id.replace(".", "-")
+        else:
+            raise ValueError(f"Model name {model_name} is not in the list and not the path to mlc-llm model")
+
+        short_model_names.append(short_name)
+    return short_model_names
+
+
 def create_per_task_accuracy_csv(task_names: list[str] = None, model_names: list[str] = None,
                                  output_path: Path = None):
     rows: list[list] = list()
 
     model_names = model_names or list(paper_models)
 
-    column_names = ["task"] + [get_short_model_name(model_name) for model_name in model_names]
+    column_names = ["task"] + get_short_model_names(model_names)
     rows.append(column_names)
 
     # rest of the rows are task result rows
@@ -131,7 +156,7 @@ def create_per_template_accuracy_csv(task_names: list[str] = None, model_names: 
 
     first_row = ["task"]
     for model_name in model_names:
-        first_row.extend([get_short_model_name(model_name)] * 3)  # replicating the model name for easy conversion to a multiindex df
+        first_row.extend(get_short_model_names([model_name]) * 3)  # replicating the model name for easy conversion to a multiindex df
     rows.append(first_row)
 
     # second row
