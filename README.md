@@ -25,10 +25,16 @@ python3 -m pip install decorator attrs
 ```
 
 # Prediction
+If we want to benchmark model processed in [mlc-llm](https://github.com/mlc-ai/mlc-llm) the path to root directory with model shared library (so-file) and dependencies is simply needed:
+```bash
+python3 predict_model.py -m <path_to_mlc-llm>/dist/vicuna-7b-v1.3-q0f16
+```
 
 # Evaluation
-
-
+The evaluation script processes statistics collected during the prediction stage and output values of accuracy, robustness and LMentry score averaged and for each task formed in csv-files. Based on number of processed task (total number is 41) and number of models it can require much time for evaluation. Due to this fact it is recommended to set as many <num-procs> as possible to accelerate the process.
+```bash
+python3 lmentry/evaluate.py --num-procs <num-procs>
+```
 
 # README from paper and original github repo authors
 Due to the reason that the original repo do not allows to work with any other LLM from the box excluding ones from the paper it was forked and strongly refactored. But with regards to the authors of the initial work the text from their README is stayed here.
