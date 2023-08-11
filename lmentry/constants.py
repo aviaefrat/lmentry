@@ -36,6 +36,9 @@ paper_models = {
 
 hf_models = {
     "vicuna-7b-v1-3": {"short_name": "vicuna", "paper_name": "Vicuna-7b", "predictor_name": "lmsys/vicuna-7b-v1.3"},
+# TODO(vchernov): workaround for mlc-models short names
+    "vicuna7bv1": {"short_name": "vicuna7bv1"},
+    "vicuna-7b-v1-3-q4f16_0": {"short_name": "vicuna-7b-v1-3-q4f16_0"},
 }
 
 text_001_models = [
