@@ -27,8 +27,9 @@ class ModelManager:
         mlc_config = json.load(json_file)
 
       model_local_id = mlc_config["local_id"]
-      model_name_and_quant_list = model_local_id.split("-")
-      self.model_name = "".join(model_name_and_quant_list[:-1])
+      self.model_name = model_local_id
+      # model_name_and_quant_list = model_local_id.split("-")
+      # self.model_name = "".join(model_name_and_quant_list[:-1])
 
       self.config ={
         "artifact_path": model_name,
