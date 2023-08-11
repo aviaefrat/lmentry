@@ -14,9 +14,9 @@ def parse_arguments():
       description="CLI for evaluating LMentry using the default file locations",
       formatter_class=argparse.ArgumentDefaultsHelpFormatter
   )
-  parser.add_argument('-m', '--model_name', type=str, default="vicuna-7b-v1-3",
+  parser.add_argument("-m", "--model_name", type=str, default="vicuna-7b-v1-3",
                       help="Model name or path to the root directory of mlc-llm model")
-  parser.add_argument("--num-procs",
+  parser.add_argument("-n", "--num-procs",
                       default=1,
                       type=int,
                       help="the number of processes to use when scoring the predictions.\n"
