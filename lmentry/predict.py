@@ -81,6 +81,7 @@ def generate_task_hf_predictions(task_name,
 
     print("PREDICTION DATA:", predictions_data)
     output_path = output_path or task.predictions_dir.joinpath(model_name).with_suffix(".json")
+    print("OUTPUT PATH:", output_path)
     with open(output_path, "w") as f_predictions:
         json.dump(predictions_data, f_predictions, indent=2)
 
