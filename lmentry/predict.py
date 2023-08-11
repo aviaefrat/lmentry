@@ -59,29 +59,21 @@ def generate_task_hf_predictions(task_name,
 
     # generate predictions
     predictions: list[str] = []
-    counter = 0
     for batch_of_strings in _batcher(string_inputs, batch_size):
-        if counter > 2:
-            predictions.extend("")
-        else:
-            batched_encoding = tokenizer(batch_of_strings, padding="longest", return_tensors="pt")
-            batched_encoding = batched_encoding.to(manager.device)
-            tensor_inputs = batched_encoding["input_ids"]
-            tensor_outputs = model.generate(tensor_inputs.cpu(), max_length=max_length)
-            outputs = tokenizer.batch_decode(tensor_outputs, skip_special_tokens=True)
-            predictions.extend(outputs)
-            logging.info(f"generated {len(predictions)} predictions for {task.name}")
-        counter += 1
-
+        batched_encoding = tokenizer(batch_of_strings, padding="longest", return_tensors="pt")
+        batched_encoding = batched_encoding.to(manager.device)
+        tensor_inputs = batched_encoding["input_ids"]
+        tensor_outputs = model.generate(tensor_inputs.cpu(), max_length=max_length)
+        outputs = tokenizer.batch_decode(tensor_outputs, skip_special_tokens=True)
+        predictions.extend(outputs)
+        logging.info(f"generated {len(predictions)} predictions for {task.name}")
 
     # save the predictions
     predictions_data = dict()
     for id_, input_, prediction in zip(examples, string_inputs, predictions):
         predictions_data[id_] = {"input": input_, "prediction": prediction}
 
-    print("PREDICTION DATA:", predictions_data)
     output_path = output_path or task.predictions_dir.joinpath(manager.model_name).with_suffix(".json")
-    print("OUTPUT PATH:", output_path)
     with open(output_path, "w") as f_predictions:
         json.dump(predictions_data, f_predictions, indent=2)
 
