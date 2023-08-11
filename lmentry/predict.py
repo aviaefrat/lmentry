@@ -88,9 +88,12 @@ def generate_all_hf_predictions(task_names: list[str] = None, model_name: str = 
         # check task and skip it if it has been done
         task = all_tasks[task_name]()
         output_file = task.predictions_dir.joinpath(manager.model_name).with_suffix(".json")
+        print("OUTPUT FILE:", output_file)
         if output_file.exists():
             with open(output_file) as task_json:
                 task_config = json.load(task_json)
+            print("TASK CONFIG:", task_config)
+            print("CONFIG IS EMPTY:", not bool(task_config))
             if not bool(task_config):
                 logging.info(f"Task {task.name} was skipped due to it was done before")
                 continue
