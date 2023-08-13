@@ -7,6 +7,7 @@ from lmentry.analysis.accuracy import (
   create_per_task_accuracy_csv,
   create_per_template_accuracy_csv,
 )
+from lmentry.tasks.lmentry_tasks import all_tasks
 
 
 def parse_arguments():
@@ -16,6 +17,8 @@ def parse_arguments():
   )
   parser.add_argument("-m", "--model_name", type=str, default="vicuna-7b-v1-3",
                       help="Model name or path to the root directory of mlc-llm model")
+  parser.add_argument('-t', '--task_name', type=str, default=None,
+                      help=f"If need to evaluate only one task set its name. Name should be from the list: {all_tasks.keys()}")
   parser.add_argument("-n", "--num-procs",
                       default=1,
                       type=int,
@@ -34,9 +37,11 @@ def main():
   RESULTS_DIR.mkdir(exist_ok=True)
 
   args = parse_arguments()
-  # TODO(vchernov): hardcode to quick check
-  task_names = ["first_letter"]
-  model_names = ["vicuna-7b-v1-3", "vicuna7bv1", "vicuna-7b-v1-3-q4f16_0"] # HF, mlc_q0f16, mlc_q4f16_0
+  if args.task_name is not None:
+    task_names = [args.task_name] # ["first_letter"]
+  else:
+    task_names = sorted(all_tasks.keys())
+  model_names = ["vicuna-7b-v1-3", "vicuna-7b-v1-3-q0f16", "vicuna-7b-v1-3-q4f16_0"] # HF, mlc_q0f16, mlc_q4f16_0
   logging.info(f"scoring LMentry predictions for models {model_names}")
   score_all_predictions(task_names=task_names,
                         model_names=model_names,
