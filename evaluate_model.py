@@ -15,15 +15,18 @@ def parse_arguments():
       description="CLI for evaluating LMentry using the default file locations",
       formatter_class=argparse.ArgumentDefaultsHelpFormatter
   )
-  parser.add_argument("-m", "--model_name", type=str, default="vicuna-7b-v1-3",
-                      help="Model name or path to the root directory of mlc-llm model")
-  parser.add_argument('-t', '--task_name', type=str, default=None,
-                      help=f"If need to evaluate only one task set its name. Name should be from the list: {all_tasks.keys()}")
+  parser.add_argument("-m", "--model_names", nargs="+", type=str, default=None,
+                      help="Names of models which statistics were collected and should evaluate. "
+                           "If it is None the predictions directory is analized and evailable model-statistics are evaluated")
+  parser.add_argument('-t', '--task_name', nargs="+", type=str, default=None,
+                      help=f"If need to evaluate specified set of tasks set their names. "
+                            "Task names should be from the list: {all_tasks.keys()}. "
+                            "It tries to analyze all tasks by default")
   parser.add_argument("-n", "--num-procs",
                       default=1,
                       type=int,
-                      help="the number of processes to use when scoring the predictions.\n"
-                            "can be up to the number of models you want to evaluate * 41.")
+                      help="The number of processes to use when scoring the predictions. "
+                           "Can be up to the number of models you want to evaluate * 41.")
   return parser.parse_args()
 
 
