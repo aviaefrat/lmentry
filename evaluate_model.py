@@ -41,19 +41,19 @@ def main():
 
   args = parse_arguments()
   if args.task_name is not None:
-    task_names = [args.task_name] # ["first_letter"]
+    task_names = args.task_name
   else:
     task_names = sorted(all_tasks.keys())
-  model_names = ["vicuna-7b-v1-3", "vicuna-7b-v1-3-q0f16", "vicuna-7b-v1-3-q4f16_0"] # HF, mlc_q0f16, mlc_q4f16_0
-  logging.info(f"scoring LMentry predictions for models {model_names}")
+  # model_names = ["vicuna-7b-v1-3", "vicuna-7b-v1-3-q0f16", "vicuna-7b-v1-3-q4f16_0"] # HF, mlc_q0f16, mlc_q4f16_0
+  logging.info(f"scoring LMentry predictions for models {args.model_names}")
   score_all_predictions(task_names=task_names,
-                        model_names=model_names,
+                        model_names=args.model_names,
                         num_processes=args.num_procs
                         )
-  logging.info(f"finished scoring all LMentry predictions for models {model_names}")
+  logging.info(f"finished scoring all LMentry predictions for models {args.model_names}")
 
-  create_per_task_accuracy_csv(task_names=task_names, model_names=model_names)
-  create_per_template_accuracy_csv(task_names=task_names, model_names=model_names)
+  create_per_task_accuracy_csv(task_names=task_names, model_names=args.model_names)
+  create_per_template_accuracy_csv(task_names=task_names, model_names=args.model_names)
 
 
 if __name__ == "__main__":
