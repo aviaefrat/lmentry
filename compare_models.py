@@ -4,11 +4,8 @@ import logging
 from lmentry.constants import TASKS_DATA_DIR, RESULTS_DIR
 from lmentry.tasks.lmentry_tasks import all_tasks, tasks_to_compare
 from lmentry.predict import generate_all_hf_predictions
-from lmentry.analysis.accuracy import (
-  score_all_predictions,
-  create_per_task_accuracy_csv,
-  create_per_template_accuracy_csv,
-)
+from lmentry.analysis.accuracy import flexible_scoring
+from lmentry.analysis.comparison import create_per_task_accuracy_comparison_csv
 
 
 def parse_arguments():
@@ -55,6 +52,8 @@ def main():
   else:
     task_names = sorted(tasks_to_compare.keys())
 
+  model_names = [args.ref_model_name, args.probe_model_name]
+
   # Predict specified tasks for given models
   # Reference model
   logging.info(f"Prediction for {args.ref_model_name} model starts")
@@ -77,16 +76,11 @@ def main():
   )
   logging.info(f"Prediction for {args.probe_model_name} model finished")
 
-  logging.info(f"scoring LMentry predictions for specified models")
-  score_all_predictions(task_names=task_names,
-                        model_names=args.model_names,
-                        num_processes=args.num_procs
-                        )
-  logging.info(f"finished scoring all LMentry predictions for specified models")
+  flexible_scoring(task_names=task_names,
+                   model_names=model_names,
+                   num_processes=args.num_procs)
 
-  model_names = [args.ref_model_name, args.probe_model_name]
-  create_per_task_accuracy_csv(task_names=task_names, model_names=model_names)
-  create_per_template_accuracy_csv(task_names=task_names, model_names=model_names)
+  create_per_task_accuracy_comparison_csv(model_names=model_names, task_names=task_names)
 
 
 if __name__ == "__main__":
