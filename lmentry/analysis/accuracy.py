@@ -297,7 +297,7 @@ def look_through_predictions_dir(model_names: list[str] = None, task_names: list
             else:
                 models_path_list = [f for f in task_dir.iterdir() if f.is_file()]
             for model_path in models_path_list:
-                if model_path.suffix == "json":
+                if model_path.suffix == ".json":
                     model_name = model_path.stem
                     if model_name in model_tasks_dict:
                         model_tasks_dict[model_name].append(task_name)
