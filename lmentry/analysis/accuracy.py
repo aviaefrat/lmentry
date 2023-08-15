@@ -90,6 +90,11 @@ def get_accuracy_and_certainty(task_name: str, model_name: str) -> dict:
     return output
 
 
+def get_comparison(task_name: str, model_names: list[str]) -> dict:
+    metrics={}
+    return metrics
+
+
 def get_short_model_names(model_names):
     short_model_names = []
     for model_name in model_names:
