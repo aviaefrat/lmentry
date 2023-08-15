@@ -11,6 +11,7 @@ from lmentry.constants import (
     RESULTS_DIR, paper_models, hf_models, PREDICTIONS_ROOT_DIR, TASKS_DATA_DIR
 )
 from lmentry.tasks.lmentry_tasks import all_tasks, core_tasks
+from lmentry.model_manager import get_type_config
 
 logging.basicConfig(format='%(asctime)s %(message)s', datefmt='%Y/%m/%d %H:%M:%S', level=logging.INFO)
 
@@ -167,27 +168,11 @@ def get_comparison(task_name: str, model_names: list[str]) -> dict:
 
 
 def get_short_model_names(model_names):
-    short_model_names = []
+    short_model_names =[]
     for model_name in model_names:
-        short_name = ""
-        if model_name in paper_models.keys():
-            short_name = paper_models[model_name].get("short_name", model_name)
-        elif model_name in hf_models.keys():
-            short_name = hf_models[model_name].get("short_name", model_name)
-        elif Path(model_name).is_dir():
-            model_root = Path(model_name)
-            mlc_config_file = model_root.joinpath("params/mlc-chat-config.json")
+        _, model_config = get_type_config(model_name)
+        short_model_names.append(model_config["short_name"])
 
-            mlc_config = {}
-            with open(mlc_config_file) as json_file:
-                mlc_config = json.load(json_file)
-
-            model_local_id = mlc_config["local_id"]
-            short_name = model_local_id.replace(".", "-")
-        else:
-            raise ValueError(f"Model name {model_name} is not in the list and not the path to mlc-llm model")
-
-        short_model_names.append(short_name)
     return short_model_names
 
 
@@ -334,7 +319,7 @@ def flexible_scoring(task_names: list[str] = None, model_names: list[str] = None
         logging.error(f"Predictions not found at {PREDICTIONS_ROOT_DIR}. aborting.\n")
         return
 
-    model_tasks_dict = look_through_predictions_dir(model_names=model_names,
+    model_tasks_dict = look_through_predictions_dir(model_names=get_short_model_names(model_names),
                                                     task_names=task_names)
 
     for model, tasks in model_tasks_dict.items():
