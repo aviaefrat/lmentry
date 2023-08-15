@@ -304,7 +304,7 @@ def look_through_predictions_dir(model_names: list[str] = None, task_names: list
                     else:
                         model_tasks_dict[model_name] = [task_name]
                 else:
-                    logging.warning(f"Directory {task_name} in predictions is not a task!")
+                    logging.warning(f"File {model_path} in {task_name} directory is not a json-file!")
         else:
             logging.warning(f"Directory {task_name} in predictions is not a task!")
     return model_tasks_dict
