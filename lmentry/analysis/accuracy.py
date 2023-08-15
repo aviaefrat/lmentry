@@ -207,6 +207,68 @@ def score_all_predictions(task_names: list[str] = None, model_names: list[str] =
         pool.starmap(score_task_predictions, starargs)
 
 
+def look_through_predictions_dir(model_names: list[str] = None, task_names: list[str] = None):
+    model_tasks_dict = {}
+    if task_names:
+        tasks_path_list = [PREDICTIONS_ROOT_DIR.joinpath(task_name) for task_name in task_names]
+        # Check
+        checked_tasks_path_list = set(tasks_path_list)
+        for task_path in tasks_path_list:
+            if not task_path.is_dir():
+                logging.warning(f"There is no {task_path.name} directory in predictions")
+                checked_tasks_path_list.discard(task_path)
+        tasks_path_list = list(checked_tasks_path_list)
+    else:
+        tasks_path_list = [f for f in PREDICTIONS_ROOT_DIR.iterdir() if f.is_dir()]
+    for task_dir in tasks_path_list:
+        task_name = task_dir.name
+        if task_name in all_tasks:
+            models_path_list =[]
+            if model_names:
+                models_path_list = [task_dir.joinpath(f"{model_name}.json") for model_name in model_names]
+                # Check
+                checked_models_path_list = set(models_path_list)
+                for model_path in models_path_list:
+                    if not model_path.is_file():
+                        logging.warning(f"There is no {model_path.name} file in {task_name} directory")
+                        checked_models_path_list.discard(model_path)
+                models_path_list = list(checked_models_path_list)
+            else:
+                models_path_list = [f for f in task_dir.iterdir() if f.is_file()]
+            for model_path in models_path_list:
+                if model_path.suffix == "json":
+                    model_name = model_path.stem
+                    if model_name in model_tasks_dict:
+                        model_tasks_dict[model_name].append(task_name)
+                    else:
+                        model_tasks_dict[model_name] = [task_name]
+                else:
+                    logging.warning(f"Directory {task_name} in predictions is not a task!")
+        else:
+            logging.warning(f"Directory {task_name} in predictions is not a task!")
+    return model_tasks_dict
+
+
+def flexible_scoring(task_names: list[str] = None, model_names: list[str] = None,
+                     num_processes: int = 1):
+    if not TASKS_DATA_DIR.exists():
+        logging.error(f"LMentry tasks data not found at {TASKS_DATA_DIR}. aborting.\n")
+        return
+    if not PREDICTIONS_ROOT_DIR.exists():
+        logging.error(f"Predictions not found at {PREDICTIONS_ROOT_DIR}. aborting.\n")
+        return
+
+    model_tasks_dict = look_through_predictions_dir(model_names=model_names,
+                                                    task_names=task_names)
+
+    for model, tasks in model_tasks_dict.items():
+        logging.info(f"scoring LMentry predictions for {model}")
+        score_all_predictions(task_names=tasks,
+                              model_names=[model],
+                              num_processes=num_processes)
+        logging.info(f"Scoring LMentry predictions for {model} finished")
+
+
 def get_model_accuracy(model_name):
 
     task_accuracies = []
