@@ -19,6 +19,7 @@ def get_accuracy_and_certainty(task_name: str, model_name: str) -> dict:
     # load scored predictions
     prediction_path = PREDICTIONS_ROOT_DIR.joinpath(task_name).joinpath(f"{model_name}.json")
     if not prediction_path.exists():
+        logging.warning(f"File {prediction_path} was not found therefore no results for task {task_name} with model {model_name}")
         return dict()
 
     with open(prediction_path) as f_predictions:
