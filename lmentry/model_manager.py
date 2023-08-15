@@ -8,38 +8,51 @@ from transformers import AutoModelForCausalLM, AutoModelForSeq2SeqLM, AutoTokeni
 from lmentry.constants import paper_models, hf_models, hf_11b_models
 
 
+def get_type_config(model_name: str, device: str="cuda"):
+  type=""
+  config={}
+  if model_name in paper_models.keys():
+    type = "paper"
+    config = paper_models[model_name]
+    config["model_name"] = model_name
+  elif model_name in hf_models.keys():
+    type = "hf"
+    config = hf_models[model_name]
+    config["model_name"] = model_name
+  elif Path(model_name).is_dir():
+    type = "mlc"
+    model_root = Path(model_name)
+    mlc_config_file = model_root.joinpath("params/mlc-chat-config.json")
+
+    mlc_config = {}
+    with open(mlc_config_file) as json_file:
+      mlc_config = json.load(json_file)
+
+    model_local_id = mlc_config["local_id"]
+    config_model_name = model_local_id.replace(".", "-")
+
+    config ={
+      "model_name": config_model_name,
+      "artifact_path": model_name,
+      "mlc_model_name": model_local_id,
+      "device": device,
+      "temperature": mlc_config["temperature"],
+      "top_p": mlc_config["top_p"],
+    }
+  else:
+    raise ValueError(f"Model name {model_name} is not in the list and not the path to mlc-llm model")
+
+  model_name = config["model_name"]
+  config["short_name"] = config.get("short_name", model_name)
+  config["paper_name"] = config.get("paper_name", model_name)
+  config["predictor_name"] = config.get("predictor_name", model_name)
+
+  return type, config
+
 class ModelManager:
   def __init__(self, model_name: str, device: str="cuda"):
-    self.model_name = model_name
-    if model_name in paper_models.keys():
-      self.type = "paper"
-      self.config = paper_models[model_name]
-    elif model_name in hf_models.keys():
-      self.type = "hf"
-      self.config = hf_models[model_name]
-    elif Path(model_name).is_dir():
-      self.type = "mlc"
-      model_root = Path(model_name)
-      mlc_config_file = model_root.joinpath("params/mlc-chat-config.json")
-
-      mlc_config = {}
-      with open(mlc_config_file) as json_file:
-        mlc_config = json.load(json_file)
-
-      model_local_id = mlc_config["local_id"]
-      self.model_name = model_local_id.replace(".", "-")
-      # model_name_and_quant_list = model_local_id.split("-")
-      # self.model_name = "".join(model_name_and_quant_list[:-1])
-
-      self.config ={
-        "artifact_path": model_name,
-        "mlc_model_name": model_local_id,
-        "device": device,
-        "temperature": mlc_config["temperature"],
-        "top_p": mlc_config["top_p"],
-      }
-    else:
-      raise ValueError(f"Model name {model_name} is not in the list and not the path to mlc-llm model")
+    self.type, self.config = get_type_config(model_name, device)
+    self.model_name = self.config["model_name"]
 
     self.short_name = self.config.get("short_name", self.model_name)
     self.paper_name = self.config.get("paper_name", self.model_name)
