@@ -14,9 +14,7 @@ from lmentry.tasks.lmentry_tasks import all_tasks, core_tasks
 
 logging.basicConfig(format='%(asctime)s %(message)s', datefmt='%Y/%m/%d %H:%M:%S', level=logging.INFO)
 
-
-def get_accuracy_and_certainty(task_name: str, model_name: str) -> dict:
-    # load scored predictions
+def get_prediction(task_name: str, model_name: str):
     prediction_path = PREDICTIONS_ROOT_DIR.joinpath(task_name).joinpath(f"{model_name}.json")
     if not prediction_path.exists():
         logging.warning(f"File {prediction_path} was not found therefore no results for task {task_name} with model {model_name}")
@@ -24,6 +22,13 @@ def get_accuracy_and_certainty(task_name: str, model_name: str) -> dict:
 
     with open(prediction_path) as f_predictions:
         predictions = json.load(f_predictions)
+
+    return predictions
+
+
+def get_accuracy_and_certainty(task_name: str, model_name: str) -> dict:
+    # load scored predictions
+    predictions = get_prediction(task_name, model_name)
 
     # load task data (for ids and templates)
     task_data_path = TASKS_DATA_DIR.joinpath(f"{task_name}.json")
@@ -43,14 +48,15 @@ def get_accuracy_and_certainty(task_name: str, model_name: str) -> dict:
               for i in range(num_input_templates)
               }
     for id_, prediction_entry in predictions.items():
-        score = prediction_entry["score"]
-        certainty = prediction_entry["certainty"]
+        if id_ != "scoring":
+            score = prediction_entry["score"]
+            certainty = prediction_entry["certainty"]
 
-        template_id = examples[id_]["metadata"]["template_id"]
-        output[f"template{template_id}"][f"n_{score}s"] += 1
-        output[f"template{template_id}"][f"n_certain"] += certainty
-        if certainty:
-            output[f"template{template_id}"][f"n_certain_{score}s"] += 1
+            template_id = examples[id_]["metadata"]["template_id"]
+            output[f"template{template_id}"][f"n_{score}s"] += 1
+            output[f"template{template_id}"][f"n_certain"] += certainty
+            if certainty:
+                output[f"template{template_id}"][f"n_certain_{score}s"] += 1
 
     # calculate pre-template accuracy and certainty
     num_examples_per_template = task_data["settings"]["num_examples_per_template"]
@@ -91,7 +97,72 @@ def get_accuracy_and_certainty(task_name: str, model_name: str) -> dict:
 
 
 def get_comparison(task_name: str, model_names: list[str]) -> dict:
-    metrics={}
+    metrics={
+        "full match": 0,
+        "correct match": 0,
+        "wrong match": 0,
+        "correct non-match": 0,
+        "correct": 0,
+    }
+
+    if len(model_names) != 2:
+        logging.error(f"Two model names for comparison are expeceted, but {len(model_names)} were given")
+        return dict()
+    ref_model_name = model_names[0]
+    probe_model_name = model_names[1]
+
+    # load scored predictions for reference model
+    ref_predictions = get_prediction(task_name, ref_model_name)
+
+    # load scored predictions for probe model
+    probe_predictions = get_prediction(task_name, probe_model_name)
+
+    full_counter = 0
+    full_match_counter = 0
+    correct_match_counter = 0
+    wrong_match_counter = 0
+    correct_non_match_counter = 0
+    correct_counter = 0
+    correct_ref_counter = 0
+    for id_ in ref_predictions:
+        if id_ != "scoring":
+            full_counter += 1
+            ref_prediction_entry = ref_predictions[id_]
+            probe_prediction_entry = probe_predictions[id_]
+            ref_prediction = ref_prediction_entry["prediction"].lower()
+            probe_prediction = probe_prediction_entry["prediction"].lower()
+            ref_score = ref_prediction_entry["score"]
+            probe_score = probe_prediction_entry["score"]
+            if ref_score == 1:
+                correct_ref_counter += 1
+            if ref_prediction == probe_prediction:
+                full_match_counter += 1
+                if ref_score == probe_score:
+                    if ref_score == 1:
+                        correct_match_counter += 1
+                        correct_counter += 1
+                    elif ref_score == 0:
+                        wrong_match_counter += 1
+            elif ref_score == 1 and probe_score == 1:
+                correct_non_match_counter += 1
+                correct_counter += 1
+
+    if full_counter == 0:
+        logging.warning("There is no any predictions")
+        full_counter = 1
+    if correct_ref_counter == 0:
+        logging.warning("There is no any correct predictions")
+        correct_ref_counter = 1
+    metrics["full match"] = float(full_match_counter) / full_counter
+    metrics["correct match"] = float(correct_match_counter) / full_counter
+    metrics["wrong match"] = float(wrong_match_counter) / full_counter
+    metrics["correct non-match"] = float(correct_non_match_counter) / correct_ref_counter
+    metrics["correct"] = float(correct_counter) / correct_ref_counter
+
+    # round to two decimal digits
+    for metric_type in ["full match", "correct match", "wrong match", "correct non-match", "correct"]:
+        metrics[metric_type] = round(metrics[metric_type] * 100, 2)
+
     return metrics
 
 

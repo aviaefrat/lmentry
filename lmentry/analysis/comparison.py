@@ -20,6 +20,7 @@ def create_per_task_accuracy_comparison_csv(
   for model_name in model_names:
     _, model_config = get_type_config(model_name)
     short_model_names.append(model_config["short_name"])
+  model_names = short_model_names
 
   column_names = ["task"] + short_model_names + ["full match, %", "correct match, %", "wrong match, %", "correct non-match, %", "correct, %"]
   rows.append(column_names)
