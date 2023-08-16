@@ -30,7 +30,7 @@ class LMentryTask:
         with open(task_data_path, "w") as f:
             json.dump(task_data, f, indent=2)
 
-    def score_predictions(self, model_name):
+    def score_predictions(self, model_name, forced_scoring: bool = False):
         logging.info(f"starting to score {self.name} predictions for {model_name}")
 
         predictions_path = self.predictions_dir.joinpath(f"{model_name}.json")
@@ -43,6 +43,7 @@ class LMentryTask:
                                  task_data_path=task_data_path,
                                  output_path=output_path,
                                  truncate_predictions=truncate_predictions,
-                                 log_file_locations=False
+                                 log_file_locations=False,
+                                 forced_scoring=forced_scoring,
                                  )
         logging.info(f"finished scoring {self.name} predictions for {model_name}")
