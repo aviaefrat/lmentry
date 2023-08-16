@@ -254,19 +254,19 @@ def create_per_template_accuracy_csv(task_names: list[str] = None, model_names: 
         writer.writerows(rows)
 
 
-def score_task_predictions(task_name: str, model_name: str):
+def score_task_predictions(task_name: str, model_name: str, forced_scoring: bool=False):
 
     task = all_tasks[task_name]()
-    task.score_predictions(model_name)
+    task.score_predictions(model_name, forced_scoring=forced_scoring)
 
 
 def score_all_predictions(task_names: list[str] = None, model_names: list[str] = None,
-                          num_processes: int = 1):
+                          num_processes: int = 1, forced_scoring: bool=False):
 
     task_names = task_names or all_tasks.keys()
     model_names = model_names or list(paper_models)
 
-    starargs = itertools.product(task_names, model_names)
+    starargs = itertools.product(task_names, model_names, [forced_scoring])
 
     with Pool(processes=num_processes) as pool:
         pool.starmap(score_task_predictions, starargs)
@@ -315,7 +315,7 @@ def look_through_predictions_dir(model_names: list[str] = None, task_names: list
 
 
 def flexible_scoring(task_names: list[str] = None, model_names: list[str] = None,
-                     num_processes: int = 1):
+                     num_processes: int = 1, forced_scoring: bool=False):
     if not TASKS_DATA_DIR.exists():
         logging.error(f"LMentry tasks data not found at {TASKS_DATA_DIR}. aborting.\n")
         return
@@ -330,7 +330,8 @@ def flexible_scoring(task_names: list[str] = None, model_names: list[str] = None
         logging.info(f"scoring LMentry predictions for {model}")
         score_all_predictions(task_names=tasks,
                               model_names=[model],
-                              num_processes=num_processes)
+                              num_processes=num_processes,
+                              forced_scoring=forced_scoring,)
         logging.info(f"Scoring LMentry predictions for {model} finished")
 
 

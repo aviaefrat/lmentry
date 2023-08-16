@@ -37,6 +37,8 @@ def parse_arguments():
                       type=int,
                       help="The number of processes to use when scoring the predictions. "
                            "Can be up to the number of models you want to evaluate * 41.")
+  parser.add_argument("-f", "--forced_scoring", action="store_true", default=False,
+                      help="If scoring has been done for specified task it skips it. This flag allows to redo ready scoring")
   return parser.parse_args()
 
 
@@ -78,7 +80,9 @@ def main():
 
   flexible_scoring(task_names=task_names,
                    model_names=model_names,
-                   num_processes=args.num_procs)
+                   num_processes=args.num_procs,
+                   forced_scoring=args.forced_scoring,
+                   )
 
   create_per_task_accuracy_comparison_csv(model_names=model_names, task_names=task_names)
 
