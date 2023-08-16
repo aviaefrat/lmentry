@@ -22,7 +22,7 @@ def create_per_task_accuracy_comparison_csv(
     short_model_names.append(model_config["short_name"])
   model_names = short_model_names
 
-  column_names = ["task"] + short_model_names + ["full match, %", "correct match, %", "wrong match, %", "correct non-match, %", "correct, %"]
+  column_names = ["task"] + short_model_names + ["full match, %", "correct match, %", "wrong match, %", "correct non-match, %", "correct, %", "reduction, %"]
   rows.append(column_names)
 
   # rest of the rows are task result rows
@@ -43,7 +43,8 @@ def create_per_task_accuracy_comparison_csv(
         row.append(accuracy)
     
     metrics = get_comparison(task_name, model_names)
-    row = row + [metrics["full match"], metrics["correct match"], metrics["wrong match"], metrics["correct non-match"], metrics["correct"]]
+    reduction = round(100*row[0]/row[1], 2)
+    row = row + [metrics["full match"], metrics["correct match"], metrics["wrong match"], metrics["correct non-match"], metrics["correct"], reduction]
 
     rows.append(row)
 
