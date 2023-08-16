@@ -23,6 +23,7 @@ def create_per_task_accuracy_comparison_csv(
   model_names = short_model_names
 
   column_names = ["task"] + short_model_names + ["full match, %", "correct match, %", "wrong match, %", "correct non-match, %", "correct, %", "reduction, %"]
+  column_num = len(column_names)
   rows.append(column_names)
 
   # rest of the rows are task result rows
@@ -43,10 +44,21 @@ def create_per_task_accuracy_comparison_csv(
         row.append(accuracy)
     
     metrics = get_comparison(task_name, model_names)
-    reduction = round(100*row[0]/row[1], 2)
+    reduction = round(100*row[-2]/row[-1], 2)
     row = row + [metrics["full match"], metrics["correct match"], metrics["wrong match"], metrics["correct non-match"], metrics["correct"], reduction]
 
     rows.append(row)
+
+  # Average results:
+  row_num = len(rows)
+  avg_row = ["AVG"]
+  for i_col in range(1, column_num):
+    avg = 0
+    for i_row in range(1, row_num):
+      avg += rows[i_row][i_col]
+    avg = round(avg/(row_num-1), 2)
+    avg_row.append(avg)
+  rows.append(avg_row)
 
   default_output_dir = RESULTS_DIR.joinpath("comparison/")
   default_output_path = default_output_dir.joinpath(f"{model_names[0]}_VS_{model_names[1]}.csv")
