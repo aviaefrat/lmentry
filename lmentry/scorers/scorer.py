@@ -144,8 +144,7 @@ class LMentryScorer:
         with open(predictions_path) as f_predictions:
             predictions = json.load(f_predictions)
         if predictions.get("scoring", False) and not forced_scoring:
-            if log_file_locations:
-                logging.info(f"Predictions at {output_path} has been already scored")
+            logging.info(f"Predictions at {output_path} has been already scored")
             return
         # the predictions without the metadata should be scored
 
