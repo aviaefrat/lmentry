@@ -204,6 +204,15 @@ class LMentryScorer:
 
         return score, certainty
 
+    def negative_scorer(self, prediction, answer):
+        score, certainty = None, None
+
+        if not re.search(rf"\b{answer.lower()}\b", prediction.lower()):
+            score = 0
+            certainty = 1
+
+        return score, certainty
+
     @staticmethod
     def display_prediction_patterns(task, model_name, show_only_uncertain_scores: bool = True):
         # load the predictions

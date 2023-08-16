@@ -48,15 +48,6 @@ class MostAssociatedWordScorer(LMentryScorer):
             rf"{category} - {answer}"
         ]
 
-    def negative_scorer(self, prediction, answer):
-        score, certainty = None, None
-
-        if not re.search(rf"\b{answer}\b", prediction):
-            score = 0
-            certainty = 1
-
-        return score, certainty
-
     def score_prediction(self, prediction, example, truncate_prediction: bool = False):
         prediction = self.normalize_prediction(prediction, truncate_prediction)
 
