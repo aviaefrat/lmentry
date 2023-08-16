@@ -154,9 +154,13 @@ def get_comparison(task_name: str, model_names: list[str]) -> dict:
     if correct_ref_counter == 0:
         logging.warning("There is no any correct predictions")
         correct_ref_counter = 1
+    wrong_ref_counter = full_counter - correct_ref_counter
+    if wrong_ref_counter < 1:
+        logging.warning("Number of wrong predictions is not positive")
+        wrong_ref_counter = 1
     metrics["full match"] = float(full_match_counter) / full_counter
-    metrics["correct match"] = float(correct_match_counter) / full_counter
-    metrics["wrong match"] = float(wrong_match_counter) / full_counter
+    metrics["correct match"] = float(correct_match_counter) / correct_ref_counter
+    metrics["wrong match"] = float(wrong_match_counter) / wrong_ref_counter
     metrics["correct non-match"] = float(correct_non_match_counter) / correct_ref_counter
     metrics["correct"] = float(correct_counter) / correct_ref_counter
 
