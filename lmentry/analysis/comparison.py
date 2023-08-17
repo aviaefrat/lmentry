@@ -44,7 +44,9 @@ def create_per_task_accuracy_comparison_csv(
         row.append(accuracy)
     
     metrics = get_comparison(task_name, model_names)
-    reduction = round(100*row[-1]/row[-2], 2)
+    reduction = "INF"
+    if row[-2] > 0:
+      reduction = round(100*row[-1]/row[-2], 2)
     row = row + [metrics["full match"], metrics["correct match"], metrics["wrong match"], metrics["correct non-match"], metrics["correct"], reduction]
 
     rows.append(row)
