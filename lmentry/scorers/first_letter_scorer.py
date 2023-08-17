@@ -51,6 +51,7 @@ class FirstLetterScorer(LMentryScorer):
 
         base_patterns = self.get_base_patterns(answer, word)
 
+        print("PREDICTION:", prediction)
         score, certainty = self.certainty_scorer(prediction, base_patterns)
         print("CERTAINTY SCORER OUTPUT:", score, certainty)
         return score, certainty
