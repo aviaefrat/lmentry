@@ -160,7 +160,7 @@ class LMentryScorer:
                 prediction = prediction_entry["prediction"]
                 question = prediction_entry["input"]
                 prediction = prediction.removeprefix(question)
-                while prediction.starts_with(" "):
+                while prediction.startswith(" "):
                     prediction = prediction[1:]
                 score, certainty = self.score_prediction(prediction, example, truncate_predictions)
                 prediction_entry["score"] = score
