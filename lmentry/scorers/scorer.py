@@ -158,6 +158,10 @@ class LMentryScorer:
                 example = examples[id_]
                 prediction_entry = predictions[id_]
                 prediction = prediction_entry["prediction"]
+                question = prediction_entry["input"]
+                prediction = prediction.removeprefix(question)
+                while prediction.starts_with(" "):
+                    prediction = prediction[1:]
                 score, certainty = self.score_prediction(prediction, example, truncate_predictions)
                 prediction_entry["score"] = score
                 prediction_entry["certainty"] = certainty
@@ -177,6 +181,8 @@ class LMentryScorer:
         if not re.search(r"[^\W_]", prediction):  # we don't consider `_` to be alphanumeric
             return 0, 1
 
+        print(f"INSIDE SIMPLE SCORER ANSWER: '{answer}'")
+        print(f"INSIDE SIMPLE SCORER PREDICTION: '{prediction}'")
         if re.match(rf"{answer}\.?$", prediction, flags=re.IGNORECASE):
             score = 1
             certainty = 1
