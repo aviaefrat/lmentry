@@ -154,7 +154,7 @@ class LMentryScorer:
 
         # score predictions
         for id_ in predictions:
-            if id_ != "scoring":
+            if id_ != "scoring" and int(id_) < 100:
                 example = examples[id_]
                 prediction_entry = predictions[id_]
                 prediction = prediction_entry["prediction"]

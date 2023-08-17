@@ -29,21 +29,28 @@ class FirstLetterScorer(LMentryScorer):
 
         metadata = example["metadata"]
         answer = metadata["answer"]
+        print("ANSWER:", answer)
         word = metadata["word"]
+        print("WORD:", word)
 
         score, certainty = self.negative_scorer(prediction, answer)
         if score is not None:
+            print("NEGATIVE SCORER OUTPUT:", score, certainty)
             return score, certainty
 
         answer = the_letter_regex(answer)
+        print("RE ANSWER:", answer)
 
         score, certainty = self._simple_scorer(prediction, answer)
         if score:
+            print("SIMPLE SCORER OUTPUT:", score, certainty)
             return score, certainty
 
         word = the_word_regex(word)
+        print("RE WORD:", word)
 
         base_patterns = self.get_base_patterns(answer, word)
 
         score, certainty = self.certainty_scorer(prediction, base_patterns)
+        print("CERTAINTY SCORER OUTPUT:", score, certainty)
         return score, certainty
