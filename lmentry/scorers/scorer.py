@@ -154,7 +154,7 @@ class LMentryScorer:
 
         # score predictions
         for id_ in predictions:
-            if id_ != "scoring" and int(id_) < 100:
+            if id_ != "scoring":
                 example = examples[id_]
                 prediction_entry = predictions[id_]
                 prediction = prediction_entry["prediction"]
@@ -181,8 +181,6 @@ class LMentryScorer:
         if not re.search(r"[^\W_]", prediction):  # we don't consider `_` to be alphanumeric
             return 0, 1
 
-        print(f"INSIDE SIMPLE SCORER ANSWER: '{answer}'")
-        print(f"INSIDE SIMPLE SCORER PREDICTION: '{prediction}'")
         if re.match(rf"{answer}\.?$", prediction, flags=re.IGNORECASE):
             score = 1
             certainty = 1
