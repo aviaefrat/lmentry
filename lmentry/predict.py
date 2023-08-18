@@ -63,7 +63,8 @@ def generate_task_hf_predictions(task_name,
         batched_encoding = tokenizer(batch_of_strings, padding="longest", return_tensors="pt")
         batched_encoding = batched_encoding.to(manager.device)
         tensor_inputs = batched_encoding["input_ids"]
-        tensor_outputs = model.generate(tensor_inputs, max_length=max_length)
+        prompt_len = tensor_inputs.shape[1]
+        tensor_outputs = model.generate(tensor_inputs, max_length=max_length + prompt_len)
         outputs = tokenizer.batch_decode(tensor_outputs, skip_special_tokens=True)
         predictions.extend(outputs)
         logging.info(f"generated {len(predictions)} predictions for {task.name}")

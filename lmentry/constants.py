@@ -2,7 +2,7 @@ from pathlib import Path
 
 lmentry_random_seed = 1407
 
-DEFAULT_MAX_LENGTH = 100
+DEFAULT_MAX_LENGTH = 70
 
 ROOT_DIR = Path(__file__).parent.parent
 TASKS_DATA_DIR = ROOT_DIR.joinpath("data")
