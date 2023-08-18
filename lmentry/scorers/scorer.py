@@ -135,29 +135,39 @@ class LMentryScorer:
                           task_data_path: Path,
                           output_path: Path,
                           truncate_predictions: bool = False,
-                          log_file_locations: bool = True
+                          log_file_locations: bool = True,
+                          forced_scoring: bool = False,
                           ):
+        # load the predictions
+        if log_file_locations:
+            logging.info(f"loading predictions from {predictions_path}")
+        with open(predictions_path) as f_predictions:
+            predictions = json.load(f_predictions)
+        if predictions.get("scoring", False) and not forced_scoring:
+            logging.info(f"Predictions at {output_path} has been already scored")
+            return
+        # the predictions without the metadata should be scored
 
         with open(task_data_path) as f_task_data:
             task_data = json.load(f_task_data)
         examples = task_data["examples"]
 
-        # load the predictions without the metadata
-        if log_file_locations:
-            logging.info(f"loading predictions from {predictions_path}")
-        with open(predictions_path) as f_predictions:
-            predictions = json.load(f_predictions)
-
         # score predictions
         for id_ in predictions:
-            example = examples[id_]
-            prediction_entry = predictions[id_]
-            prediction = prediction_entry["prediction"]
-            score, certainty = self.score_prediction(prediction, example, truncate_predictions)
-            prediction_entry["score"] = score
-            prediction_entry["certainty"] = certainty
+            if id_ != "scoring":
+                example = examples[id_]
+                prediction_entry = predictions[id_]
+                prediction = prediction_entry["prediction"]
+                question = prediction_entry["input"]
+                prediction = prediction.removeprefix(question)
+                while prediction.startswith(" "):
+                    prediction = prediction[1:]
+                score, certainty = self.score_prediction(prediction, example, truncate_predictions)
+                prediction_entry["score"] = score
+                prediction_entry["certainty"] = certainty
 
         # save the scored predictions
+        predictions["scoring"] = True
         with open(output_path, "w") as f_scored_predictions:
             json.dump(predictions, f_scored_predictions, indent=2)
         if log_file_locations:
@@ -195,6 +205,15 @@ class LMentryScorer:
                 break
             elif re.search(pattern, prediction):
                 score = 1
+
+        return score, certainty
+
+    def negative_scorer(self, prediction, answer):
+        score, certainty = None, None
+
+        if not re.search(rf"\b{answer.lower()}\b", prediction.lower()):
+            score = 0
+            certainty = 1
 
         return score, certainty
 

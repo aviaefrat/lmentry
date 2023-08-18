@@ -96,6 +96,15 @@ analysis_tasks = {
 
 all_tasks = core_tasks | analysis_tasks
 
+# It is part from core tasks
+tasks_to_compare = {
+    "bigger_number": BiggerNumber,
+    "smaller_number": SmallerNumber,
+    "first_alphabetically": FirstAlphabetically,
+    "first_letter": FirstLetter,
+    "most_associated_word": MostAssociatedWord,
+}
+
 
 def create_task_data(task_name: str):
     task: LMentryTask = all_tasks[task_name]()

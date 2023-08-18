@@ -81,7 +81,7 @@ def main():
     create_per_task_accuracy_csv(model_names=model_names)
     create_per_template_accuracy_csv(model_names=model_names)
     create_robustness_csv(model_names)
-    create_lmentry_scores_csv()
+    create_lmentry_scores_csv(model_names)
     create_argument_order_robustness_csv(model_names=model_names)
     # todo add argument content robustness csv
 

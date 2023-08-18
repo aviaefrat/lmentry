@@ -34,6 +34,13 @@ paper_models = {
     "google-t5-xxl-lm-adapt": {"short_name": "T5xxl", "paper_name": "T5-LM 11B", "predictor_name": "google/t5-xxl-lm-adapt"},
 }
 
+hf_models = {
+    "vicuna-7b-v1-3": {"short_name": "vicuna-7b-v1-3", "paper_name": "Vicuna-7b", "predictor_name": "lmsys/vicuna-7b-v1.3"},
+# TODO(vchernov): workaround for mlc-models short names
+    "vicuna-7b-v1-3-q4f16_0": {"short_name": "vicuna-7b-v1-3-q4f16_0"},
+    "vicuna-7b-v1-3-q0f16": {"short_name": "vicuna-7b-v1-3-q0f16"},
+}
+
 text_001_models = [
     "text-davinci-001",
     "text-curie-001",

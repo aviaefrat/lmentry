@@ -7,11 +7,9 @@ from multiprocessing import Pool
 from pathlib import Path
 
 import openai
-import torch
-from transformers import AutoModelForSeq2SeqLM, PreTrainedModel, AutoTokenizer
 
-from lmentry.constants import get_predictor_model_name, hf_11b_models
 from lmentry.tasks.lmentry_tasks import all_tasks
+from lmentry.model_manager import ModelManager
 
 logging.basicConfig(format='%(asctime)s %(message)s', datefmt='%Y/%m/%d %H:%M:%S', level=logging.INFO)
 
@@ -25,28 +23,31 @@ def _ms_since_epoch():
     return time.perf_counter_ns() // 1000000
 
 
-def generate_task_hf_predictions(task_name, model: PreTrainedModel = None,
-                                 model_name="", max_length=50, batch_size=200,
-                                 data_path=None, output_path=None):
+def generate_task_hf_predictions(task_name,
+                                 manager: ModelManager = None,
+                                 model_name: str="",
+                                 max_length: int=50,
+                                 batch_size: int=200,
+                                 device: str="cuda",
+                                 data_path=None,
+                                 output_path=None):
     task = all_tasks[task_name]()
 
-    if not model_name and not model:
-        raise ValueError("must provide either `model_name` or `model`")
+    if not model_name and not manager:
+        raise ValueError("must provide either `model_name` or `model manager`")
+    if not manager:
+        manager = ModelManager(model_name, device)
+    if manager.type == "mlc":
+        batch_size = 1
 
-    hf_model_name = model.name_or_path if model else get_predictor_model_name(model_name)
-
-    logging.info(f"generating predictions for task \"{task_name}\" with model \"{hf_model_name}\"")
+    logging.info(f"generating predictions for task \"{task_name}\" with model \"{manager.predictor_name}\"")
 
     # initialize tokenizer and model
-    tokenizer = AutoTokenizer.from_pretrained(hf_model_name)
-    model = model or AutoModelForSeq2SeqLM.from_pretrained(hf_model_name)
+    tokenizer = manager.get_tokenizer()
 
-    # move model to gpu
-    device = torch.device("cuda") if torch.cuda.is_available() else "cpu"
-    if model_name in hf_11b_models:  # 11B models have to be parallelized
-        model.parallelize()
-    else:
-        model.to(device)
+    # move model to gpu if possible
+    manager.to_device()
+    model = manager.model
 
     # load task data
     data_path = data_path or task.default_data_path
@@ -59,9 +60,10 @@ def generate_task_hf_predictions(task_name, model: PreTrainedModel = None,
     # generate predictions
     predictions: list[str] = []
     for batch_of_strings in _batcher(string_inputs, batch_size):
-        batched_encoding = tokenizer(batch_of_strings, padding="longest", return_tensors="pt").to(device)
+        batched_encoding = tokenizer(batch_of_strings, padding="longest", return_tensors="pt")
+        batched_encoding = batched_encoding.to(manager.device)
         tensor_inputs = batched_encoding["input_ids"]
-        tensor_outputs = model.generate(tensor_inputs, max_length=max_length)
+        tensor_outputs = model.generate(tensor_inputs.cpu(), max_length=max_length)
         outputs = tokenizer.batch_decode(tensor_outputs, skip_special_tokens=True)
         predictions.extend(outputs)
         logging.info(f"generated {len(predictions)} predictions for {task.name}")
@@ -71,20 +73,28 @@ def generate_task_hf_predictions(task_name, model: PreTrainedModel = None,
     for id_, input_, prediction in zip(examples, string_inputs, predictions):
         predictions_data[id_] = {"input": input_, "prediction": prediction}
 
-    output_path = output_path or task.predictions_dir.joinpath(model_name).with_suffix(".json")
+    output_path = output_path or task.predictions_dir.joinpath(manager.model_name).with_suffix(".json")
     with open(output_path, "w") as f_predictions:
         json.dump(predictions_data, f_predictions, indent=2)
 
 
 def generate_all_hf_predictions(task_names: list[str] = None, model_name: str = "",
-                                max_length=50, batch_size=200):
+                                max_length=50, batch_size=200, device: str="cuda"):
     task_names = task_names or all_tasks
-    hf_model_name = get_predictor_model_name(model_name)
-    logging.info(f"loading model {hf_model_name}")
-    model = AutoModelForSeq2SeqLM.from_pretrained(hf_model_name)
-    logging.info(f"finished loading model {hf_model_name}")
+    manager = ModelManager(model_name, device)
+    if manager.type == "mlc":
+        batch_size = 1
     for task_name in task_names:
-        generate_task_hf_predictions(task_name, model, model_name, max_length, batch_size)
+        # check task and skip it if it has been done
+        task = all_tasks[task_name]()
+        output_file = task.predictions_dir.joinpath(manager.model_name).with_suffix(".json")
+        if output_file.exists():
+            with open(output_file) as task_json:
+                task_config = json.load(task_json)
+            if bool(task_config):
+                logging.info(f"Task {task.name} was skipped due to it was done before")
+                continue
+        generate_task_hf_predictions(task_name, manager, model_name, max_length, batch_size, device)
 
 
 # todo make the saving of the metadata optional (with a default yes as we do it ourselves)

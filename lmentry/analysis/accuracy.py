@@ -8,21 +8,28 @@ from pathlib import Path
 import numpy as np
 
 from lmentry.constants import (
-    RESULTS_DIR, paper_models, get_short_model_name, PREDICTIONS_ROOT_DIR, TASKS_DATA_DIR
+    RESULTS_DIR, paper_models, hf_models, PREDICTIONS_ROOT_DIR, TASKS_DATA_DIR
 )
 from lmentry.tasks.lmentry_tasks import all_tasks, core_tasks
+from lmentry.model_manager import get_type_config
 
 logging.basicConfig(format='%(asctime)s %(message)s', datefmt='%Y/%m/%d %H:%M:%S', level=logging.INFO)
 
-
-def get_accuracy_and_certainty(task_name: str, model_name: str) -> dict:
-    # load scored predictions
+def get_prediction(task_name: str, model_name: str):
     prediction_path = PREDICTIONS_ROOT_DIR.joinpath(task_name).joinpath(f"{model_name}.json")
     if not prediction_path.exists():
+        logging.warning(f"File {prediction_path} was not found therefore no results for task {task_name} with model {model_name}")
         return dict()
 
     with open(prediction_path) as f_predictions:
         predictions = json.load(f_predictions)
+
+    return predictions
+
+
+def get_accuracy_and_certainty(task_name: str, model_name: str) -> dict:
+    # load scored predictions
+    predictions = get_prediction(task_name, model_name)
 
     # load task data (for ids and templates)
     task_data_path = TASKS_DATA_DIR.joinpath(f"{task_name}.json")
@@ -42,14 +49,15 @@ def get_accuracy_and_certainty(task_name: str, model_name: str) -> dict:
               for i in range(num_input_templates)
               }
     for id_, prediction_entry in predictions.items():
-        score = prediction_entry["score"]
-        certainty = prediction_entry["certainty"]
+        if id_ != "scoring":
+            score = prediction_entry["score"]
+            certainty = prediction_entry["certainty"]
 
-        template_id = examples[id_]["metadata"]["template_id"]
-        output[f"template{template_id}"][f"n_{score}s"] += 1
-        output[f"template{template_id}"][f"n_certain"] += certainty
-        if certainty:
-            output[f"template{template_id}"][f"n_certain_{score}s"] += 1
+            template_id = examples[id_]["metadata"]["template_id"]
+            output[f"template{template_id}"][f"n_{score}s"] += 1
+            output[f"template{template_id}"][f"n_certain"] += certainty
+            if certainty:
+                output[f"template{template_id}"][f"n_certain_{score}s"] += 1
 
     # calculate pre-template accuracy and certainty
     num_examples_per_template = task_data["settings"]["num_examples_per_template"]
@@ -89,13 +97,96 @@ def get_accuracy_and_certainty(task_name: str, model_name: str) -> dict:
     return output
 
 
+def get_comparison(task_name: str, model_names: list[str]) -> dict:
+    metrics={
+        "full match": 0,
+        "correct match": 0,
+        "wrong match": 0,
+        "correct non-match": 0,
+        "correct": 0,
+    }
+
+    if len(model_names) != 2:
+        logging.error(f"Two model names for comparison are expeceted, but {len(model_names)} were given")
+        return dict()
+    ref_model_name = model_names[0]
+    probe_model_name = model_names[1]
+
+    # load scored predictions for reference model
+    ref_predictions = get_prediction(task_name, ref_model_name)
+
+    # load scored predictions for probe model
+    probe_predictions = get_prediction(task_name, probe_model_name)
+
+    full_counter = 0
+    full_match_counter = 0
+    correct_match_counter = 0
+    wrong_match_counter = 0
+    correct_non_match_counter = 0
+    correct_counter = 0
+    correct_ref_counter = 0
+    for id_ in ref_predictions:
+        if id_ != "scoring":
+            full_counter += 1
+            ref_prediction_entry = ref_predictions[id_]
+            probe_prediction_entry = probe_predictions[id_]
+            ref_prediction = ref_prediction_entry["prediction"].lower()
+            probe_prediction = probe_prediction_entry["prediction"].lower()
+            ref_score = ref_prediction_entry["score"]
+            probe_score = probe_prediction_entry["score"]
+            if ref_score == 1:
+                correct_ref_counter += 1
+            if ref_prediction == probe_prediction:
+                full_match_counter += 1
+                if ref_score == probe_score:
+                    if ref_score == 1:
+                        correct_match_counter += 1
+                        correct_counter += 1
+                    elif ref_score == 0:
+                        wrong_match_counter += 1
+            elif ref_score == 1 and probe_score == 1:
+                correct_non_match_counter += 1
+                correct_counter += 1
+
+    if full_counter == 0:
+        logging.warning("There is no any predictions")
+        full_counter = 1
+    if correct_ref_counter == 0:
+        logging.warning("There is no any correct predictions")
+        correct_ref_counter = 1
+    wrong_ref_counter = full_counter - correct_ref_counter
+    if wrong_ref_counter < 1:
+        logging.warning("Number of wrong predictions is not positive")
+        wrong_ref_counter = 1
+    metrics["full match"] = float(full_match_counter) / full_counter
+    metrics["correct match"] = float(correct_match_counter) / correct_ref_counter
+    metrics["wrong match"] = float(wrong_match_counter) / wrong_ref_counter
+    metrics["correct non-match"] = float(correct_non_match_counter) / correct_ref_counter
+    metrics["correct"] = float(correct_counter) / correct_ref_counter
+
+    # round to two decimal digits
+    for metric_type in ["full match", "correct match", "wrong match", "correct non-match", "correct"]:
+        metrics[metric_type] = round(metrics[metric_type] * 100, 2)
+
+    return metrics
+
+
+def get_short_model_names(model_names):
+    short_model_names =[]
+    for model_name in model_names:
+        _, model_config = get_type_config(model_name)
+        short_model_names.append(model_config["short_name"])
+
+    return short_model_names
+
+
 def create_per_task_accuracy_csv(task_names: list[str] = None, model_names: list[str] = None,
                                  output_path: Path = None):
     rows: list[list] = list()
 
     model_names = model_names or list(paper_models)
 
-    column_names = ["task"] + [get_short_model_name(model_name) for model_name in model_names]
+    column_names = ["task"] + get_short_model_names(model_names)
     rows.append(column_names)
 
     # rest of the rows are task result rows
@@ -131,7 +222,7 @@ def create_per_template_accuracy_csv(task_names: list[str] = None, model_names: 
 
     first_row = ["task"]
     for model_name in model_names:
-        first_row.extend([get_short_model_name(model_name)] * 3)  # replicating the model name for easy conversion to a multiindex df
+        first_row.extend(get_short_model_names([model_name]) * 3)  # replicating the model name for easy conversion to a multiindex df
     rows.append(first_row)
 
     # second row
@@ -163,22 +254,85 @@ def create_per_template_accuracy_csv(task_names: list[str] = None, model_names: 
         writer.writerows(rows)
 
 
-def score_task_predictions(task_name: str, model_name: str):
+def score_task_predictions(task_name: str, model_name: str, forced_scoring: bool=False):
 
     task = all_tasks[task_name]()
-    task.score_predictions(model_name)
+    task.score_predictions(model_name, forced_scoring=forced_scoring)
 
 
 def score_all_predictions(task_names: list[str] = None, model_names: list[str] = None,
-                          num_processes: int = 1):
+                          num_processes: int = 1, forced_scoring: bool=False):
 
     task_names = task_names or all_tasks.keys()
     model_names = model_names or list(paper_models)
 
-    starargs = itertools.product(task_names, model_names)
+    starargs = itertools.product(task_names, model_names, [forced_scoring])
 
     with Pool(processes=num_processes) as pool:
         pool.starmap(score_task_predictions, starargs)
+
+
+def look_through_predictions_dir(model_names: list[str] = None, task_names: list[str] = None):
+    model_tasks_dict = {}
+    if task_names:
+        tasks_path_list = [PREDICTIONS_ROOT_DIR.joinpath(task_name) for task_name in task_names]
+        # Check
+        checked_tasks_path_list = set(tasks_path_list)
+        for task_path in tasks_path_list:
+            if not task_path.is_dir():
+                logging.warning(f"There is no {task_path.name} directory in predictions")
+                checked_tasks_path_list.discard(task_path)
+        tasks_path_list = list(checked_tasks_path_list)
+    else:
+        tasks_path_list = [f for f in PREDICTIONS_ROOT_DIR.iterdir() if f.is_dir()]
+    for task_dir in tasks_path_list:
+        task_name = task_dir.name
+        if task_name in all_tasks:
+            models_path_list =[]
+            if model_names:
+                models_path_list = [task_dir.joinpath(f"{model_name}.json") for model_name in model_names]
+                # Check
+                checked_models_path_list = set(models_path_list)
+                for model_path in models_path_list:
+                    if not model_path.is_file():
+                        logging.warning(f"There is no {model_path.name} file in {task_name} directory")
+                        checked_models_path_list.discard(model_path)
+                models_path_list = list(checked_models_path_list)
+            else:
+                models_path_list = [f for f in task_dir.iterdir() if f.is_file()]
+            for model_path in models_path_list:
+                if model_path.suffix == ".json":
+                    model_name = model_path.stem
+                    if model_name in model_tasks_dict:
+                        model_tasks_dict[model_name].append(task_name)
+                    else:
+                        model_tasks_dict[model_name] = [task_name]
+                else:
+                    logging.warning(f"File {model_path} in {task_name} directory is not a json-file!")
+        else:
+            logging.warning(f"Directory {task_name} in predictions is not a task!")
+    return model_tasks_dict
+
+
+def flexible_scoring(task_names: list[str] = None, model_names: list[str] = None,
+                     num_processes: int = 1, forced_scoring: bool=False):
+    if not TASKS_DATA_DIR.exists():
+        logging.error(f"LMentry tasks data not found at {TASKS_DATA_DIR}. aborting.\n")
+        return
+    if not PREDICTIONS_ROOT_DIR.exists():
+        logging.error(f"Predictions not found at {PREDICTIONS_ROOT_DIR}. aborting.\n")
+        return
+
+    model_tasks_dict = look_through_predictions_dir(model_names=get_short_model_names(model_names),
+                                                    task_names=task_names)
+
+    for model, tasks in model_tasks_dict.items():
+        logging.info(f"scoring LMentry predictions for {model}")
+        score_all_predictions(task_names=tasks,
+                              model_names=[model],
+                              num_processes=num_processes,
+                              forced_scoring=forced_scoring,)
+        logging.info(f"Scoring LMentry predictions for {model} finished")
 
 
 def get_model_accuracy(model_name):
