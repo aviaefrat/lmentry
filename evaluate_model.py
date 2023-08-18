@@ -44,7 +44,7 @@ def main():
     task_names = args.task_names
   else:
     task_names = sorted(all_tasks.keys())
-  # model_names = ["vicuna-7b-v1-3", "vicuna-7b-v1-3-q0f16", "vicuna-7b-v1-3-q4f16_0"] # HF, mlc_q0f16, mlc_q4f16_0
+
   logging.info(f"scoring LMentry predictions for models {args.model_names}")
   score_all_predictions(task_names=task_names,
                         model_names=args.model_names,
