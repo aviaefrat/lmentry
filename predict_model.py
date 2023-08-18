@@ -2,6 +2,7 @@ import argparse
 
 from lmentry.predict import generate_all_hf_predictions
 from lmentry.tasks.lmentry_tasks import all_tasks
+from lmentry.constants import DEFAULT_MAX_LENGTH
 
 
 def parse_args():
@@ -14,7 +15,7 @@ def parse_args():
                       help="Device name. It is needed and used by mlc model only")
   parser.add_argument('-b', '--batch_size', type=int, default=100,
                       help="For calculation on A10G batch size 100 is recommended. For mlc-llm models batch size is reduced to 1")
-  parser.add_argument('-ml', '--max_length', type=int, default=53,
+  parser.add_argument('-ml', '--max_length', type=int, default=DEFAULT_MAX_LENGTH,
                       help="Input max length")
 
   args = parser.parse_args()

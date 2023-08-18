@@ -1,7 +1,7 @@
 import argparse
 import logging
 
-from lmentry.constants import TASKS_DATA_DIR, RESULTS_DIR
+from lmentry.constants import TASKS_DATA_DIR, RESULTS_DIR, DEFAULT_MAX_LENGTH
 from lmentry.tasks.lmentry_tasks import all_tasks, tasks_to_compare
 from lmentry.predict import generate_all_hf_predictions
 from lmentry.analysis.accuracy import flexible_scoring
@@ -30,7 +30,7 @@ def parse_arguments():
                       help="For calculation on A10G batch size 100 is recommended. "
                            "For mlc-llm models batch size is reduced to 1. "
                            "It is used duirng predictions.")
-  parser.add_argument('-ml', '--max_length', type=int, default=53,
+  parser.add_argument('-ml', '--max_length', type=int, default=DEFAULT_MAX_LENGTH,
                       help="Input max length. It is used duirng predictions.")
   parser.add_argument("-n", "--num-procs",
                       default=1,
