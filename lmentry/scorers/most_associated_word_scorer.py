@@ -32,7 +32,7 @@ class MostAssociatedWordScorer(LMentryScorer):
             rf"{answer} {is_} the word {most_associated} {to_} {category}",
             rf"The word that relates to {category} the most is {answer}",
             rf"{answer} relates to {category} the most",
-
+            rf"\"?{answer}\"? is"
         ]
         # swap answer and category
         more_base_patterns = [
