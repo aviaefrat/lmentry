@@ -27,13 +27,16 @@ def parse_args():
 def main():
   args = parse_args()
 
-  generate_all_hf_predictions(
-    task_names=args.task_names,
-    model_name=args.model_names,
-    max_length=args.max_length,
-    batch_size=args.batch_size,
-    device=args.device,
-  )
+  for model_name in args.model_names:
+    print(f"Prediction of tasks for {model_name} model starts")
+    generate_all_hf_predictions(
+      task_names=args.task_names,
+      model_name=model_name,
+      max_length=args.max_length,
+      batch_size=args.batch_size,
+      device=args.device,
+    )
+    print(f"Prediction of tasks for {model_name} model finished")
 
 
 if __name__ == "__main__":
