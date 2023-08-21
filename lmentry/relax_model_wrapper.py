@@ -106,12 +106,11 @@ class RelaxModelWrapper:
     max_length: int,
   ):
     prompt_len = in_tokens.shape[1]
-    total_len = max_length + prompt_len
-    tvm_tokens = tvm.nd.array(np.zeros((1, total_len), dtype="int32"), device=self.device)
+    tvm_tokens = tvm.nd.array(np.zeros((1, max_length), dtype="int32"), device=self.device)
     tokens = torch.from_dlpack(tvm_tokens)
     tokens[0, : prompt_len] = in_tokens
     start_pos = prompt_len
-    for cur_pos in range(start_pos, total_len):
+    for cur_pos in range(start_pos, max_length):
       if cur_pos == start_pos:
         logits = self.model(tokens[:, :cur_pos], cur_pos, reset=True)
       else:
