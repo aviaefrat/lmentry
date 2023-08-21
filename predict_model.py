@@ -7,10 +7,12 @@ from lmentry.constants import DEFAULT_MAX_LENGTH
 
 def parse_args():
   parser = argparse.ArgumentParser()
-  parser.add_argument('-m', '--model_name', type=str, default="vicuna-7b-v1-3",
-                      help="Model name or path to the root directory of mlc-llm model")
-  parser.add_argument('-t', '--task_name', type=str, default=None,
-                      help=f"If need to predict only one task set its name. Name should be from the list: {all_tasks.keys()}")
+  parser.add_argument("-m", "--model_names", nargs="+", type=str, default="vicuna-7b-v1-3",
+                      help="Model names or paths to the root directory of mlc-llm models for predictions.")
+  parser.add_argument('-t', '--task_names', nargs="+", type=str, default=None,
+                      help="If need to predict specified set of tasks set their names. "
+                           f"Task names should be from the list: {all_tasks.keys()}. "
+                           "It tries to analyze all tasks by default")
   parser.add_argument('-d', '--device', type=str, default="cuda",
                       help="Device name. It is needed and used by mlc model only")
   parser.add_argument('-b', '--batch_size', type=int, default=100,
@@ -25,13 +27,9 @@ def parse_args():
 def main():
   args = parse_args()
 
-  task_names = None
-  if args.task_name is not None:
-    task_names = [args.task_name]
-
   generate_all_hf_predictions(
-    task_names=task_names,
-    model_name=args.model_name,
+    task_names=args.task_names,
+    model_name=args.model_names,
     max_length=args.max_length,
     batch_size=args.batch_size,
     device=args.device,
