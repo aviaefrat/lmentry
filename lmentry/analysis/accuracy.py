@@ -82,6 +82,7 @@ def get_accuracy_and_certainty(task_name: str, model_name: str) -> dict:
     # calculate overall (across all templates) task accuracy and certainty
     n_task_examples = num_examples_per_template * num_input_templates
     task_results["accuracy"] = task_results["n_1s"] / n_task_examples
+    task_results["certain_accuracy"] = task_results["n_certain_1s"] / n_task_examples
     task_results["certainty"] = task_results["n_certain"] / n_task_examples
     n_1s = task_results["n_1s"]
     task_results["certainty_of_1s"] = 0 if n_1s == 0 else task_results["n_certain_1s"] / n_1s
@@ -89,7 +90,7 @@ def get_accuracy_and_certainty(task_name: str, model_name: str) -> dict:
     task_results["certainty_of_0s"] = 0 if n_0s == 0 else task_results["n_certain_0s"] / n_0s
 
     # round to two decimal digits
-    for metric in ["accuracy", "certainty", "certainty_of_1s", "certainty_of_0s"]:
+    for metric in ["accuracy", "certain_accuracy", "certainty", "certainty_of_1s", "certainty_of_0s"]:
         task_results[metric] = round(task_results[metric] * 100, 2)
 
     output["task"] = task_results
@@ -97,7 +98,13 @@ def get_accuracy_and_certainty(task_name: str, model_name: str) -> dict:
     return output
 
 
-def get_comparison(task_name: str, model_names: list[str]) -> dict:
+def get_score(entry, certainty=False):
+    if certainty and entry["certainty"] != 1:
+        return 0
+    return entry["score"]
+
+
+def get_comparison(task_name: str, model_names: list[str], certainty=False) -> dict:
     metrics={
         "full match": 0,
         "correct match": 0,
@@ -132,8 +139,8 @@ def get_comparison(task_name: str, model_names: list[str]) -> dict:
             probe_prediction_entry = probe_predictions[id_]
             ref_prediction = ref_prediction_entry["prediction"].lower()
             probe_prediction = probe_prediction_entry["prediction"].lower()
-            ref_score = ref_prediction_entry["score"]
-            probe_score = probe_prediction_entry["score"]
+            ref_score = get_score(ref_prediction_entry, certainty)
+            probe_score = get_score(probe_prediction_entry, certainty)
             if ref_score == 1:
                 correct_ref_counter += 1
             if ref_prediction == probe_prediction:

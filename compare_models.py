@@ -39,6 +39,8 @@ def parse_arguments():
                            "Can be up to the number of models you want to evaluate * 41.")
   parser.add_argument("-f", "--forced_scoring", action="store_true", default=False,
                       help="If scoring has been done for specified task it skips it. This flag allows to redo ready scoring")
+  parser.add_argument("-c", "--certainty", action="store_true", default=False,
+                      help="Conservative accuracy evaluation. The answer is considered correct only if it is absolutely certain")
   return parser.parse_args()
 
 
@@ -84,7 +86,7 @@ def main():
                    forced_scoring=args.forced_scoring,
                    )
 
-  create_per_task_accuracy_comparison_csv(model_names=model_names, task_names=task_names)
+  create_per_task_accuracy_comparison_csv(model_names=model_names, task_names=task_names, certainty=args.certainty)
 
 
 if __name__ == "__main__":

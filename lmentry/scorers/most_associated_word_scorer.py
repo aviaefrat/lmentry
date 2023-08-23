@@ -21,12 +21,13 @@ class MostAssociatedWordScorer(LMentryScorer):
     def get_base_patterns(self, answer, category, words):
 
         to_ = r"(to|with)"
-        most_associated = r"most( commonly)? (associated|related)"
+        most_associated = r"(one )?most( commonly)? (associated|related)"
         is_ = r"(is|are)"  # for words like "pants"
 
         base_patterns = [
             rf"The word {most_associated} {to_} {category} is {answer}",
             rf"The word {most_associated} {to_} {category} {words} is {answer}",
+            rf"The {most_associated} word {to_} {category} is {answer}",
             rf"{category} {is_} {most_associated} {to_} {answer}",
             rf"{answer} {is_} the {most_associated} {to_} {category}",
             rf"{answer} {is_} the word {most_associated} {to_} {category}",
@@ -72,8 +73,8 @@ class MostAssociatedWordScorer(LMentryScorer):
                 return score, certainty
 
         words = the_words_regex(words)
-        of = r"(of|from)"
-        options = r"(words|options)"
+        of = r"(in|of|from|among)"
+        options = r"(words|options|set of words)"
         given = r"(above|given|listed|following)"
         words = rf"{of} ({words}|the {options} {given}|the {given} {options})"
 

@@ -23,7 +23,7 @@ python3 -m pip install transformers scipy accelerate tokenizers==0.13.3
 and additionally for support mlc-llm dependencies (do it under lmentry env):
 ```bash
 conda install -c conda-forge libstdcxx-ng=12
-python3 -m pip install decorator attrs
+python3 -m pip install decorator attrs pytest cloudpickle
 ```
 
 # Prediction
