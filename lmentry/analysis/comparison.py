@@ -13,7 +13,8 @@ logging.basicConfig(format='%(asctime)s %(message)s', datefmt='%Y/%m/%d %H:%M:%S
 def create_per_task_accuracy_comparison_csv(
       model_names: list[str],
       task_names: list[str] = None,
-      output_path: Path = None):
+      output_path: Path = None,
+      certainty: bool=False):
   rows: list[list] = list()
 
   short_model_names =[]
@@ -40,10 +41,13 @@ def create_per_task_accuracy_comparison_csv(
         logging.warning(f"no results for task {task_name} with model {model_name}")
         continue
       else:
-        accuracy = metrics["task"]["accuracy"]
+        if certainty:
+          accuracy = metrics["task"]["certain_accuracy"]
+        else:
+          accuracy = metrics["task"]["accuracy"]
         row.append(accuracy)
-    
-    metrics = get_comparison(task_name, model_names)
+
+    metrics = get_comparison(task_name, model_names, certainty)
     reduction = "INF"
     if row[-2] > 0:
       reduction = round(100*row[-1]/row[-2], 2)
@@ -63,7 +67,10 @@ def create_per_task_accuracy_comparison_csv(
   rows.append(avg_row)
 
   default_output_dir = RESULTS_DIR.joinpath("comparison/")
-  default_output_path = default_output_dir.joinpath(f"{model_names[0]}_VS_{model_names[1]}.csv")
+  postfix=""
+  if certainty:
+    postfix = "_crtn"
+  default_output_path = default_output_dir.joinpath(f"{model_names[0]}_VS_{model_names[1]}{postfix}.csv")
   if not output_path:
     default_output_dir.mkdir(parents=True, exist_ok=True)
     output_path = default_output_path
