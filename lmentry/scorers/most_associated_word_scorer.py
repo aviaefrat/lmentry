@@ -72,7 +72,7 @@ class MostAssociatedWordScorer(LMentryScorer):
                 return score, certainty
 
         words = the_words_regex(words)
-        of = r"(of|from)"
+        of = r"(of|from|among)"
         options = r"(words|options)"
         given = r"(above|given|listed|following)"
         words = rf"{of} ({words}|the {options} {given}|the {given} {options})"
