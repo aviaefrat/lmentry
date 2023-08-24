@@ -72,24 +72,35 @@ class ModelManager:
           # 50277 means "### End"
           self.tokenizer.eos_token_id = 50277
 
-    logging.info(f"loading model {self.predictor_name}")
-    if self.type == "paper":
-      self.model = AutoModelForSeq2SeqLM.from_pretrained(self.predictor_name)
-    elif self.type == "hf":
-      self.model = AutoModelForCausalLM.from_pretrained(self.predictor_name, low_cpu_mem_usage=True, torch_dtype=torch.float16)
-    elif self.type == "mlc":
-      from lmentry.relax_model_wrapper import get_relax_model
-      self.model = get_relax_model(self.config, self.tokenizer.eos_token_id)
-    logging.info(f"finished loading model {self.predictor_name}")
-
     self.device = torch.device("cuda") if torch.cuda.is_available() else "cpu"
+    self.model = None
+    self.is_init = False
+
+  def init_model(self):
+    if not self.is_init:
+      logging.info(f"Initializing model {self.predictor_name}")
+      if self.type == "paper":
+        self.model = AutoModelForSeq2SeqLM.from_pretrained(self.predictor_name)
+      elif self.type == "hf":
+        self.model = AutoModelForCausalLM.from_pretrained(self.predictor_name, low_cpu_mem_usage=True, torch_dtype=torch.float16)
+      elif self.type == "mlc":
+        from lmentry.relax_model_wrapper import get_relax_model
+        self.model = get_relax_model(self.config, self.tokenizer.eos_token_id)
+      logging.info(f"finished initializing model {self.predictor_name}")
+      self.is_init = True
+
+  def is_init(self):
+    return self.is_init
 
   def get_tokenizer(self):
     return self.tokenizer
 
   def to_device(self):
     if self.type != "mlc":
-      if self.model_name in hf_11b_models:  # 11B models have to be parallelized
-        self.model.parallelize()
+      if self.is_init:
+        if self.model_name in hf_11b_models:  # 11B models have to be parallelized
+          self.model.parallelize()
+        else:
+          self.model.to(self.device)
       else:
-        self.model.to(self.device)
+        raise RuntimeError(f"Model {self.predictor_name} was not initialized!")

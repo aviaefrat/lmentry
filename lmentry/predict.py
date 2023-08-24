@@ -46,6 +46,7 @@ def generate_task_hf_predictions(task_name,
     tokenizer = manager.get_tokenizer()
 
     # move model to gpu if possible
+    manager.init_model()
     manager.to_device()
     model = manager.model
 
