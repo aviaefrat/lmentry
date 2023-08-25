@@ -1,7 +1,7 @@
 import argparse
 
 from lmentry.predict import generate_all_hf_predictions
-from lmentry.tasks.lmentry_tasks import all_tasks
+from lmentry.tasks.lmentry_tasks import simple_tasks, all_tasks
 from lmentry.constants import DEFAULT_MAX_LENGTH
 
 
@@ -19,6 +19,8 @@ def parse_args():
                       help="For calculation on A10G batch size 100 is recommended. For mlc-llm models batch size is reduced to 1")
   parser.add_argument('-ml', '--max_length', type=int, default=DEFAULT_MAX_LENGTH,
                       help="Input max length")
+  parser.add_argument("-s", "--simple_tasks", action="store_true", default=False,
+                    help="It skips task names list if exist and uses simple tasks")
 
   args = parser.parse_args()
   return args
@@ -27,10 +29,18 @@ def parse_args():
 def main():
   args = parse_args()
 
+  task_names = None
+  if args.simple_tasks:
+    task_names = sorted(simple_tasks.keys())
+  elif args.task_names is not None:
+    task_names = args.task_names
+  else:
+    task_names = sorted(all_tasks.keys())
+
   for model_name in args.model_names:
     print(f"Prediction of tasks for {model_name} model starts")
     generate_all_hf_predictions(
-      task_names=args.task_names,
+      task_names=task_names,
       model_name=model_name,
       max_length=args.max_length,
       batch_size=args.batch_size,
