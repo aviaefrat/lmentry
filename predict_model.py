@@ -8,7 +8,7 @@ from lmentry.constants import DEFAULT_MAX_LENGTH
 
 def parse_args():
   parser = argparse.ArgumentParser()
-  parser.add_argument("-m", "--model_names", nargs="+", type=str, default="vicuna-7b-v1-3",
+  parser.add_argument("-m", "--model_names", nargs="+", type=str, default=["vicuna-7b-v1-3"],
                       help="Model names or paths to the root directory of mlc-llm models for predictions.")
   parser.add_argument('-t', '--task_names', nargs="+", type=str, default=get_tasks_names(),
                       help="If need to evaluate specified set of tasks set their names or name(s) of specified task set(s). "
@@ -21,6 +21,8 @@ def parse_args():
                       help="For calculation on A10G batch size 100 is recommended. For mlc-llm models batch size is reduced to 1")
   parser.add_argument('-ml', '--max_length', type=int, default=DEFAULT_MAX_LENGTH,
                       help="Input max length")
+  parser.add_argument('-sn', '--samples_num', type=int, default=None,
+                      help="Number of samples to choose randomly from task dataset. If set 'None' - all samples would be chosen.")
 
   args = parser.parse_args()
   return args
@@ -28,6 +30,12 @@ def parse_args():
 
 def main():
   args = parse_args()
+
+  # TODO(vvchernov): Why?
+  # import torch
+  # import gc
+  # torch.cuda.empty_cache()
+  # gc.collect()
 
   task_names = get_tasks_names(args.task_names)
 

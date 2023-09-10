@@ -1,11 +1,14 @@
 import json
 import logging
 import os
+import random
 import time
 from itertools import repeat
 from multiprocessing import Pool
 from pathlib import Path
 from tqdm import tqdm
+
+from numpy import sort
 
 import openai
 
@@ -30,6 +33,7 @@ def generate_task_hf_predictions(task_name,
                                  max_length: int=50,
                                  batch_size: int=200,
                                  device: str="cuda",
+                                 samples_num: int=None,
                                  data_path=None,
                                  output_path=None):
     task = all_tasks[task_name]()
@@ -55,33 +59,70 @@ def generate_task_hf_predictions(task_name,
     data_path = data_path or task.default_data_path
     with open(data_path) as f_examples:
         data = json.load(f_examples)
+
     # get the inputs from the task data
-    examples = data["examples"]
+    if samples_num == None:
+        examples = data["examples"]
+    else:
+        shorted_idx = sort(random.sample(range(len(data["examples"])), samples_num), kind="quicksort")
+        examples = dict()
+
+        for idx in shorted_idx:
+            examples[str(idx)] = data["examples"][str(idx)]
+
     string_inputs = [example["input"] for example in examples.values()]
 
     # generate predictions
     predictions: list[str] = []
-    for batch_of_strings in tqdm(_batcher(string_inputs, batch_size), desc="Predict batch of requests"):
-        batched_encoding = tokenizer(batch_of_strings, padding="longest", return_tensors="pt")
-        batched_encoding = batched_encoding.to(manager.device)
-        tensor_inputs = batched_encoding["input_ids"]
-        prompt_len = tensor_inputs.shape[1]
-        tensor_outputs = model.generate(tensor_inputs, max_length=max_length + prompt_len)
-        outputs = tokenizer.batch_decode(tensor_outputs, skip_special_tokens=True)
-        predictions.extend(outputs)
+    use_vllm = False
+    if use_vllm:
+        from vllm import SamplingParams
+        #sampling_params = SamplingParams(temperature=0.8, top_p=0.95)
+        sampling_params = SamplingParams(
+                n=1,
+                temperature=0.8,
+                top_p=0.95,
+                use_beam_search=False,
+                ignore_eos=False,
+                max_tokens=100,
+        )
+        # sampling_params = SamplingParams(  # Beam search configuration
+        #         n=1,
+        #         best_of=2,
+        #         temperature=0,
+        #         top_p=1,
+        #         use_beam_search=True,
+        #         ignore_eos=True,
+        #         max_tokens=16,
+        # )
+        for batch_of_strings in tqdm(_batcher(string_inputs, batch_size=1000), desc="Predict batch of requests"):
+            outputs = model.generate(batch_of_strings, sampling_params)
+            predictions.extend(outputs)
+    else:
+        for batch_of_strings in tqdm(_batcher(string_inputs, batch_size), desc="Predict batch of requests"):
+            batched_encoding = tokenizer(batch_of_strings, padding="longest", return_tensors="pt")
+            batched_encoding = batched_encoding.to(manager.device)
+            tensor_inputs = batched_encoding["input_ids"]
+            prompt_len = tensor_inputs.shape[1]
+            tensor_outputs = model.generate(tensor_inputs, max_length=max_length + prompt_len)
+            outputs = tokenizer.batch_decode(tensor_outputs, skip_special_tokens=True)
+            predictions.extend(outputs)
 
     # save the predictions
     predictions_data = dict()
     for id_, input_, prediction in zip(examples, string_inputs, predictions):
         predictions_data[id_] = {"input": input_, "prediction": prediction}
 
+    if '/' in manager.model_name:
+        manager.model_name = manager.short_name
     output_path = output_path or task.predictions_dir.joinpath(manager.model_name).with_suffix(".json")
+    
     with open(output_path, "w") as f_predictions:
         json.dump(predictions_data, f_predictions, indent=2)
 
 
 def generate_all_hf_predictions(task_names: list[str] = None, model_name: str = "",
-                                max_length=50, batch_size=200, device: str="cuda"):
+                                max_length=50, batch_size=200, device: str="cuda", samples_num: int=None):
     task_names = task_names or all_tasks
     manager = ModelManager(model_name, device)
     if manager.type == "mlc":
@@ -96,7 +137,7 @@ def generate_all_hf_predictions(task_names: list[str] = None, model_name: str = 
             if bool(task_config):
                 logging.info(f"Task {task.name} was skipped due to it was done before")
                 continue
-        generate_task_hf_predictions(task_name, manager, model_name, max_length, batch_size, device)
+        generate_task_hf_predictions(task_name, manager, model_name, max_length, batch_size, device, samples_num)
 
 
 # todo make the saving of the metadata optional (with a default yes as we do it ourselves)
