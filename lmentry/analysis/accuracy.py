@@ -222,7 +222,7 @@ def create_per_task_accuracy_csv(task_names: list[str] = None, model_names: list
 
 
 def create_per_template_accuracy_csv(task_names: list[str] = None, model_names: list[str] = None,
-                                     output_path: Path = None):
+                                     output_path: Path = None, template_num: int = 3):
     rows: list[list] = list()
 
     model_names = model_names or list(paper_models)
@@ -233,10 +233,16 @@ def create_per_template_accuracy_csv(task_names: list[str] = None, model_names: 
     rows.append(first_row)
 
     # second row
-    rows.append([""] + ["t0", "t1", "t2"] * len(model_names))
+    template_tags = []
+    for i in range(template_num):
+        template_tags.append(f"t{i}")
+    rows.append([""] + template_tags * len(model_names))
 
     # rest of the rows are task result rows
     task_names = task_names or list(all_tasks)
+    template_names = []
+    for i in range(template_num):
+        template_names.append(f"template{i}")
     for task_name in task_names:
         row = []
         row.append(task_name)
@@ -249,8 +255,14 @@ def create_per_template_accuracy_csv(task_names: list[str] = None, model_names: 
                 logging.warning(f"no results for task {task_name} with model {model_name}")
                 continue
 
-            for template_name in ["template0", "template1", "template2"]:
-                accuracy = metrics[template_name]["accuracy"]
+            for template_name in template_names:
+                # Different tasks can have different number of templates
+                # if there is no template zero is returned
+                template_metrics = metrics.get(template_name, None)
+                if template_metrics:
+                    accuracy = template_metrics["accuracy"]
+                else:
+                    accuracy = 0.
                 row.append(accuracy)
 
         rows.append(row)
