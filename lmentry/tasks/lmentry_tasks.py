@@ -45,6 +45,7 @@ from lmentry.tasks.word_after import WordAfter
 from lmentry.tasks.word_before import WordBefore
 from lmentry.tasks.word_containing import WordContaining
 from lmentry.tasks.word_not_containing import WordNotContaining
+from lmentry.tasks.simple_tasks import Capital
 
 core_tasks = {
     "sentence_containing": SentenceContaining,
@@ -93,8 +94,11 @@ analysis_tasks = {
     "less_letters_length_diff_1": LessLettersLengthDiff1,
 }
 
+simple_tasks = {
+    "capital" : Capital,
+}
 
-all_tasks = core_tasks | analysis_tasks
+all_tasks = core_tasks | analysis_tasks | simple_tasks
 
 # It is part from core tasks
 tasks_to_compare = {

@@ -16,14 +16,13 @@ def parse_arguments():
   parser.add_argument("-r", "--ref_model_name", type=str, default="vicuna-7b-v1-3-q0f16",
                       help="Name of reference model. It is assumed that the model is original, "
                            "uses high-precision data type and has better accuracy")
-  parser.add_argument('-p', '--probe_model_name', type=str, default="vicuna-7b-v1-3-q4f16_0",
-                      help=f"If need to evaluate specified set of tasks set their names. "
-                            "Task names should be from the list: {all_tasks.keys()}. "
-                            "It tries to analyze all tasks by default")
+  parser.add_argument('-p', '--probe_model_names', type=str, default="vicuna-7b-v1-3-q4f16_0",
+                      help=f"Names of probe models. If the number of the probe models is bigger than one "
+                           "it iteratively compares the reference model with each from the list.")
   parser.add_argument('-t', '--task_names', nargs="+", type=str, default=None,
                       help="If need to evaluate specified set of tasks set their names. "
                            f"Task names should be from the list: {all_tasks.keys()}. "
-                            "It tries to analyze all tasks by default")
+                           "It tries to analyze all tasks by default")
   parser.add_argument('-d', '--device', type=str, default="cuda",
                       help="Device name. It is needed and used by mlc model only during predictions")
   parser.add_argument('-b', '--batch_size', type=int, default=100,
@@ -56,37 +55,39 @@ def main():
   else:
     task_names = sorted(tasks_to_compare.keys())
 
-  model_names = [args.ref_model_name, args.probe_model_name]
+  for probe_model_name in args.probe_model_names:
+    print(f"Models {args.ref_model_name} and {probe_model_name} are compared")
 
-  # Predict specified tasks for given models
-  # Reference model
-  logging.info(f"Prediction for {args.ref_model_name} model starts")
-  generate_all_hf_predictions(
-    task_names=task_names,
-    model_name=args.ref_model_name,
-    max_length=args.max_length,
-    batch_size=args.batch_size,
-    device=args.device,
-  )
-  logging.info(f"Prediction for {args.ref_model_name} model finished")
-  # Probe_model
-  logging.info(f"Prediction for {args.probe_model_name} model starts")
-  generate_all_hf_predictions(
-    task_names=task_names,
-    model_name=args.probe_model_name,
-    max_length=args.max_length,
-    batch_size=args.batch_size,
-    device=args.device,
-  )
-  logging.info(f"Prediction for {args.probe_model_name} model finished")
+    # Predict specified tasks for given models
+    # Reference model
+    logging.info(f"Prediction for {args.ref_model_name} model starts")
+    generate_all_hf_predictions(
+      task_names=task_names,
+      model_name=args.ref_model_name,
+      max_length=args.max_length,
+      batch_size=args.batch_size,
+      device=args.device,
+    )
+    logging.info(f"Prediction for {args.ref_model_name} model finished")
+    # Probe_model
+    logging.info(f"Prediction for {probe_model_name} model starts")
+    generate_all_hf_predictions(
+      task_names=task_names,
+      model_name=probe_model_name,
+      max_length=args.max_length,
+      batch_size=args.batch_size,
+      device=args.device,
+    )
+    logging.info(f"Prediction for {probe_model_name} model finished")
 
-  flexible_scoring(task_names=task_names,
-                   model_names=model_names,
-                   num_processes=args.num_procs,
-                   forced_scoring=args.forced_scoring,
-                   )
+    model_names = [args.ref_model_name, probe_model_name]
+    flexible_scoring(task_names=task_names,
+                    model_names=model_names,
+                    num_processes=args.num_procs,
+                    forced_scoring=args.forced_scoring,
+                    )
 
-  create_per_task_accuracy_comparison_csv(model_names=model_names, task_names=task_names, certainty=args.certainty)
+    create_per_task_accuracy_comparison_csv(model_names=model_names, task_names=task_names, certainty=args.certainty)
 
 
 if __name__ == "__main__":
