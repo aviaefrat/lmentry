@@ -1,7 +1,7 @@
 import argparse
 import logging
 
-from lmentry.constants import TASKS_DATA_DIR, RESULTS_DIR, DEFAULT_MAX_LENGTH
+from lmentry.constants import PREDICTIONS_ROOT_DIR, TASKS_DATA_DIR, RESULTS_DIR, DEFAULT_MAX_LENGTH
 from lmentry.tasks.lmentry_tasks import all_tasks, tasks_to_compare
 from lmentry.predict import generate_all_hf_predictions
 from lmentry.analysis.accuracy import flexible_scoring
@@ -46,6 +46,9 @@ def parse_arguments():
 def main():
   if not TASKS_DATA_DIR.exists():
     logging.error(f"LMentry tasks data not found at {TASKS_DATA_DIR}. aborting.\n")
+    return
+  if not PREDICTIONS_ROOT_DIR.exists():
+    logging.error(f"Predictions not found at {PREDICTIONS_ROOT_DIR}. aborting.\n")
     return
   RESULTS_DIR.mkdir(exist_ok=True)
 
