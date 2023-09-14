@@ -8,7 +8,7 @@ from lmentry.analysis.accuracy import (
   create_per_template_accuracy_csv,
 )
 from lmentry.tasks.lmentry_tasks import simple_tasks, all_tasks
-from lmentry.model_manager import get_type_config
+from lmentry.model_manager import get_short_model_names
 
 
 def parse_arguments():
@@ -50,17 +50,14 @@ def main():
   else:
     task_names = sorted(all_tasks.keys())
 
-  logging.info(f"scoring LMentry predictions for models {args.model_names}")
+  model_names = get_short_model_names(args.model_names)
+
+  logging.info(f"scoring LMentry predictions for models {model_names}")
   score_all_predictions(task_names=task_names,
-                        model_names=args.model_names,
+                        model_names=model_names,
                         num_processes=args.num_procs
                         )
-  logging.info(f"finished scoring all LMentry predictions for models {args.model_names}")
-
-  model_names =[]
-  for model_name in args.model_names:
-    _, model_config = get_type_config(model_name)
-    model_names.append(model_config["short_name"])
+  logging.info(f"finished scoring all LMentry predictions for models {model_names}")
 
   create_per_task_accuracy_csv(task_names=task_names, model_names=model_names)
   create_per_template_accuracy_csv(task_names=task_names, model_names=model_names)

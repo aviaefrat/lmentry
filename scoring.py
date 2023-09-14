@@ -2,6 +2,7 @@ import argparse
 
 from lmentry.analysis.accuracy import flexible_scoring
 from lmentry.tasks.lmentry_tasks import all_tasks
+from lmentry.model_manager import get_short_model_names
 
 
 def parse_arguments():
@@ -27,8 +28,9 @@ def parse_arguments():
 def main():
   args = parse_arguments()
 
+  model_names = get_short_model_names(args.model_names)
   flexible_scoring(task_names=args.task_names,
-                   model_names=args.model_names,
+                   model_names=model_names,
                    num_processes=args.num_procs,
                    forced_scoring=args.forced_scoring)
 

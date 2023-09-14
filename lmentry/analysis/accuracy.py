@@ -8,10 +8,9 @@ from pathlib import Path
 import numpy as np
 
 from lmentry.constants import (
-    RESULTS_DIR, paper_models, hf_models, PREDICTIONS_ROOT_DIR, TASKS_DATA_DIR
+    RESULTS_DIR, paper_models, PREDICTIONS_ROOT_DIR, TASKS_DATA_DIR
 )
 from lmentry.tasks.lmentry_tasks import all_tasks, core_tasks
-from lmentry.model_manager import get_type_config
 
 logging.basicConfig(format='%(asctime)s %(message)s', datefmt='%Y/%m/%d %H:%M:%S', level=logging.INFO)
 
@@ -178,22 +177,13 @@ def get_comparison(task_name: str, model_names: list[str], certainty=False) -> d
     return metrics
 
 
-def get_short_model_names(model_names):
-    short_model_names =[]
-    for model_name in model_names:
-        _, model_config = get_type_config(model_name)
-        short_model_names.append(model_config["short_name"])
-
-    return short_model_names
-
-
 def create_per_task_accuracy_csv(task_names: list[str] = None, model_names: list[str] = None,
                                  output_path: Path = None):
     rows: list[list] = list()
 
     model_names = model_names or list(paper_models)
 
-    column_names = ["task"] + get_short_model_names(model_names)
+    column_names = ["task"] + model_names
     rows.append(column_names)
 
     # rest of the rows are task result rows
@@ -229,13 +219,14 @@ def create_per_template_accuracy_csv(task_names: list[str] = None, model_names: 
 
     first_row = ["task"]
     for model_name in model_names:
-        first_row.extend(get_short_model_names([model_name]) * 3)  # replicating the model name for easy conversion to a multiindex df
+        first_row.extend([model_name] * 3)  # replicating the model name for easy conversion to a multiindex df
     rows.append(first_row)
 
     # second row
     template_tags = []
     for i in range(template_num):
         template_tags.append(f"t{i}")
+    # TODO(vchernov): create more flexible tags, remove absence templates
     rows.append([""] + template_tags * len(model_names))
 
     # rest of the rows are task result rows
@@ -284,7 +275,6 @@ def score_all_predictions(task_names: list[str] = None, model_names: list[str] =
 
     task_names = task_names or all_tasks.keys()
     model_names = model_names or list(paper_models)
-    model_names = get_short_model_names(model_names)
 
     starargs = itertools.product(task_names, model_names, [forced_scoring])
 
@@ -343,7 +333,7 @@ def flexible_scoring(task_names: list[str] = None, model_names: list[str] = None
         logging.error(f"Predictions not found at {PREDICTIONS_ROOT_DIR}. aborting.\n")
         return
 
-    model_tasks_dict = look_through_predictions_dir(model_names=get_short_model_names(model_names),
+    model_tasks_dict = look_through_predictions_dir(model_names=model_names,
                                                     task_names=task_names)
 
     for model, tasks in model_tasks_dict.items():

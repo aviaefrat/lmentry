@@ -54,6 +54,16 @@ def get_type_config(model_name: str, device: str="cuda", name_from_mlc_config: b
 
   return type, config
 
+
+def get_short_model_names(model_names):
+  short_model_names =[]
+  for model_name in model_names:
+    _, model_config = get_type_config(model_name)
+    short_model_names.append(model_config["short_name"])
+
+  return short_model_names
+
+
 class ModelManager:
   def __init__(self, model_name: str, device: str="cuda"):
     self.type, self.config = get_type_config(model_name, device)

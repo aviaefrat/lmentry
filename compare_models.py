@@ -6,6 +6,7 @@ from lmentry.tasks.lmentry_tasks import all_tasks, tasks_to_compare
 from lmentry.predict import generate_all_hf_predictions
 from lmentry.analysis.accuracy import flexible_scoring
 from lmentry.analysis.comparison import create_per_task_accuracy_comparison_csv
+from lmentry.model_manager import get_short_model_names
 
 
 def parse_arguments():
@@ -59,11 +60,12 @@ def main():
     task_names = sorted(tasks_to_compare.keys())
 
   for probe_model_name in args.probe_model_names:
-    print(f"Models {args.ref_model_name} and {probe_model_name} are compared")
+    model_names = get_short_model_names([args.ref_model_name]) + get_short_model_names([probe_model_name])
+    print(f"Models {model_names[0]} and {model_names[1]} are compared")
 
     # Predict specified tasks for given models
     # Reference model
-    logging.info(f"Prediction for {args.ref_model_name} model starts")
+    logging.info(f"Prediction for {model_names[0]} model starts")
     generate_all_hf_predictions(
       task_names=task_names,
       model_name=args.ref_model_name,
@@ -71,9 +73,9 @@ def main():
       batch_size=args.batch_size,
       device=args.device,
     )
-    logging.info(f"Prediction for {args.ref_model_name} model finished")
+    logging.info(f"Prediction for {model_names[0]} model finished")
     # Probe_model
-    logging.info(f"Prediction for {probe_model_name} model starts")
+    logging.info(f"Prediction for {model_names[1]} model starts")
     generate_all_hf_predictions(
       task_names=task_names,
       model_name=probe_model_name,
@@ -81,9 +83,8 @@ def main():
       batch_size=args.batch_size,
       device=args.device,
     )
-    logging.info(f"Prediction for {probe_model_name} model finished")
+    logging.info(f"Prediction for {model_names[1]} model finished")
 
-    model_names = [args.ref_model_name, probe_model_name]
     flexible_scoring(task_names=task_names,
                     model_names=model_names,
                     num_processes=args.num_procs,
