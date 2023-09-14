@@ -219,7 +219,7 @@ def create_per_template_accuracy_csv(task_names: list[str] = None, model_names: 
 
     first_row = ["task"]
     for model_name in model_names:
-        first_row.extend([model_name] * 3)  # replicating the model name for easy conversion to a multiindex df
+        first_row.extend([model_name] * template_num)  # replicating the model name for easy conversion to a multiindex df
     rows.append(first_row)
 
     # second row
@@ -242,7 +242,7 @@ def create_per_template_accuracy_csv(task_names: list[str] = None, model_names: 
         for model_name in model_names:
             metrics = get_accuracy_and_certainty(task_name, model_name)
             if not metrics:
-                row.extend([""] * 3)
+                row.extend([""] * template_num)
                 logging.warning(f"no results for task {task_name} with model {model_name}")
                 continue
 
