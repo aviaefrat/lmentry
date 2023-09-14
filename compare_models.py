@@ -1,11 +1,12 @@
 import argparse
 import logging
 
-from lmentry.constants import TASKS_DATA_DIR, RESULTS_DIR, DEFAULT_MAX_LENGTH
-from lmentry.tasks.lmentry_tasks import all_tasks, tasks_to_compare
+from lmentry.constants import PREDICTIONS_ROOT_DIR, TASKS_DATA_DIR, RESULTS_DIR, DEFAULT_MAX_LENGTH
+from lmentry.tasks.lmentry_tasks import all_tasks, tasks_to_compare, simple_tasks
 from lmentry.predict import generate_all_hf_predictions
 from lmentry.analysis.accuracy import flexible_scoring
 from lmentry.analysis.comparison import create_per_task_accuracy_comparison_csv
+from lmentry.model_manager import get_short_model_names
 
 
 def parse_arguments():
@@ -16,7 +17,7 @@ def parse_arguments():
   parser.add_argument("-r", "--ref_model_name", type=str, default="vicuna-7b-v1-3-q0f16",
                       help="Name of reference model. It is assumed that the model is original, "
                            "uses high-precision data type and has better accuracy")
-  parser.add_argument('-p', '--probe_model_names', type=str, default="vicuna-7b-v1-3-q4f16_0",
+  parser.add_argument('-p', '--probe_model_names', nargs="+", type=str, default="vicuna-7b-v1-3-q4f16_0",
                       help=f"Names of probe models. If the number of the probe models is bigger than one "
                            "it iteratively compares the reference model with each from the list.")
   parser.add_argument('-t', '--task_names', nargs="+", type=str, default=None,
@@ -40,6 +41,8 @@ def parse_arguments():
                       help="If scoring has been done for specified task it skips it. This flag allows to redo ready scoring")
   parser.add_argument("-c", "--certainty", action="store_true", default=False,
                       help="Conservative accuracy evaluation. The answer is considered correct only if it is absolutely certain")
+  parser.add_argument("-s", "--simple_tasks", action="store_true", default=False,
+                      help="It skips task names list if exist and uses simple tasks instead of")
   return parser.parse_args()
 
 
@@ -47,20 +50,26 @@ def main():
   if not TASKS_DATA_DIR.exists():
     logging.error(f"LMentry tasks data not found at {TASKS_DATA_DIR}. aborting.\n")
     return
+  if not PREDICTIONS_ROOT_DIR.exists():
+    logging.error(f"Predictions not found at {PREDICTIONS_ROOT_DIR}. aborting.\n")
+    return
   RESULTS_DIR.mkdir(exist_ok=True)
 
   args = parse_arguments()
-  if args.task_names is not None:
+  if args.simple_tasks:
+    task_names = sorted(simple_tasks.keys())
+  elif args.task_names is not None:
     task_names = args.task_names
   else:
     task_names = sorted(tasks_to_compare.keys())
 
   for probe_model_name in args.probe_model_names:
-    print(f"Models {args.ref_model_name} and {probe_model_name} are compared")
+    model_names = get_short_model_names([args.ref_model_name, probe_model_name])
+    print(f"Models {model_names[0]} and {model_names[1]} are compared")
 
     # Predict specified tasks for given models
     # Reference model
-    logging.info(f"Prediction for {args.ref_model_name} model starts")
+    logging.info(f"Prediction for {model_names[0]} model starts")
     generate_all_hf_predictions(
       task_names=task_names,
       model_name=args.ref_model_name,
@@ -68,9 +77,9 @@ def main():
       batch_size=args.batch_size,
       device=args.device,
     )
-    logging.info(f"Prediction for {args.ref_model_name} model finished")
+    logging.info(f"Prediction for {model_names[0]} model finished")
     # Probe_model
-    logging.info(f"Prediction for {probe_model_name} model starts")
+    logging.info(f"Prediction for {model_names[1]} model starts")
     generate_all_hf_predictions(
       task_names=task_names,
       model_name=probe_model_name,
@@ -78,9 +87,8 @@ def main():
       batch_size=args.batch_size,
       device=args.device,
     )
-    logging.info(f"Prediction for {probe_model_name} model finished")
+    logging.info(f"Prediction for {model_names[1]} model finished")
 
-    model_names = [args.ref_model_name, probe_model_name]
     flexible_scoring(task_names=task_names,
                     model_names=model_names,
                     num_processes=args.num_procs,

@@ -5,7 +5,6 @@ from pathlib import Path
 from lmentry.tasks.lmentry_tasks import all_tasks
 from lmentry.constants import RESULTS_DIR
 from lmentry.analysis.accuracy import get_accuracy_and_certainty, get_comparison
-from lmentry.model_manager import get_type_config
 
 logging.basicConfig(format='%(asctime)s %(message)s', datefmt='%Y/%m/%d %H:%M:%S', level=logging.INFO)
 
@@ -17,13 +16,7 @@ def create_per_task_accuracy_comparison_csv(
       certainty: bool=False):
   rows: list[list] = list()
 
-  short_model_names =[]
-  for model_name in model_names:
-    _, model_config = get_type_config(model_name)
-    short_model_names.append(model_config["short_name"])
-  model_names = short_model_names
-
-  column_names = ["task"] + short_model_names + ["full match, %", "correct match, %", "wrong match, %", "correct non-match, %", "correct, %", "reduction, %"]
+  column_names = ["task"] + model_names + ["full match, %", "correct match, %", "wrong match, %", "correct non-match, %", "correct, %", "reduction, %"]
   column_num = len(column_names)
   rows.append(column_names)
 

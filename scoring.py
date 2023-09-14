@@ -1,7 +1,8 @@
 import argparse
 
 from lmentry.analysis.accuracy import flexible_scoring
-from lmentry.tasks.lmentry_tasks import all_tasks
+from lmentry.tasks.lmentry_tasks import all_tasks, simple_tasks
+from lmentry.model_manager import get_short_model_names
 
 
 def parse_arguments():
@@ -21,14 +22,22 @@ def parse_arguments():
                            "Can be up to the number of models you want to evaluate * 41.")
   parser.add_argument("-f", "--forced_scoring", action="store_true", default=False,
                       help="If scoring has been done for specified task it skips it. This flag allows to redo ready scoring")
+  parser.add_argument("-s", "--simple_tasks", action="store_true", default=False,
+                      help="It skips task names list if exist and uses simple tasks instead of")
   return parser.parse_args()
 
 
 def main():
   args = parse_arguments()
 
-  flexible_scoring(task_names=args.task_names,
-                   model_names=args.model_names,
+  if args.simple_tasks:
+    task_names = sorted(simple_tasks.keys())
+  else:
+    task_names = args.task_names
+
+  model_names = get_short_model_names(args.model_names)
+  flexible_scoring(task_names=task_names,
+                   model_names=model_names,
                    num_processes=args.num_procs,
                    forced_scoring=args.forced_scoring)
 

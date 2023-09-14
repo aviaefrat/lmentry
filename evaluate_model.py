@@ -8,6 +8,7 @@ from lmentry.analysis.accuracy import (
   create_per_template_accuracy_csv,
 )
 from lmentry.tasks.lmentry_tasks import simple_tasks, all_tasks
+from lmentry.model_manager import get_short_model_names
 
 
 def parse_arguments():
@@ -28,7 +29,7 @@ def parse_arguments():
                       help="The number of processes to use when scoring the predictions. "
                            "Can be up to the number of models you want to evaluate * 41.")
   parser.add_argument("-s", "--simple_tasks", action="store_true", default=False,
-                      help="It skips task names list if exist and uses simple tasks")
+                      help="It skips task names list if exist and uses simple tasks instead of")
   return parser.parse_args()
 
 
@@ -49,15 +50,17 @@ def main():
   else:
     task_names = sorted(all_tasks.keys())
 
-  logging.info(f"scoring LMentry predictions for models {args.model_names}")
+  model_names = get_short_model_names(args.model_names)
+
+  logging.info(f"scoring LMentry predictions for models {model_names}")
   score_all_predictions(task_names=task_names,
-                        model_names=args.model_names,
+                        model_names=model_names,
                         num_processes=args.num_procs
                         )
-  logging.info(f"finished scoring all LMentry predictions for models {args.model_names}")
+  logging.info(f"finished scoring all LMentry predictions for models {model_names}")
 
-  create_per_task_accuracy_csv(task_names=task_names, model_names=args.model_names)
-  create_per_template_accuracy_csv(task_names=task_names, model_names=args.model_names)
+  create_per_task_accuracy_csv(task_names=task_names, model_names=model_names)
+  create_per_template_accuracy_csv(task_names=task_names, model_names=model_names)
 
 
 if __name__ == "__main__":
