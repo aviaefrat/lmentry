@@ -8,7 +8,7 @@ from transformers import AutoModelForCausalLM, AutoModelForSeq2SeqLM, AutoTokeni
 from lmentry.constants import paper_models, hf_models, hf_11b_models
 
 
-def get_type_config(model_name: str, device: str="cuda"):
+def get_type_config(model_name: str, device: str="cuda", name_from_mlc_config: bool=False):
   type=""
   config={}
   if model_name in paper_models.keys():
@@ -22,6 +22,7 @@ def get_type_config(model_name: str, device: str="cuda"):
   elif Path(model_name).is_dir():
     type = "mlc"
     model_root = Path(model_name)
+
     mlc_config_file = model_root.joinpath("params/mlc-chat-config.json")
 
     mlc_config = {}
@@ -29,7 +30,11 @@ def get_type_config(model_name: str, device: str="cuda"):
       mlc_config = json.load(json_file)
 
     model_local_id = mlc_config["local_id"]
-    config_model_name = model_local_id.replace(".", "-")
+    if name_from_mlc_config:
+      config_model_name = model_local_id
+    else:
+      config_model_name = str(model_root).split("/")[-1]
+    config_model_name = config_model_name.replace(".", "-")
 
     config ={
       "model_name": config_model_name,
