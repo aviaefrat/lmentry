@@ -2,7 +2,7 @@ import argparse
 import logging
 
 from lmentry.constants import PREDICTIONS_ROOT_DIR, TASKS_DATA_DIR, RESULTS_DIR, DEFAULT_MAX_LENGTH
-from lmentry.tasks.lmentry_tasks import all_tasks, tasks_to_compare
+from lmentry.tasks.lmentry_tasks import all_tasks, tasks_to_compare, simple_tasks
 from lmentry.predict import generate_all_hf_predictions
 from lmentry.analysis.accuracy import flexible_scoring
 from lmentry.analysis.comparison import create_per_task_accuracy_comparison_csv
@@ -41,6 +41,8 @@ def parse_arguments():
                       help="If scoring has been done for specified task it skips it. This flag allows to redo ready scoring")
   parser.add_argument("-c", "--certainty", action="store_true", default=False,
                       help="Conservative accuracy evaluation. The answer is considered correct only if it is absolutely certain")
+  parser.add_argument("-s", "--simple_tasks", action="store_true", default=False,
+                      help="It skips task names list if exist and uses simple tasks instead of")
   return parser.parse_args()
 
 
@@ -54,7 +56,9 @@ def main():
   RESULTS_DIR.mkdir(exist_ok=True)
 
   args = parse_arguments()
-  if args.task_names is not None:
+  if args.simple_tasks:
+    task_names = sorted(simple_tasks.keys())
+  elif args.task_names is not None:
     task_names = args.task_names
   else:
     task_names = sorted(tasks_to_compare.keys())
