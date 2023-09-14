@@ -64,7 +64,7 @@ def main():
     task_names = sorted(tasks_to_compare.keys())
 
   for probe_model_name in args.probe_model_names:
-    model_names = get_short_model_names([args.ref_model_name]) + get_short_model_names([probe_model_name])
+    model_names = get_short_model_names([args.ref_model_name, probe_model_name])
     print(f"Models {model_names[0]} and {model_names[1]} are compared")
 
     # Predict specified tasks for given models

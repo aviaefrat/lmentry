@@ -21,7 +21,9 @@ def get_type_config(model_name: str, device: str="cuda", name_from_mlc_config: b
     config["model_name"] = model_name
   elif Path(model_name).is_dir():
     type = "mlc"
+    print("MODEL NAME", model_name)
     model_root = Path(model_name)
+    print("MODEL ROOT", model_root)
 
     mlc_config_file = model_root.joinpath("params/mlc-chat-config.json")
 
