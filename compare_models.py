@@ -2,7 +2,7 @@ import argparse
 import logging
 
 from lmentry.constants import PREDICTIONS_ROOT_DIR, TASKS_DATA_DIR, RESULTS_DIR, DEFAULT_MAX_LENGTH
-from lmentry.tasks.lmentry_tasks import all_tasks, tasks_to_compare, simple_tasks
+from lmentry.tasks.lmentry_tasks import get_tasks_names, tasks_list
 from lmentry.predict import generate_all_hf_predictions
 from lmentry.analysis.accuracy import flexible_scoring
 from lmentry.analysis.comparison import create_per_task_accuracy_comparison_csv
@@ -20,10 +20,11 @@ def parse_arguments():
   parser.add_argument('-p', '--probe_model_names', nargs="+", type=str, default="vicuna-7b-v1-3-q4f16_0",
                       help=f"Names of probe models. If the number of the probe models is bigger than one "
                            "it iteratively compares the reference model with each from the list.")
-  parser.add_argument('-t', '--task_names', nargs="+", type=str, default=None,
-                      help="If need to evaluate specified set of tasks set their names. "
-                           f"Task names should be from the list: {all_tasks.keys()}. "
-                           "It tries to analyze all tasks by default")
+  parser.add_argument('-t', '--task_names', nargs="+", type=str, default=get_tasks_names("7b"),
+                      help="If need to evaluate specified set of tasks set their names or name(s) of specified task set(s). "
+                           f"Task set names should be from the list: {tasks_list.keys()}. "
+                           f"Task names should be from the list: {get_tasks_names()}. "
+                           "It tries to analyze 7b-model sensetive task set by default")
   parser.add_argument('-d', '--device', type=str, default="cuda",
                       help="Device name. It is needed and used by mlc model only during predictions")
   parser.add_argument('-b', '--batch_size', type=int, default=100,
@@ -41,8 +42,6 @@ def parse_arguments():
                       help="If scoring has been done for specified task it skips it. This flag allows to redo ready scoring")
   parser.add_argument("-c", "--certainty", action="store_true", default=False,
                       help="Conservative accuracy evaluation. The answer is considered correct only if it is absolutely certain")
-  parser.add_argument("-s", "--simple_tasks", action="store_true", default=False,
-                      help="It skips task names list if exist and uses simple tasks instead of")
   return parser.parse_args()
 
 
@@ -56,12 +55,7 @@ def main():
   RESULTS_DIR.mkdir(exist_ok=True)
 
   args = parse_arguments()
-  if args.simple_tasks:
-    task_names = sorted(simple_tasks.keys())
-  elif args.task_names is not None:
-    task_names = args.task_names
-  else:
-    task_names = sorted(tasks_to_compare.keys())
+  task_names = get_tasks_names(args.task_names)
 
   for probe_model_name in args.probe_model_names:
     model_names = get_short_model_names([args.ref_model_name, probe_model_name])

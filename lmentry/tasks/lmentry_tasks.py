@@ -1,6 +1,7 @@
 import json
 import logging
 from pathlib import Path
+from typing import List, Union
 
 from lmentry.constants import TASKS_DATA_DIR
 from lmentry.tasks.all_words_from_category import AllWordsFromCategory
@@ -101,7 +102,7 @@ simple_tasks = {
 all_tasks = core_tasks | analysis_tasks | simple_tasks
 
 # It is part from core tasks
-tasks_to_compare = {
+sensetive_7b_model_tasks = {
     "bigger_number": BiggerNumber,
     "smaller_number": SmallerNumber,
     "first_alphabetically": FirstAlphabetically,
@@ -109,30 +110,52 @@ tasks_to_compare = {
     "most_associated_word": MostAssociatedWord,
 }
 
+tasks_list = {
+    "all": all_tasks,
+    "core": core_tasks,
+    "analysis": analysis_tasks,
+    "simple": simple_tasks,
+    "7b": sensetive_7b_model_tasks,
+}
+
+
+def get_tasks_names(task_names: Union[List[str], None]=["all"]):
+  if not task_names:
+    return None
+  ret_task_names = []
+  for task_name in task_names:
+    if task_name in tasks_list.keys():
+      ret_task_names = ret_task_names + sorted(tasks_list[task_name].keys())
+    elif task_name in all_tasks.keys():
+      ret_task_names.append()
+    else:
+      raise ValueError(f"There is no task or task set with name {task_name}")
+  return ret_task_names
+
 
 def create_task_data(task_name: str):
-    task: LMentryTask = all_tasks[task_name]()
-    logging.info(f"creating data for task \"{task_name}\"")
-    task.create_data()
+  task: LMentryTask = all_tasks[task_name]()
+  logging.info(f"creating data for task \"{task_name}\"")
+  task.create_data()
 
 
 def create_all_task_data():
-    for task_name in all_tasks:
-        create_task_data(task_name)
+  for task_name in all_tasks:
+    create_task_data(task_name)
 
 
 def count_examples(tasks_to_count: list[str] = None, tasks_data_dir: Path = None):
-    tasks_data_dir = tasks_data_dir or TASKS_DATA_DIR
+  tasks_data_dir = tasks_data_dir or TASKS_DATA_DIR
 
-    if tasks_to_count is None:
-        tasks_to_count = all_tasks
+  if tasks_to_count is None:
+    tasks_to_count = all_tasks
 
-    n_examples = 0
-    for task_name in tasks_to_count:
-        task_data_path = tasks_data_dir.joinpath(f"{task_name}.json")
-        with open(task_data_path) as f:
-            task_data = json.load(f)
-            n_examples += len(task_data["examples"])
+  n_examples = 0
+  for task_name in tasks_to_count:
+    task_data_path = tasks_data_dir.joinpath(f"{task_name}.json")
+    with open(task_data_path) as f:
+      task_data = json.load(f)
+      n_examples += len(task_data["examples"])
 
-    print(f"#examples in all tasks combined: {n_examples}")
-    return n_examples
+  print(f"#examples in all tasks combined: {n_examples}")
+  return n_examples
