@@ -4,6 +4,7 @@ import json
 import logging
 from multiprocessing import Pool
 from pathlib import Path
+from tqdm import tqdm
 
 import numpy as np
 
@@ -188,7 +189,7 @@ def create_per_task_accuracy_csv(task_names: list[str] = None, model_names: list
 
     # rest of the rows are task result rows
     task_names = task_names or list(all_tasks)
-    for task_name in task_names:
+    for task_name in tqdm(task_names, desc="Compare model accuracy for specified tasks"):
         row = []
         row.append(task_name)
 
@@ -234,7 +235,7 @@ def create_per_template_accuracy_csv(task_names: list[str] = None, model_names: 
     template_names = []
     for i in range(template_num):
         template_names.append(f"template{i}")
-    for task_name in task_names:
+    for task_name in tqdm(task_names, desc="Compare model accuracy for specified tasks"):
         row = []
         row.append(task_name)
 
@@ -265,7 +266,6 @@ def create_per_template_accuracy_csv(task_names: list[str] = None, model_names: 
 
 
 def score_task_predictions(task_name: str, model_name: str, forced_scoring: bool=False):
-
     task = all_tasks[task_name]()
     task.score_predictions(model_name, forced_scoring=forced_scoring)
 
@@ -336,7 +336,7 @@ def flexible_scoring(task_names: list[str] = None, model_names: list[str] = None
     model_tasks_dict = look_through_predictions_dir(model_names=model_names,
                                                     task_names=task_names)
 
-    for model, tasks in model_tasks_dict.items():
+    for model, tasks in tqdm(model_tasks_dict.items(), desc="Score models"):
         logging.info(f"scoring LMentry predictions for {model}")
         score_all_predictions(task_names=tasks,
                               model_names=[model],

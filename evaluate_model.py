@@ -7,7 +7,7 @@ from lmentry.analysis.accuracy import (
   create_per_task_accuracy_csv,
   create_per_template_accuracy_csv,
 )
-from lmentry.tasks.lmentry_tasks import simple_tasks, all_tasks
+from lmentry.tasks.lmentry_tasks import get_tasks_names, tasks_list
 from lmentry.model_manager import get_short_model_names
 
 
@@ -19,9 +19,10 @@ def parse_arguments():
   parser.add_argument("-m", "--model_names", nargs="+", type=str, default=None,
                       help="Names of models which statistics were collected and should evaluate. "
                            "If it is None the predictions directory is analized and evailable model-statistics are evaluated")
-  parser.add_argument('-t', '--task_names', nargs="+", type=str, default=None,
-                      help="If need to evaluate specified set of tasks set their names. "
-                           f"Task names should be from the list: {all_tasks.keys()}. "
+  parser.add_argument('-t', '--task_names', nargs="+", type=str, default=get_tasks_names(),
+                      help="If need to evaluate specified set of tasks set their names or name(s) of specified task set(s). "
+                           f"Task set names should be from the list: {tasks_list.keys()}. "
+                           f"Task names should be from the list: {get_tasks_names()}. "
                            "It tries to analyze all tasks by default")
   parser.add_argument("-n", "--num-procs",
                       default=1,
@@ -43,20 +44,16 @@ def main():
   RESULTS_DIR.mkdir(exist_ok=True)
 
   args = parse_arguments()
-  if args.simple_tasks:
-    task_names = sorted(simple_tasks.keys())
-  elif args.task_names is not None:
-    task_names = args.task_names
-  else:
-    task_names = sorted(all_tasks.keys())
 
+  task_names = get_tasks_names(args.task_names)
   model_names = get_short_model_names(args.model_names)
 
   logging.info(f"scoring LMentry predictions for models {model_names}")
-  score_all_predictions(task_names=task_names,
-                        model_names=model_names,
-                        num_processes=args.num_procs
-                        )
+  score_all_predictions(
+    task_names=task_names,
+    model_names=model_names,
+    num_processes=args.num_procs
+  )
   logging.info(f"finished scoring all LMentry predictions for models {model_names}")
 
   create_per_task_accuracy_csv(task_names=task_names, model_names=model_names)

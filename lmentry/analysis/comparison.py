@@ -1,6 +1,7 @@
 import csv
 import logging
 from pathlib import Path
+from tqdm import tqdm
 
 from lmentry.tasks.lmentry_tasks import all_tasks
 from lmentry.constants import RESULTS_DIR
@@ -22,7 +23,7 @@ def create_per_task_accuracy_comparison_csv(
 
   # rest of the rows are task result rows
   task_names = task_names or list(all_tasks)
-  for task_name in task_names:
+  for task_name in tqdm(task_names, desc="Compare model accuracy for specified tasks"):
     row = []
     row.append(task_name)
 
