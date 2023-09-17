@@ -5,6 +5,7 @@ import time
 from itertools import repeat
 from multiprocessing import Pool
 from pathlib import Path
+from tqdm import tqdm
 
 import openai
 
@@ -60,7 +61,7 @@ def generate_task_hf_predictions(task_name,
 
     # generate predictions
     predictions: list[str] = []
-    for batch_of_strings in _batcher(string_inputs, batch_size):
+    for batch_of_strings in tqdm(_batcher(string_inputs, batch_size), desc="Predict batch of requests"):
         batched_encoding = tokenizer(batch_of_strings, padding="longest", return_tensors="pt")
         batched_encoding = batched_encoding.to(manager.device)
         tensor_inputs = batched_encoding["input_ids"]
@@ -68,7 +69,6 @@ def generate_task_hf_predictions(task_name,
         tensor_outputs = model.generate(tensor_inputs, max_length=max_length + prompt_len)
         outputs = tokenizer.batch_decode(tensor_outputs, skip_special_tokens=True)
         predictions.extend(outputs)
-        logging.info(f"generated {len(predictions)} predictions for {task.name}")
 
     # save the predictions
     predictions_data = dict()
@@ -86,7 +86,7 @@ def generate_all_hf_predictions(task_names: list[str] = None, model_name: str = 
     manager = ModelManager(model_name, device)
     if manager.type == "mlc":
         batch_size = 1
-    for task_name in task_names:
+    for task_name in tqdm(task_names, desc="Predict tasks"):
         # check task and skip it if it has been done
         task = all_tasks[task_name]()
         output_file = task.predictions_dir.joinpath(manager.model_name).with_suffix(".json")

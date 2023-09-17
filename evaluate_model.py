@@ -49,10 +49,11 @@ def main():
   model_names = get_short_model_names(args.model_names)
 
   logging.info(f"scoring LMentry predictions for models {model_names}")
-  score_all_predictions(task_names=task_names,
-                        model_names=model_names,
-                        num_processes=args.num_procs
-                        )
+  score_all_predictions(
+    task_names=task_names,
+    model_names=model_names,
+    num_processes=args.num_procs
+  )
   logging.info(f"finished scoring all LMentry predictions for models {model_names}")
 
   create_per_task_accuracy_csv(task_names=task_names, model_names=model_names)

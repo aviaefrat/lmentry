@@ -1,5 +1,6 @@
 import argparse
 import logging
+from tqdm import tqdm
 
 from lmentry.constants import PREDICTIONS_ROOT_DIR, TASKS_DATA_DIR, RESULTS_DIR, DEFAULT_MAX_LENGTH
 from lmentry.tasks.lmentry_tasks import get_tasks_names, tasks_list
@@ -57,7 +58,7 @@ def main():
   args = parse_arguments()
   task_names = get_tasks_names(args.task_names)
 
-  for probe_model_name in args.probe_model_names:
+  for probe_model_name in tqdm(args.probe_model_names, desc="Models comparison"):
     model_names = get_short_model_names([args.ref_model_name, probe_model_name])
     print(f"Models {model_names[0]} and {model_names[1]} are compared")
 
@@ -83,11 +84,12 @@ def main():
     )
     logging.info(f"Prediction for {model_names[1]} model finished")
 
-    flexible_scoring(task_names=task_names,
-                    model_names=model_names,
-                    num_processes=args.num_procs,
-                    forced_scoring=args.forced_scoring,
-                    )
+    flexible_scoring(
+      task_names=task_names,
+      model_names=model_names,
+      num_processes=args.num_procs,
+      forced_scoring=args.forced_scoring,
+    )
 
     create_per_task_accuracy_comparison_csv(model_names=model_names, task_names=task_names, certainty=args.certainty)
 

@@ -1,4 +1,5 @@
 import argparse
+from tqdm import tqdm
 
 from lmentry.predict import generate_all_hf_predictions
 from lmentry.tasks.lmentry_tasks import get_tasks_names, tasks_list
@@ -30,7 +31,7 @@ def main():
 
   task_names = get_tasks_names(args.task_names)
 
-  for model_name in args.model_names:
+  for model_name in tqdm(args.model_names, desc="Predict specified models"):
     print(f"Prediction of tasks for {model_name} model starts")
     generate_all_hf_predictions(
       task_names=task_names,
