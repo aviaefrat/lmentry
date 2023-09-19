@@ -1,6 +1,6 @@
 from typing import List, Union
 
-from tasks.lmentry_tasks import (
+from tasks.lmentry.lmentry_tasks import (
   all_tasks as lmentry_all_tasks,
   core_tasks as lmentry_core_tasks,
   analysis_tasks as lmentry_analysis_tasks,
