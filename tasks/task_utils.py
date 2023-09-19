@@ -5,8 +5,8 @@ from tasks.lmentry.lmentry_tasks import (
   core_tasks as lmentry_core_tasks,
   analysis_tasks as lmentry_analysis_tasks,
   sensetive_7b_model_tasks,
-  simple_tasks,
 )
+from tasks.simple.simple_tasks import simple_tasks
 
 
 task_groups = {

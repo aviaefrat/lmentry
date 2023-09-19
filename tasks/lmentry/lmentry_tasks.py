@@ -3,49 +3,48 @@ import logging
 from pathlib import Path
 
 from lmentry.constants import TASKS_DATA_DIR
-from tasks.all_words_from_category import AllWordsFromCategory
+from tasks.lmentry.all_words_from_category import AllWordsFromCategory
 from tasks.lmentry.all_words_from_category_0_distractors import AllWordsFromCategory0Distractors
 from tasks.lmentry.all_words_from_category_1_distractors import AllWordsFromCategory1Distractors
 from tasks.lmentry.all_words_from_category_2_distractors import AllWordsFromCategory2Distractors
-from tasks.any_words_from_category import AnyWordsFromCategory
-from tasks.any_words_from_category_3_distractors import AnyWordsFromCategory3Distractors
-from tasks.any_words_from_category_4_distractors import AnyWordsFromCategory4Distractors
-from tasks.any_words_from_category_5_distractors import AnyWordsFromCategory5Distractors
-from tasks.bigger_number import BiggerNumber
-from tasks.ends_with_letter import EndsWithLetter
-from tasks.ends_with_word import EndsWithWord
-from tasks.first_alphabetically import FirstAlphabetically
-from tasks.first_alphabetically_consecutive_first_letter import FirstAlphabeticallyConsecutiveFirstLetter
-from tasks.first_alphabetically_different_first_letter import FirstAlphabeticallyDifferentFirstLetter
-from tasks.first_alphabetically_far_first_letter import FirstAlphabeticallyFarFirstLetter
-from tasks.first_alphabetically_same_first_letter import FirstAlphabeticallySameFirstLetter
-from tasks.first_letter import FirstLetter
-from tasks.first_word import FirstWord
-from tasks.homophones import Homophones
-from tasks.last_letter import LastLetter
-from tasks.last_word import LastWord
-from tasks.least_associated_word import LeastAssociatedWord
-from tasks.less_letters import LessLetters
-from tasks.less_letters_length_diff_3plus import LessLettersLengthDiff3plus
-from tasks.less_letters_length_diff_1 import LessLettersLengthDiff1
-from tasks.more_letters import MoreLetters
-from tasks.more_letters_length_diff_3plus import MoreLettersLengthDiff3plus
-from tasks.more_letters_length_diff_1 import MoreLettersLengthDiff1
-from tasks.most_associated_word import MostAssociatedWord
-from tasks.rhyming_word import RhymingWord
-from tasks.rhyming_word_orthographically_different import RhymingWordOrthographicallyDifferent
-from tasks.rhyming_word_orthographically_similar import RhymingWordOrthographicallySimilar
-from tasks.sentence_containing import SentenceContaining
-from tasks.sentence_not_containing import SentenceNotContaining
-from tasks.smaller_number import SmallerNumber
-from tasks.starts_with_letter import StartsWithLetter
-from tasks.starts_with_word import StartsWithWord
+from tasks.lmentry.any_words_from_category import AnyWordsFromCategory
+from tasks.lmentry.any_words_from_category_3_distractors import AnyWordsFromCategory3Distractors
+from tasks.lmentry.any_words_from_category_4_distractors import AnyWordsFromCategory4Distractors
+from tasks.lmentry.any_words_from_category_5_distractors import AnyWordsFromCategory5Distractors
+from tasks.lmentry.bigger_number import BiggerNumber
+from tasks.lmentry.ends_with_letter import EndsWithLetter
+from tasks.lmentry.ends_with_word import EndsWithWord
+from tasks.lmentry.first_alphabetically import FirstAlphabetically
+from tasks.lmentry.first_alphabetically_consecutive_first_letter import FirstAlphabeticallyConsecutiveFirstLetter
+from tasks.lmentry.first_alphabetically_different_first_letter import FirstAlphabeticallyDifferentFirstLetter
+from tasks.lmentry.first_alphabetically_far_first_letter import FirstAlphabeticallyFarFirstLetter
+from tasks.lmentry.first_alphabetically_same_first_letter import FirstAlphabeticallySameFirstLetter
+from tasks.lmentry.first_letter import FirstLetter
+from tasks.lmentry.first_word import FirstWord
+from tasks.lmentry.homophones import Homophones
+from tasks.lmentry.last_letter import LastLetter
+from tasks.lmentry.last_word import LastWord
+from tasks.lmentry.least_associated_word import LeastAssociatedWord
+from tasks.lmentry.less_letters import LessLetters
+from tasks.lmentry.less_letters_length_diff_3plus import LessLettersLengthDiff3plus
+from tasks.lmentry.less_letters_length_diff_1 import LessLettersLengthDiff1
+from tasks.lmentry.more_letters import MoreLetters
+from tasks.lmentry.more_letters_length_diff_3plus import MoreLettersLengthDiff3plus
+from tasks.lmentry.more_letters_length_diff_1 import MoreLettersLengthDiff1
+from tasks.lmentry.most_associated_word import MostAssociatedWord
+from tasks.lmentry.rhyming_word import RhymingWord
+from tasks.lmentry.rhyming_word_orthographically_different import RhymingWordOrthographicallyDifferent
+from tasks.lmentry.rhyming_word_orthographically_similar import RhymingWordOrthographicallySimilar
+from tasks.lmentry.sentence_containing import SentenceContaining
+from tasks.lmentry.sentence_not_containing import SentenceNotContaining
+from tasks.lmentry.smaller_number import SmallerNumber
+from tasks.lmentry.starts_with_letter import StartsWithLetter
+from tasks.lmentry.starts_with_word import StartsWithWord
 from tasks.task import LMentryTask
-from tasks.word_after import WordAfter
-from tasks.word_before import WordBefore
-from tasks.word_containing import WordContaining
-from tasks.word_not_containing import WordNotContaining
-from tasks.simple_tasks import Capital
+from tasks.lmentry.word_after import WordAfter
+from tasks.lmentry.word_before import WordBefore
+from tasks.lmentry.word_containing import WordContaining
+from tasks.lmentry.word_not_containing import WordNotContaining
 
 core_tasks = {
     "sentence_containing": SentenceContaining,
@@ -95,10 +94,6 @@ analysis_tasks = {
 }
 
 all_tasks = core_tasks | analysis_tasks
-
-simple_tasks = {
-    "capital" : Capital,
-}
 
 # It is part from core tasks
 sensetive_7b_model_tasks = {
