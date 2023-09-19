@@ -3,7 +3,7 @@ import logging
 from pathlib import Path
 from tqdm import tqdm
 
-from lmentry.tasks.task_utils import get_full_task_list
+from tasks.task_utils import get_full_task_list
 from lmentry.constants import RESULTS_DIR
 from lmentry.analysis.accuracy import get_accuracy_and_certainty, get_comparison
 

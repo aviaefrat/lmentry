@@ -9,7 +9,7 @@ from tqdm import tqdm
 
 import openai
 
-from lmentry.tasks.task_utils import all_tasks, get_task
+from tasks.task_utils import all_tasks, get_task
 from lmentry.model_manager import ModelManager
 
 logging.basicConfig(format='%(asctime)s %(message)s', datefmt='%Y/%m/%d %H:%M:%S', level=logging.INFO)

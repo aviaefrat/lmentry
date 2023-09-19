@@ -11,8 +11,8 @@ import numpy as np
 from lmentry.constants import (
     RESULTS_DIR, paper_models, PREDICTIONS_ROOT_DIR, TASKS_DATA_DIR
 )
-from lmentry.tasks.lmentry_tasks import core_tasks
-from lmentry.tasks.task_utils import all_tasks, get_task
+from tasks.lmentry_tasks import core_tasks
+from tasks.task_utils import all_tasks, get_task
 
 logging.basicConfig(format='%(asctime)s %(message)s', datefmt='%Y/%m/%d %H:%M:%S', level=logging.INFO)
 

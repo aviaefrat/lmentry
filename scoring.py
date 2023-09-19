@@ -1,7 +1,7 @@
 import argparse
 
 from lmentry.analysis.accuracy import flexible_scoring
-from lmentry.tasks.task_utils import get_tasks_names, task_groups, all_tasks
+from tasks.task_utils import get_tasks_names, task_groups, all_tasks
 from lmentry.model_manager import get_short_model_names
 
 

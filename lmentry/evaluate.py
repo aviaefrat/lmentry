@@ -8,7 +8,7 @@ from lmentry.analysis.accuracy import score_all_predictions, create_per_task_acc
 from lmentry.analysis.lmentry_score import create_lmentry_scores_csv
 from lmentry.analysis.robustness import create_robustness_csv, create_argument_order_robustness_csv
 from lmentry.constants import PREDICTIONS_ROOT_DIR, TASKS_DATA_DIR, RESULTS_DIR
-from lmentry.tasks.lmentry_tasks import all_tasks
+from tasks.lmentry_tasks import all_tasks
 
 logging.basicConfig(format='%(asctime)s %(message)s', datefmt='%Y/%m/%d %H:%M:%S', level=logging.INFO)
 

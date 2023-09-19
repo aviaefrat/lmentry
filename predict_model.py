@@ -2,7 +2,7 @@ import argparse
 from tqdm import tqdm
 
 from lmentry.predict import generate_all_hf_predictions
-from lmentry.tasks.task_utils import get_tasks_names, task_groups, all_tasks
+from tasks.task_utils import get_tasks_names, task_groups, all_tasks
 from lmentry.constants import DEFAULT_MAX_LENGTH
 
 

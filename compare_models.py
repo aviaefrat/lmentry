@@ -3,7 +3,7 @@ import logging
 from tqdm import tqdm
 
 from lmentry.constants import PREDICTIONS_ROOT_DIR, TASKS_DATA_DIR, RESULTS_DIR, DEFAULT_MAX_LENGTH
-from lmentry.tasks.task_utils import get_tasks_names, task_groups, all_tasks
+from tasks.task_utils import get_tasks_names, task_groups, all_tasks
 from lmentry.predict import generate_all_hf_predictions
 from lmentry.analysis.accuracy import flexible_scoring
 from lmentry.analysis.comparison import create_per_task_accuracy_comparison_csv

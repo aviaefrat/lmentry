@@ -13,7 +13,7 @@ from lmentry.constants import (
     simple_answer_index_task_names, RESULTS_DIR, paper_models, get_short_model_name,
     PREDICTIONS_ROOT_DIR, TASKS_DATA_DIR
 )
-from lmentry.tasks.lmentry_tasks import core_tasks, all_tasks
+from tasks.lmentry_tasks import core_tasks, all_tasks
 
 logging.basicConfig(format='%(asctime)s %(message)s', datefmt='%Y/%m/%d %H:%M:%S', level=logging.INFO)
 
