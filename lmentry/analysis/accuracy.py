@@ -11,9 +11,11 @@ import numpy as np
 from lmentry.constants import (
     RESULTS_DIR, paper_models, PREDICTIONS_ROOT_DIR, TASKS_DATA_DIR
 )
-from lmentry.tasks.lmentry_tasks import all_tasks, core_tasks
+from lmentry.tasks.lmentry_tasks import core_tasks
+from lmentry.tasks.task_utils import all_tasks, get_task
 
 logging.basicConfig(format='%(asctime)s %(message)s', datefmt='%Y/%m/%d %H:%M:%S', level=logging.INFO)
+
 
 def get_prediction(task_name: str, model_name: str):
     prediction_path = PREDICTIONS_ROOT_DIR.joinpath(task_name).joinpath(f"{model_name}.json")
@@ -188,7 +190,7 @@ def create_per_task_accuracy_csv(task_names: list[str] = None, model_names: list
     rows.append(column_names)
 
     # rest of the rows are task result rows
-    task_names = task_names or list(all_tasks)
+    task_names = task_names or all_tasks
     for task_name in tqdm(task_names, desc="Compare model accuracy for specified tasks"):
         row = []
         row.append(task_name)
@@ -231,7 +233,7 @@ def create_per_template_accuracy_csv(task_names: list[str] = None, model_names: 
     rows.append([""] + template_tags * len(model_names))
 
     # rest of the rows are task result rows
-    task_names = task_names or list(all_tasks)
+    task_names = task_names or all_tasks
     template_names = []
     for i in range(template_num):
         template_names.append(f"template{i}")
@@ -266,14 +268,14 @@ def create_per_template_accuracy_csv(task_names: list[str] = None, model_names: 
 
 
 def score_task_predictions(task_name: str, model_name: str, forced_scoring: bool=False):
-    task = all_tasks[task_name]()
+    task = get_task(task_name)
     task.score_predictions(model_name, forced_scoring=forced_scoring)
 
 
 def score_all_predictions(task_names: list[str] = None, model_names: list[str] = None,
                           num_processes: int = 1, forced_scoring: bool=False):
 
-    task_names = task_names or all_tasks.keys()
+    task_names = task_names or all_tasks
     model_names = model_names or list(paper_models)
     starargs = itertools.product(task_names, model_names, [forced_scoring])
 
@@ -345,8 +347,8 @@ def flexible_scoring(task_names: list[str] = None, model_names: list[str] = None
 
 
 def get_model_accuracy(model_name):
-
     task_accuracies = []
+    # TODO(vvchernov): in general case it is not neccessary to be lmentry_core_tasks only
     for task_name in core_tasks:
         metrics = get_accuracy_and_certainty(task_name, model_name)
         if not metrics:

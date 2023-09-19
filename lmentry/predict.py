@@ -9,7 +9,7 @@ from tqdm import tqdm
 
 import openai
 
-from lmentry.tasks.lmentry_tasks import all_tasks
+from lmentry.tasks.task_utils import all_tasks, get_task
 from lmentry.model_manager import ModelManager
 
 logging.basicConfig(format='%(asctime)s %(message)s', datefmt='%Y/%m/%d %H:%M:%S', level=logging.INFO)
@@ -48,7 +48,7 @@ def generate_task_hf_predictions(task_name,
                                  use_vllm: bool=True,
                                  data_path=None,
                                  output_path=None):
-    task = all_tasks[task_name]()
+    task = get_task(task_name)
 
     if not model_name and not manager:
         raise ValueError("must provide either `model_name` or `model manager`")
@@ -127,12 +127,12 @@ def generate_all_hf_predictions(task_names: list[str] = None, model_name: str = 
         batch_size = 1
     for task_name in tqdm(task_names, desc="Predict tasks"):
         # check task and skip it if it has been done
-        task = all_tasks[task_name]()
+        task = get_task(task_name)
 
         if not force_predict:
             # TODO(vvchernov): add advanced postfix (like "_vllm_b1000")
-            output_file = task.predictions_dir.joinpath(manager.short_name).with_suffix(".vllm.json" if use_vllm else ".json")
-            
+            output_file = task.predictions_dir.joinpath(manager.model_name).with_suffix(".vllm.json" if use_vllm else ".json")
+
             if output_file.exists():
                 with open(output_file) as task_json:
                     task_config = json.load(task_json)
@@ -153,7 +153,7 @@ def generate_task_openai_predictions(task_name: str, model_name: str = "", max_t
                                      log_progress_every_n_examples: int = 100,
                                      save_every_n_examples: int = 300,
                                      org_name: str = ""):
-    task = all_tasks[task_name]()
+    task = get_task(task_name)
 
     # load task data
     data_path = data_path or task.default_data_path

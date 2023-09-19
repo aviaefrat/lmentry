@@ -1,7 +1,6 @@
 import json
 import logging
 from pathlib import Path
-from typing import List, Union
 
 from lmentry.constants import TASKS_DATA_DIR
 from lmentry.tasks.all_words_from_category import AllWordsFromCategory
@@ -95,11 +94,11 @@ analysis_tasks = {
     "less_letters_length_diff_1": LessLettersLengthDiff1,
 }
 
+all_tasks = core_tasks | analysis_tasks
+
 simple_tasks = {
     "capital" : Capital,
 }
-
-all_tasks = core_tasks | analysis_tasks | simple_tasks
 
 # It is part from core tasks
 sensetive_7b_model_tasks = {
@@ -109,28 +108,6 @@ sensetive_7b_model_tasks = {
     "first_letter": FirstLetter,
     "most_associated_word": MostAssociatedWord,
 }
-
-tasks_list = {
-    "all": all_tasks,
-    "core": core_tasks,
-    "analysis": analysis_tasks,
-    "simple": simple_tasks,
-    "7b": sensetive_7b_model_tasks,
-}
-
-
-def get_tasks_names(task_names: Union[List[str], None]=["all"]):
-  if not task_names:
-    return None
-  ret_task_names = []
-  for task_name in task_names:
-    if task_name in tasks_list.keys():
-      ret_task_names = ret_task_names + sorted(tasks_list[task_name].keys())
-    elif task_name in all_tasks.keys():
-      ret_task_names.append()
-    else:
-      raise ValueError(f"There is no task or task set with name {task_name}")
-  return ret_task_names
 
 
 def create_task_data(task_name: str):

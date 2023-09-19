@@ -3,7 +3,7 @@ import logging
 from tqdm import tqdm
 
 from lmentry.constants import PREDICTIONS_ROOT_DIR, TASKS_DATA_DIR, RESULTS_DIR, DEFAULT_MAX_LENGTH
-from lmentry.tasks.lmentry_tasks import get_tasks_names, tasks_list
+from lmentry.tasks.task_utils import get_tasks_names, task_groups, all_tasks
 from lmentry.predict import generate_all_hf_predictions
 from lmentry.analysis.accuracy import flexible_scoring
 from lmentry.analysis.comparison import create_per_task_accuracy_comparison_csv
@@ -21,10 +21,10 @@ def parse_arguments():
   parser.add_argument('-p', '--probe_model_names', nargs="+", type=str, default="vicuna-7b-v1-3-q4f16_0",
                       help=f"Names of probe models. If the number of the probe models is bigger than one "
                            "it iteratively compares the reference model with each from the list.")
-  parser.add_argument('-t', '--task_names', nargs="+", type=str, default=get_tasks_names(["7b"]),
+  parser.add_argument('-t', '--task_names', nargs="+", type=str, default=get_tasks_names("7b"),
                       help="If need to evaluate specified set of tasks set their names or name(s) of specified task set(s). "
-                           f"Task set names should be from the list: {tasks_list.keys()}. "
-                           f"Task names should be from the list: {get_tasks_names()}. "
+                           f"Task set names should be from the list: {task_groups.keys()}. "
+                           f"Task names should be from the list: {all_tasks}. "
                            "It tries to analyze 7b-model sensetive task set by default")
   parser.add_argument('-d', '--device', type=str, default="cuda",
                       help="Device name. It is needed and used by mlc model only during predictions")

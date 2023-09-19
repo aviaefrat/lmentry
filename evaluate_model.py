@@ -7,7 +7,7 @@ from lmentry.analysis.accuracy import (
   create_per_task_accuracy_csv,
   create_per_template_accuracy_csv,
 )
-from lmentry.tasks.lmentry_tasks import get_tasks_names, tasks_list
+from lmentry.tasks.task_utils import get_tasks_names, task_groups, all_tasks
 from lmentry.model_manager import get_short_model_names
 
 
@@ -19,10 +19,10 @@ def parse_arguments():
   parser.add_argument("-m", "--model_names", nargs="+", type=str, default=None,
                       help="Names of models which statistics were collected and should evaluate. "
                            "If it is None the predictions directory is analized and evailable model-statistics are evaluated")
-  parser.add_argument('-t', '--task_names', nargs="+", type=str, default=get_tasks_names(),
+  parser.add_argument('-t', '--task_names', nargs="+", type=str, default=all_tasks,
                       help="If need to evaluate specified set of tasks set their names or name(s) of specified task set(s). "
-                           f"Task set names should be from the list: {tasks_list.keys()}. "
-                           f"Task names should be from the list: {get_tasks_names()}. "
+                           f"Task set names should be from the list: {task_groups.keys()}. "
+                           f"Task names should be from the list: {all_tasks}. "
                            "It tries to analyze all tasks by default")
   parser.add_argument("-n", "--num-procs",
                       default=1,
