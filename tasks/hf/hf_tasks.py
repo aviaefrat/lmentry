@@ -1,9 +1,11 @@
 from pathlib import Path
 from typing import List, Dict
 
-from tasks.leh import leh_root_dir
-from tasks.leh.prompts import load_prompt_list
-from tasks.leh.utils import load_yaml_config
+from tasks.hf import hf_root_dir
+from tasks.hf.prompts import load_prompt_list
+from tasks.hf.utils import load_yaml_config
+from tasks.hf.hf_task import HFTask
+from tasks.hf.hf_task_config import HFTaskConfig
 
 
 def check_prompt_config(config: Dict[str, str]) -> List[Dict[str, str]]:
@@ -53,8 +55,9 @@ def get_tasks_dict(root_dir: Path):
     task_config = load_yaml_config(yaml_path)
     all_configs = check_prompt_config(task_config)
     for config in all_configs:
-      # TODO(vvchernov): dummy None instead of Task class
-      local_dict = {get_task_name_from_config(config): None}
+      # TODO(vvchernov): need extended config for child class by some metadata?
+      task_name = get_task_name_from_config(config)
+      local_dict = {task_name: type(f"{task_name}HFTask", (HFTask,), {"CONFIG": HFTaskConfig(**config)})}
       group_name = config.get("group", None)
       if not group_name:
         task_dict.update(local_dict)
@@ -64,4 +67,4 @@ def get_tasks_dict(root_dir: Path):
         task_dict[group_name] = local_dict
   return task_dict
 
-leh_tasks = get_tasks_dict(leh_root_dir)
+hf_tasks = get_tasks_dict(hf_root_dir)

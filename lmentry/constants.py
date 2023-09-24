@@ -6,6 +6,7 @@ DEFAULT_MAX_LENGTH = 70
 
 ROOT_DIR = Path(__file__).parent.parent
 TASKS_DATA_DIR = ROOT_DIR.joinpath("data")
+HF_TASKS_DATA_DIR = ROOT_DIR.joinpath("hf_data")
 PREDICTIONS_ROOT_DIR = ROOT_DIR.joinpath("predictions")
 RESULTS_DIR = ROOT_DIR.joinpath("results")
 VISUALIZATIONS_DIR = RESULTS_DIR.joinpath("visualizations")

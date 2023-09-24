@@ -68,14 +68,9 @@ def generate_task_hf_predictions(task_name,
     model = manager.model
 
     # load task data
-    data_path = data_path or task.default_data_path
-    with open(data_path) as f_examples:
-        data = json.load(f_examples)
-
-    # get the inputs from the task data
-    examples = data["examples"]
+    examples = task.get_data(data_path)
     examples = get_part_from(examples, samples_num)
-
+    # get the inputs from the task data
     string_inputs = [example["input"] for example in examples.values()]
 
     # generate predictions

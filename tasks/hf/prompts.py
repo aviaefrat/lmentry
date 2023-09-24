@@ -1,4 +1,4 @@
-from tasks.leh.utils import pattern_match
+from tasks.hf.utils import pattern_match
 
 
 def load_prompt_list(use_prompt: str, dataset_name=None, subset_name=None, **kwargs):
