@@ -32,6 +32,9 @@ def parse_arguments():
                       help="For calculation on A10G batch size 100 is recommended. "
                            "For mlc-llm models batch size is reduced to 1. "
                            "It is used duirng predictions.")
+  parser.add_argument('-s', '--samples_num', type=int, default=None,
+                      help="Number of samples to choose randomly from task dataset. "
+                           "If set 'None' or the value is bigger than all samples number - all samples will be chosen.")
   parser.add_argument('-ml', '--max_length', type=int, default=DEFAULT_MAX_LENGTH,
                       help="Input max length. It is used duirng predictions.")
   parser.add_argument("-n", "--num-procs",
@@ -71,6 +74,7 @@ def main():
       max_length=args.max_length,
       batch_size=args.batch_size,
       device=args.device,
+      samples_num=args.samples_num,
     )
     logging.info(f"Prediction for {model_names[0]} model finished")
     # Probe_model
@@ -81,6 +85,7 @@ def main():
       max_length=args.max_length,
       batch_size=args.batch_size,
       device=args.device,
+      samples_num=args.samples_num,
     )
     logging.info(f"Prediction for {model_names[1]} model finished")
 
