@@ -13,15 +13,17 @@ class HFTask(LMentryTask):
       HF_TASKS_DATA_DIR.mkdir(parents=True, exist_ok=True)
     self.default_data_path = HF_TASKS_DATA_DIR.joinpath(f"{self.name}.json")
 
-    self.DATASET_PATH = self.CONFIG.dataset_path if self.CONFIG else None
-    self.DATASET_NAME = self.CONFIG.dataset_name if self.CONFIG else None
+    if self.CONFIG is None:
+      raise NotImplementedError("HFTask is abstract class which does not work without config which defined in child one")
+    self.DATASET_PATH = self.CONFIG.dataset_path
+    self.DATASET_NAME = self.CONFIG.dataset_name
     # Prepare data in runtime when task is created
     self.create_data()
 
   def create_data(self, task_data_path=None):
     data_path = task_data_path or self.default_data_path
     if not data_path.exists():
-      dataset = self.download_dataset() # HF Dataset object
+      dataset = self.get_dataset_from_hf() # HF Dataset object
       all_inputs_strs = dataset["context"]
       all_expectations = dataset["completion"]
 
@@ -50,9 +52,36 @@ class HFTask(LMentryTask):
       # save the data
       self.save_task_data(task_data, task_data_path)
 
+  def get_dataset_from_hf(self):
+    dataset = self.download_dataset()
+    if self.has_test_docs():
+        if self.CONFIG.process_docs is not None:
+          return self.CONFIG.process_docs(dataset[self.CONFIG.test_split])
+        return dataset[self.CONFIG.test_split]
+    elif self.has_validation_docs():
+      if self.CONFIG.process_docs is not None:
+        return self.CONFIG.process_docs(dataset[self.CONFIG.validation_split])
+      return dataset[self.CONFIG.validation_split]
+    else:
+        raise ImportError(f"Task dataset (path={self.DATASET_PATH}, name={self.DATASET_NAME}) must have valid or test docs!")
+
   def download_dataset(self):
     import datasets
+    kwargs = self.CONFIG.dataset_kwargs
     return datasets.load_dataset(
       path=self.DATASET_PATH,
       name=self.DATASET_NAME,
+      **kwargs if kwargs is not None else {},
     )
+
+  def has_validation_docs(self) -> bool:
+    if self.CONFIG.validation_split is not None:
+      return True
+    else:
+      return False
+
+  def has_test_docs(self) -> bool:
+    if self.CONFIG.test_split is not None:
+      return True
+    else:
+      return False
