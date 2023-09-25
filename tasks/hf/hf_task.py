@@ -5,7 +5,7 @@ from lmentry.constants import HF_TASKS_DATA_DIR
 class HFTask(LMentryTask):
   CONFIG = None
 
-  def __init__(self, name="hf_task"):
+  def __init__(self, name):
     super().__init__(name)
 
     self.default_data_path = HF_TASKS_DATA_DIR.joinpath(f"{self.name}.json")
