@@ -58,13 +58,17 @@ def get_tasks_dict(root_dir: Path):
       # TODO(vvchernov): need extended config for child class by some metadata?
       task_name = get_task_name_from_config(config)
       local_dict = {task_name: type(f"{task_name}HFTask", (HFTask,), {"CONFIG": HFTaskConfig(**config)})}
-      group_name = config.get("group", None)
-      if not group_name:
+      group_names = config.get("group", None)
+      if not group_names:
         task_dict.update(local_dict)
-      elif group_name in task_dict.keys():
-        task_dict[group_name].update(local_dict)
       else:
-        task_dict[group_name] = local_dict
+        if isinstance(group_names, str):
+          group_names = [group_names]
+        for group_name in group_names:
+          if group_name in task_dict.keys():
+            task_dict[group_name].update(local_dict)
+          else:
+            task_dict[group_name] = local_dict
   return task_dict
 
 hf_tasks = get_tasks_dict(hf_root_dir)
