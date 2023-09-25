@@ -30,7 +30,8 @@ class HFTask(LMentryTask):
       # create examples
       examples = {}
 
-      for iid, question, answer in enumerate(zip(all_inputs_strs, all_expectations)):
+      for iid, qa in enumerate(zip(all_inputs_strs, all_expectations)):
+        question, answer = qa
         # create metadata
         metadata = dict()
         metadata["answer"]
