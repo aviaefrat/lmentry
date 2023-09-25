@@ -34,11 +34,11 @@ class HFTask(LMentryTask):
         question, answer = qa
         # create metadata
         metadata = dict()
-        metadata["answer"]
+        metadata["answer"] = answer
         # create the example
         example = dict()
         example["input"] = question
-        example["metadata"] = answer
+        example["metadata"] = metadata
         examples[f"{iid + 1}"] = example
 
       # create the shared settings
