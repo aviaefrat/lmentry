@@ -73,7 +73,6 @@ def get_tasks_names(task_names: Union[str, List[str], None]=all_tasks):
   return list(set(ret_task_names)) # remove duplicates
 
 
-# TODO(vvchernov): it is LMentry mechanism, it is needed to update for other ones
 def get_task(task_name: str):
   assert task_name in all_tasks, f"There is no task with name {task_name}"
-  return search_task_obj_with_name(task_name)
+  return search_task_obj_with_name(task_groups, task_name)
