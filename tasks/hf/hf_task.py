@@ -8,8 +8,10 @@ class HFTask(LMentryTask):
   def __init__(self, name):
     super().__init__(name)
 
+    # Create directory for HF tasks if need
+    if not HF_TASKS_DATA_DIR.exists():
+      HF_TASKS_DATA_DIR.mkdir(parents=True, exist_ok=True)
     self.default_data_path = HF_TASKS_DATA_DIR.joinpath(f"{self.name}.json")
-    self.default_data_path.mkdir(parents=True, exist_ok=True)
 
     self.DATASET_PATH = self.CONFIG.dataset_path if self.CONFIG else None
     self.DATASET_NAME = self.CONFIG.dataset_name if self.CONFIG else None
