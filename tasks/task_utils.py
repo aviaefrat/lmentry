@@ -45,14 +45,15 @@ def get_all_task_names_from_dict(task_dict: dict) -> List[str]:
   return sorted(ret_task_list)
 
 
-def get_full_task_list():
-  task_names = get_all_task_names_from_dict(task_groups)
+def get_full_task_list(task_dict: dict=task_groups):
+  task_names = get_all_task_names_from_dict(task_dict)
   # remove duplicates
   task_names = list(set(task_names))
   return task_names
 
 
 all_tasks = get_full_task_list()
+all_hf_task = get_full_task_list(hf_tasks)
 
 
 # TODO(vvchernov): what task list is used by default?
