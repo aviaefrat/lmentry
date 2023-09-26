@@ -11,6 +11,9 @@ class HFTaskScorer(LMentryScorer):
     metadata = example["metadata"]
     answer = metadata["answer"]
 
+    # TODO(vchernov): transfer to task create?
+    answer = " ".join(answer.split())
+
     print("Prediction:", prediction)
     print("Answer:", answer)
     score, certainty = self.negative_scorer(prediction, answer)
