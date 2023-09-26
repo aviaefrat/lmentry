@@ -1,9 +1,12 @@
 from tasks.task import LMentryTask
 from lmentry.constants import HF_TASKS_DATA_DIR
+from lmentry.scorers.hf_scorer import HFTaskScorer
 
 
 class HFTask(LMentryTask):
+
   CONFIG = None
+  scorer_cls = HFTaskScorer
 
   def __init__(self, name):
     super().__init__(name)
