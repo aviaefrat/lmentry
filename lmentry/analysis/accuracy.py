@@ -35,10 +35,13 @@ def get_accuracy_and_certainty(task_name: str, model_name: str) -> dict:
 
     # load task data (for ids and templates)
     # TODO(vvchernov): need more flexible approach
+    print("TASK NAME:", task_name)
+    print("HF TASKS:", hf_tasks)
     if task_name in hf_tasks:
         task_data_path = HF_TASKS_DATA_DIR.joinpath(f"{task_name}.json")
     else:
         task_data_path = TASKS_DATA_DIR.joinpath(f"{task_name}.json")
+    print("DATA PATH:", task_data_path)
     with open(task_data_path) as f_task:
         task_data = json.load(f_task)
     examples = task_data["examples"]
