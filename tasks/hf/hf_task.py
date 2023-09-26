@@ -23,9 +23,9 @@ class HFTask(LMentryTask):
     # Prepare data in runtime when task is created
     self.create_data()
 
-  def create_data(self, task_data_path=None):
+  def create_data(self, task_data_path=None, forced=False):
     data_path = task_data_path or self.default_data_path
-    if not data_path.exists():
+    if not data_path.exists() or forced:
       dataset = self.get_dataset_from_hf() # HF Dataset object
       all_inputs_strs = dataset["context"]
       all_expectations = dataset["completion"]
@@ -38,6 +38,8 @@ class HFTask(LMentryTask):
         # create metadata
         metadata = dict()
         metadata["answer"] = answer
+        # TODO(vvchernov): Case when there is no templates. It is workaround
+        metadata["template_id"] = 0
         # create the example
         example = dict()
         example["input"] = question

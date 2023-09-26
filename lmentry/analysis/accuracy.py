@@ -45,7 +45,12 @@ def get_accuracy_and_certainty(task_name: str, model_name: str) -> dict:
     settings = task_data["settings"]
 
     # get per-template counts of scores and certainty
-    num_input_templates = len(settings["input_templates"])
+    input_templates = settings.get("input_templates", None)
+    if input_templates:
+        num_input_templates = len(input_templates)
+    else:
+        # TODO(vvchernov): Case when there is no templates. It is workaround
+        num_input_templates = 1
     output = {f"template{i}": {"n_1s": 0,
                                "n_0s": 0,
                                "n_certain": 0,
