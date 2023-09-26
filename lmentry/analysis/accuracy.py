@@ -12,7 +12,7 @@ from lmentry.constants import (
     RESULTS_DIR, paper_models, PREDICTIONS_ROOT_DIR, TASKS_DATA_DIR, HF_TASKS_DATA_DIR
 )
 from tasks.lmentry.lmentry_tasks import core_tasks
-from tasks.task_utils import all_tasks, hf_tasks, get_task
+from tasks.task_utils import all_tasks, all_hf_task, get_task
 
 logging.basicConfig(format='%(asctime)s %(message)s', datefmt='%Y/%m/%d %H:%M:%S', level=logging.INFO)
 
@@ -35,13 +35,10 @@ def get_accuracy_and_certainty(task_name: str, model_name: str) -> dict:
 
     # load task data (for ids and templates)
     # TODO(vvchernov): need more flexible approach
-    print("TASK NAME:", task_name)
-    print("HF TASKS:", hf_tasks)
-    if task_name in hf_tasks:
+    if task_name in all_hf_task:
         task_data_path = HF_TASKS_DATA_DIR.joinpath(f"{task_name}.json")
     else:
         task_data_path = TASKS_DATA_DIR.joinpath(f"{task_name}.json")
-    print("DATA PATH:", task_data_path)
     with open(task_data_path) as f_task:
         task_data = json.load(f_task)
     examples = task_data["examples"]
