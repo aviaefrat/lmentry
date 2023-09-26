@@ -11,9 +11,12 @@ class HFTaskScorer(LMentryScorer):
     metadata = example["metadata"]
     answer = metadata["answer"]
 
+    print("Prediction:", prediction)
+    print("Answer:", answer)
     score, certainty = self.negative_scorer(prediction, answer)
     if score is not None:
-        return score, certainty
+      return score, certainty
+    print("Pass negative scorer")
 
     if answer.isnumeric():
       answer = the_number_regex(answer)
@@ -24,7 +27,8 @@ class HFTaskScorer(LMentryScorer):
 
     score, certainty = self._simple_scorer(prediction, answer)
     if score:
-        return score, certainty
+      return score, certainty
+    print("Pass simple scorer")
 
     base_patterns = self.get_shared_patterns(target=answer)
 

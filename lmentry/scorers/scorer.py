@@ -155,6 +155,7 @@ class LMentryScorer:
         # score predictions
         for id_ in predictions:
             if id_ != "scoring":
+                print(f"Score {id_} QA")
                 example = examples[id_]
                 prediction_entry = predictions[id_]
                 prediction = prediction_entry["prediction"]
