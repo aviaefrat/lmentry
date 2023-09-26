@@ -49,6 +49,8 @@ class HFTask(LMentryTask):
       # create the shared settings
       settings = dict()
       settings["name"] = self.name
+      # TODO(vvchernov): Case when there is no templates. It is workaround
+      settings["num_examples_per_template"] = len(all_inputs_strs)
 
       # build the task_data
       task_data = dict()
