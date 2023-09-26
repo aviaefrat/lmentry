@@ -1,14 +1,8 @@
-import os
-import random
-from typing import List, Tuple, Union
-
-import torch
-import numpy as np
+from typing import List, Union
 
 import tvm
-from vllm import LLM, SamplingParams
-from transformers import (AutoTokenizer, PreTrainedTokenizer,
-                          PreTrainedTokenizerFast, AutoModelForCausalLM, PreTrainedTokenizerBase)
+from vllm import LLM
+from transformers import (AutoTokenizer, PreTrainedTokenizer, PreTrainedTokenizerFast)
 from tqdm import tqdm
 import json
 
@@ -23,22 +17,19 @@ class VllmModelWrapper:
     def __init__(self,
         model_name: str,
         config: dict,
-        tensor_parallel_size: int,
-        seed: int,
-        trust_remote_code: bool,
-        use_beam_search: bool,
         output_len: int,
-        n: int,
         tokenizer
     ):
-        print("model", model_name)
-        print("tokenizer", tokenizer)
+        self.tensor_parallel_size = 1
+        self.seed = 0
+        self.trust_remote_code = True
+
         self.llm = LLM(
             model=model_name,
-            tokenizer=tokenizer,  # TODO: temporary solution
-            tensor_parallel_size=tensor_parallel_size,
-            seed=seed,
-            trust_remote_code=trust_remote_code,
+            tokenizer=tokenizer,
+            tensor_parallel_size=self.tensor_parallel_size,
+            seed=self.seed,
+            trust_remote_code=self.trust_remote_code,
         )
     
         self.device = tvm.device("cuda")
@@ -70,14 +61,9 @@ class VllmModelWrapper:
     def get_vllm_model(
         model_name: str,
         config: dict,
-        tensor_parallel_size: int,
-        seed: int,
-        trust_remote_code: bool,
-        use_beam_search: bool,
         output_len: int,
-        n: int,
         tokenizer):
-        return VllmModelWrapper(model_name, config, tensor_parallel_size, seed, trust_remote_code, use_beam_search, output_len, n, tokenizer)
+        return VllmModelWrapper(model_name, config, output_len, tokenizer)
 
     @staticmethod
     def get_vllm_tokenizer(
@@ -133,49 +119,3 @@ class VllmModelWrapper:
                 "Using a slow tokenizer. This might cause a significant "
                 "slowdown. Consider using a fast tokenizer instead.")
         return tokenizer
-
-    @staticmethod
-    def sample_requests(
-        dataset_path: str,
-        num_requests: int,
-        tokenizer: PreTrainedTokenizerBase,
-    ) -> List[Tuple[str, int, int]]:
-        # Load the dataset.
-        with open(dataset_path) as f:
-            dataset = json.load(f)
-        # Filter out the conversations with less than 2 turns.
-        dataset = [
-            data for data in dataset
-            if len(data["conversations"]) >= 2
-        ]
-        # Only keep the first two turns of each conversation.
-        dataset = [
-            (data["conversations"][0]["value"], data["conversations"][1]["value"])
-            for data in dataset
-        ]
-
-        # Tokenize the prompts and completions.
-        prompts = [prompt for prompt, _ in dataset]
-        prompt_token_ids = tokenizer(prompts).input_ids
-        completions = [completion for _, completion in dataset]
-        completion_token_ids = tokenizer(completions).input_ids
-        tokenized_dataset = []
-        for i in range(len(dataset)):
-            output_len = len(completion_token_ids[i])
-            tokenized_dataset.append((prompts[i], prompt_token_ids[i], output_len))
-
-        # Filter out too long sequences.
-        filtered_dataset: List[Tuple[str, int, int]] = []
-        for prompt, prompt_token_ids, output_len in tokenized_dataset:
-            prompt_len = len(prompt_token_ids)
-            if prompt_len < 4 or output_len < 4:
-                # Prune too short sequences.
-                continue
-            if prompt_len > 1024 or prompt_len + output_len > 2048:
-                # Prune too long sequences.
-                continue
-            filtered_dataset.append((prompt, prompt_len, output_len))
-
-        # Sample the requests.
-        sampled_requests = random.sample(filtered_dataset, num_requests)
-        return sampled_requests

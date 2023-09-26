@@ -23,6 +23,10 @@ def parse_args():
                       help="Input max length")
   parser.add_argument('-sn', '--samples_num', type=int, default=None,
                       help="Number of samples to choose randomly from task dataset. If set 'None' - all samples would be chosen.")
+  parser.add_argument('--use_vllm', type=bool, default=False,
+                      help="Whether to use vLLM inference. ")
+  parser.add_argument('-fp', '--force_predict', type=bool, default=False,
+                      help="Whether to force regenerate predictions.")
 
   args = parser.parse_args()
   return args
@@ -30,13 +34,14 @@ def parse_args():
 
 def main():
   args = parse_args()
-
-  # TODO(vvchernov): Why?
-  # import torch
-  # import gc
-  # torch.cuda.empty_cache()
-  # gc.collect()
-
+  # TODO: Check skip mechanism: 1. (NO FORCE) samples_num <= len(task_config) -> Should skip [V][Task bigger_number was skipped due to it was done before. (200 generated vs. 100 requested)]
+  # TODO: Check skip mechanism: 2. (NO FORCE) len(task_config) < samples_num < max_samples  -> Should generate s_n predictions [V]
+  # TODO: Check skip mechanism: 3. (NO FORCE) samples_num=None and samples_num > len(task_config) -> Should set s_n to m_s and generate s_n predictions [V]
+  # TODO: Check skip mechanism: 4. (NO FORCE) samples_num=None and samples_num <= len(task_config) -> Should skip [V]
+  # TODO: Check skip mechanism: 5. (FORCE) samples_num <= max_samples (3000) -> Should generate s_n predictions [V]
+  # TODO: Check skip mechanism: 6. (FORCE) samples_num > max_samples (3000) -> Should set s_n to m_s and generate m_s predictions [V]
+  # TODO: Check --use_vllm and --samples_num (-sn) to work correctly [V]
+  # TODO: Check that all other TODOs are done or marked [V]
   task_names = get_tasks_names(args.task_names)
 
   for model_name in tqdm(args.model_names, desc="Predict specified models"):
@@ -47,6 +52,9 @@ def main():
       max_length=args.max_length,
       batch_size=args.batch_size,
       device=args.device,
+      samples_num=args.samples_num,
+      use_vllm=args.use_vllm,
+      force_predict=args.force_predict,
     )
     print(f"Prediction of tasks for {model_name} model finished")
 

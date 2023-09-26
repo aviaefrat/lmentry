@@ -1,8 +1,6 @@
 import logging
 import json
 from pathlib import Path
-# TODO(vvchernov): remove?
-from typing import List, Tuple, Union
 
 import torch
 from transformers import AutoModelForCausalLM, AutoModelForSeq2SeqLM, AutoTokenizer
@@ -33,8 +31,6 @@ def get_type_config(
       config["model_name"] = model_name
   elif Path(model_name).is_dir():
     type = "mlc"
-    # if use_vllm:
-    #   type = "vllm"
     model_root = Path(model_name)
 
     mlc_config_file = model_root.joinpath("params/mlc-chat-config.json")
@@ -79,9 +75,9 @@ def get_short_model_names(model_names):
 
 
 class ModelManager:
-  def __init__(self, model_name: str, device: str="cuda", max_length: int=100):
+  def __init__(self, model_name: str, device: str="cuda", max_length: int=100, use_vllm: bool=False):
     self.max_length = max_length
-    self.type, self.config = get_type_config(model_name, device)
+    self.type, self.config = get_type_config(model_name, device, use_vllm)
     self.model_name = self.config["model_name"]
 
     self.short_name = self.config.get("short_name", self.model_name)
@@ -89,7 +85,6 @@ class ModelManager:
     self.predictor_name = self.config.get("predictor_name", self.model_name)
 
     self.tokenizer = None
-    print("self.type", self.type)
     if self.type == "paper":
       self.tokenizer = AutoTokenizer.from_pretrained(self.predictor_name)
     elif self.type == "hf":
@@ -103,10 +98,7 @@ class ModelManager:
           # 50277 means "### End"
           self.tokenizer.eos_token_id = 50277
     elif self.type == "vllm":
-      print("VLLM")
       from lmentry.vllm_model_wrapper import VllmModelWrapper
-      print("model_name", model_name)
-      print("self.predictor_name", self.predictor_name)
       self.tokenizer = VllmModelWrapper.get_vllm_tokenizer(tokenizer_name=model_name, trust_remote_code=True)
 
     self.device = torch.device("cuda") if torch.cuda.is_available() else "cpu"
@@ -125,24 +117,10 @@ class ModelManager:
         self.model = get_relax_model(self.config, self.tokenizer.eos_token_id)
       elif self.type == "vllm":
         from lmentry.vllm_model_wrapper import VllmModelWrapper
-        tensor_parallel_size = 1
-        seed = 0
-        trust_remote_code = True
-        use_beam_search = False
-        n = 1
-        # TODO(vvchernov): recheck
+        
+        # TODO(vvchernov): recheck [updated]
         model_name = self.predictor_name
-        self.model = VllmModelWrapper.get_vllm_model(
-          model_name,
-          self.config,
-          tensor_parallel_size,
-          seed,
-          trust_remote_code,
-          use_beam_search,
-          self.max_length,
-          n,
-          model_name
-        )
+        self.model = VllmModelWrapper.get_vllm_model(model_name, self.config, self.max_length, model_name)
       logging.info(f"finished initializing model {self.predictor_name}")
       self.is_init = True
 
