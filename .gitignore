@@ -1,3 +1,6 @@
+# dir for HF tasks
+hf_data/
+
 # prediction and evaluate dirs
 predictions/
 results/

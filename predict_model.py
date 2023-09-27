@@ -2,7 +2,7 @@ import argparse
 from tqdm import tqdm
 
 from lmentry.predict import generate_all_hf_predictions
-from lmentry.tasks.lmentry_tasks import get_tasks_names, tasks_list
+from tasks.task_utils import get_tasks_names, task_groups, all_tasks
 from lmentry.constants import DEFAULT_MAX_LENGTH
 
 
@@ -10,10 +10,10 @@ def parse_args():
   parser = argparse.ArgumentParser()
   parser.add_argument("-m", "--model_names", nargs="+", type=str, default=["vicuna-7b-v1-3"],
                       help="Model names or paths to the root directory of mlc-llm models for predictions.")
-  parser.add_argument('-t', '--task_names', nargs="+", type=str, default=get_tasks_names(),
+  parser.add_argument('-t', '--task_names', nargs="+", type=str, default=all_tasks,
                       help="If need to evaluate specified set of tasks set their names or name(s) of specified task set(s). "
-                           f"Task set names should be from the list: {tasks_list.keys()}. "
-                           f"Task names should be from the list: {get_tasks_names()}. "
+                           f"Task set names should be from the list: {task_groups.keys()}. "
+                           f"Task names should be from the list: {all_tasks}. "
                            "It tries to analyze all tasks by default")
   parser.add_argument('-d', '--device', type=str, default="cuda",
                       help="Device name. It is needed and used by mlc model only")
