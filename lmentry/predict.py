@@ -24,12 +24,28 @@ def _ms_since_epoch():
     return time.perf_counter_ns() // 1000000
 
 
+def get_part_from(examples: dict, samples_num: int=None):
+    ex_num = len(examples)
+    if samples_num and samples_num < ex_num:
+        import random
+        cut_idx = sorted(random.sample(range(1, ex_num + 1), samples_num))
+        cut_examples = dict()
+
+        for idx in cut_idx:
+            cut_examples[str(idx)] = examples[str(idx)]
+        return cut_examples
+    else:
+        return examples
+
+
 def generate_task_hf_predictions(task_name,
                                  manager: ModelManager = None,
                                  model_name: str="",
                                  max_length: int=50,
                                  batch_size: int=200,
                                  device: str="cuda",
+                                 samples_num: int=None,
+                                 use_vllm: bool=True,
                                  data_path=None,
                                  output_path=None):
     task = all_tasks[task_name]()
@@ -55,48 +71,78 @@ def generate_task_hf_predictions(task_name,
     data_path = data_path or task.default_data_path
     with open(data_path) as f_examples:
         data = json.load(f_examples)
+
     # get the inputs from the task data
     examples = data["examples"]
+    examples = get_part_from(examples, samples_num)
+
     string_inputs = [example["input"] for example in examples.values()]
 
     # generate predictions
     predictions: list[str] = []
-    for batch_of_strings in tqdm(_batcher(string_inputs, batch_size), desc="Predict batch of requests"):
-        batched_encoding = tokenizer(batch_of_strings, padding="longest", return_tensors="pt")
-        batched_encoding = batched_encoding.to(manager.device)
-        tensor_inputs = batched_encoding["input_ids"]
-        prompt_len = tensor_inputs.shape[1]
-        tensor_outputs = model.generate(tensor_inputs, max_length=max_length + prompt_len)
-        outputs = tokenizer.batch_decode(tensor_outputs, skip_special_tokens=True)
-        predictions.extend(outputs)
+
+    if use_vllm:
+        from vllm import SamplingParams
+        sampling_params = SamplingParams(
+                n=1,
+                temperature=0.8,
+                top_p=0.95,
+                use_beam_search=False,
+                ignore_eos=False,
+                max_tokens=100,
+        )
+    
+        for batch_of_strings in tqdm(_batcher(string_inputs, batch_size), desc="Predict batch of requests"):
+            outputs = model.generate(batch_of_strings, sampling_params)
+            predictions.extend(outputs)
+    else:
+        for batch_of_strings in tqdm(_batcher(string_inputs, batch_size), desc="Predict batch of requests"):
+            batched_encoding = tokenizer(batch_of_strings, padding="longest", return_tensors="pt")
+            batched_encoding = batched_encoding.to(manager.device)
+            tensor_inputs = batched_encoding["input_ids"]
+            prompt_len = tensor_inputs.shape[1]
+            tensor_outputs = model.generate(tensor_inputs, max_length=max_length + prompt_len)
+            outputs = tokenizer.batch_decode(tensor_outputs, skip_special_tokens=True)
+            predictions.extend(outputs)
 
     # save the predictions
     predictions_data = dict()
     for id_, input_, prediction in zip(examples, string_inputs, predictions):
         predictions_data[id_] = {"input": input_, "prediction": prediction}
 
-    output_path = output_path or task.predictions_dir.joinpath(manager.model_name).with_suffix(".json")
+    if '/' in manager.model_name:
+        manager.model_name = manager.short_name
+    output_path = output_path or task.predictions_dir.joinpath(manager.model_name).with_suffix(".vllm.json" if use_vllm else ".json")
+
     with open(output_path, "w") as f_predictions:
         json.dump(predictions_data, f_predictions, indent=2)
 
 
 def generate_all_hf_predictions(task_names: list[str] = None, model_name: str = "",
-                                max_length=50, batch_size=200, device: str="cuda"):
+                                max_length=50, batch_size=200, device: str="cuda",
+                                samples_num: int=None, use_vllm: bool=False, force_predict: bool=False):
     task_names = task_names or all_tasks
-    manager = ModelManager(model_name, device)
+    manager = ModelManager(model_name, device, max_length, use_vllm)
     if manager.type == "mlc":
         batch_size = 1
     for task_name in tqdm(task_names, desc="Predict tasks"):
         # check task and skip it if it has been done
         task = all_tasks[task_name]()
-        output_file = task.predictions_dir.joinpath(manager.model_name).with_suffix(".json")
-        if output_file.exists():
-            with open(output_file) as task_json:
-                task_config = json.load(task_json)
-            if bool(task_config):
-                logging.info(f"Task {task.name} was skipped due to it was done before")
-                continue
-        generate_task_hf_predictions(task_name, manager, model_name, max_length, batch_size, device)
+
+        if not force_predict:
+            # TODO(vvchernov): add advanced postfix (like "_vllm_b1000")
+            output_file = task.predictions_dir.joinpath(manager.short_name).with_suffix(".vllm.json" if use_vllm else ".json")
+            
+            if output_file.exists():
+                with open(output_file) as task_json:
+                    task_config = json.load(task_json)
+                if bool(task_config):
+                    # TODO(vvchernov): it is excess check or we need discuss scenario for it
+                    if samples_num <= len(task_config):
+                        logging.info(f"Task {task.name} was skipped due to it was done before. ({len(task_config)} generated vs. {samples_num} requested)\nUse '--force_predict' to force predictions generation.")
+                        continue
+
+        generate_task_hf_predictions(task_name, manager, model_name, max_length, batch_size, device, samples_num, use_vllm)
 
 
 # todo make the saving of the metadata optional (with a default yes as we do it ourselves)

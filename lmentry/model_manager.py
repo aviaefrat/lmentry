@@ -8,7 +8,12 @@ from transformers import AutoModelForCausalLM, AutoModelForSeq2SeqLM, AutoTokeni
 from lmentry.constants import paper_models, hf_models, hf_11b_models
 
 
-def get_type_config(model_name: str, device: str="cuda", name_from_mlc_config: bool=False):
+def get_type_config(
+    model_name: str,
+    device: str="cuda",
+    use_vllm: bool=False,
+    name_from_mlc_config: bool=False,
+):
   type=""
   config={}
   if model_name in paper_models.keys():
@@ -16,9 +21,14 @@ def get_type_config(model_name: str, device: str="cuda", name_from_mlc_config: b
     config = paper_models[model_name]
     config["model_name"] = model_name
   elif model_name in hf_models.keys():
-    type = "hf"
-    config = hf_models[model_name]
-    config["model_name"] = model_name
+    if use_vllm:
+      type = "vllm"
+      config = hf_models[model_name]
+      config["model_name"] = model_name
+    else:
+      type = "hf"
+      config = hf_models[model_name]
+      config["model_name"] = model_name
   elif Path(model_name).is_dir():
     type = "mlc"
     model_root = Path(model_name)
@@ -65,8 +75,9 @@ def get_short_model_names(model_names):
 
 
 class ModelManager:
-  def __init__(self, model_name: str, device: str="cuda"):
-    self.type, self.config = get_type_config(model_name, device)
+  def __init__(self, model_name: str, device: str="cuda", max_length: int=100, use_vllm: bool=False):
+    self.max_length = max_length
+    self.type, self.config = get_type_config(model_name, device, use_vllm)
     self.model_name = self.config["model_name"]
 
     self.short_name = self.config.get("short_name", self.model_name)
@@ -86,6 +97,9 @@ class ModelManager:
       if self.model_name.startswith("dolly-"):
           # 50277 means "### End"
           self.tokenizer.eos_token_id = 50277
+    elif self.type == "vllm":
+      from lmentry.vllm_model_wrapper import VllmModelWrapper
+      self.tokenizer = VllmModelWrapper.get_vllm_tokenizer(tokenizer_name=model_name, trust_remote_code=True)
 
     self.device = torch.device("cuda") if torch.cuda.is_available() else "cpu"
     self.model = None
@@ -101,6 +115,12 @@ class ModelManager:
       elif self.type == "mlc":
         from lmentry.relax_model_wrapper import get_relax_model
         self.model = get_relax_model(self.config, self.tokenizer.eos_token_id)
+      elif self.type == "vllm":
+        from lmentry.vllm_model_wrapper import VllmModelWrapper
+        
+        # TODO(vvchernov): recheck [updated]
+        model_name = self.predictor_name
+        self.model = VllmModelWrapper.get_vllm_model(model_name, self.config, self.max_length, model_name)
       logging.info(f"finished initializing model {self.predictor_name}")
       self.is_init = True
 
@@ -111,7 +131,7 @@ class ModelManager:
     return self.tokenizer
 
   def to_device(self):
-    if self.type != "mlc":
+    if self.type != "mlc" and self.type != "vllm":
       if self.is_init:
         if self.model_name in hf_11b_models:  # 11B models have to be parallelized
           self.model.parallelize()

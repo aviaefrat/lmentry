@@ -275,7 +275,6 @@ def score_all_predictions(task_names: list[str] = None, model_names: list[str] =
 
     task_names = task_names or all_tasks.keys()
     model_names = model_names or list(paper_models)
-
     starargs = itertools.product(task_names, model_names, [forced_scoring])
 
     with Pool(processes=num_processes) as pool:

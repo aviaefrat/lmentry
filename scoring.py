@@ -32,10 +32,12 @@ def main():
   task_names = get_tasks_names(args.task_names)
 
   model_names = get_short_model_names(args.model_names)
-  flexible_scoring(task_names=task_names,
-                   model_names=model_names,
-                   num_processes=args.num_procs,
-                   forced_scoring=args.forced_scoring)
+  flexible_scoring(
+    task_names=task_names,
+    model_names=model_names,
+    num_processes=args.num_procs,
+    forced_scoring=args.forced_scoring
+  )
 
 
 if __name__ == "__main__":

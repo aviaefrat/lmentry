@@ -38,6 +38,8 @@ paper_models = {
 
 hf_models = {
     "vicuna-7b-v1-3": {"short_name": "vicuna-7b-v1-3", "paper_name": "Vicuna-7b", "predictor_name": "lmsys/vicuna-7b-v1.3"},
+    "lmsys/vicuna-7b-v1.5": {"short_name": "vicuna-7b-v1-5", "paper_name": "Vicuna-7b", "predictor_name": "lmsys/vicuna-7b-v1.5"},
+    "lmsys/vicuna-7b-v1.5-q0f16": {"short_name": "vicuna-7b-v1-5", "paper_name": "Vicuna-7b", "predictor_name": "lmsys/vicuna-7b-v1.5"},
 }
 
 text_001_models = [
