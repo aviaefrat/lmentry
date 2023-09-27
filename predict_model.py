@@ -19,10 +19,11 @@ def parse_args():
                       help="Device name. It is needed and used by mlc model only")
   parser.add_argument('-b', '--batch_size', type=int, default=100,
                       help="For calculation on A10G batch size 100 is recommended. For mlc-llm models batch size is reduced to 1")
+  parser.add_argument('-s', '--samples_num', type=int, default=None,
+                      help="Number of samples to choose randomly from task dataset. "
+                           "If set 'None' or the value is bigger than all samples number - all samples will be chosen.")
   parser.add_argument('-ml', '--max_length', type=int, default=DEFAULT_MAX_LENGTH,
-                      help="Input max length")
-  parser.add_argument('-sn', '--samples_num', type=int, default=None,
-                      help="Number of samples to choose randomly from task dataset. If set 'None' - all samples would be chosen.")
+                      help="Output max length")
   parser.add_argument('--use_vllm', type=bool, default=False,
                       help="Whether to use vLLM inference. ")
   parser.add_argument('-fp', '--force_predict', type=bool, default=False,

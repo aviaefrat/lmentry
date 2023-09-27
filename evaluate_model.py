@@ -29,8 +29,6 @@ def parse_arguments():
                       type=int,
                       help="The number of processes to use when scoring the predictions. "
                            "Can be up to the number of models you want to evaluate * 41.")
-  parser.add_argument("-s", "--simple_tasks", action="store_true", default=False,
-                      help="It skips task names list if exist and uses simple tasks instead of")
   return parser.parse_args()
 
 

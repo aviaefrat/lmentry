@@ -1,14 +1,11 @@
 import json
 import logging
 import os
-import random
 import time
 from itertools import repeat
 from multiprocessing import Pool
 from pathlib import Path
 from tqdm import tqdm
-
-from numpy import sort
 
 import openai
 
@@ -25,6 +22,20 @@ def _batcher(sequence, batch_size):
 
 def _ms_since_epoch():
     return time.perf_counter_ns() // 1000000
+
+
+def get_part_from(examples: dict, samples_num: int=None):
+    ex_num = len(examples)
+    if samples_num and samples_num < ex_num:
+        import random
+        cut_idx = sorted(random.sample(range(1, ex_num + 1), samples_num))
+        cut_examples = dict()
+
+        for idx in cut_idx:
+            cut_examples[str(idx)] = examples[str(idx)]
+        return cut_examples
+    else:
+        return examples
 
 
 def generate_task_hf_predictions(task_name,
@@ -62,14 +73,8 @@ def generate_task_hf_predictions(task_name,
         data = json.load(f_examples)
 
     # get the inputs from the task data
-    if samples_num == None:
-        examples = data["examples"]
-    else:
-        shorted_idx = sort(random.sample(range(1, len(data["examples"])+1), samples_num), kind="quicksort")
-        examples = dict()
-
-        for idx in shorted_idx:
-            examples[str(idx)] = data["examples"][str(idx)]
+    examples = data["examples"]
+    examples = get_part_from(examples, samples_num)
 
     string_inputs = [example["input"] for example in examples.values()]
 
@@ -123,25 +128,16 @@ def generate_all_hf_predictions(task_names: list[str] = None, model_name: str = 
     for task_name in tqdm(task_names, desc="Predict tasks"):
         # check task and skip it if it has been done
         task = all_tasks[task_name]()
-        data_path = task.default_data_path
-        with open(data_path) as f_settings:
-            data = json.load(f_settings)
-
-        max_samples = data["settings"]["num_examples_per_template"] * len(data["settings"]["input_templates"])
-        print(f"Samples num {samples_num} vs Max samples {max_samples}")
-        if not samples_num:
-            samples_num = max_samples
-        if samples_num > max_samples:
-            samples_num = max_samples
-            logging.info(f"Cannot sample {samples_num} from {max_samples} possible samples.\n'samples_num' has been set to {max_samples}")
 
         if not force_predict:
+            # TODO(vvchernov): add advanced postfix (like "_vllm_b1000")
             output_file = task.predictions_dir.joinpath(manager.short_name).with_suffix(".vllm.json" if use_vllm else ".json")
             
             if output_file.exists():
                 with open(output_file) as task_json:
                     task_config = json.load(task_json)
                 if bool(task_config):
+                    # TODO(vvchernov): it is excess check or we need discuss scenario for it
                     if samples_num <= len(task_config):
                         logging.info(f"Task {task.name} was skipped due to it was done before. ({len(task_config)} generated vs. {samples_num} requested)\nUse '--force_predict' to force predictions generation.")
                         continue
