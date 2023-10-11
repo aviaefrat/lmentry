@@ -26,6 +26,7 @@ class MostAssociatedWordScorer(LMentryScorer):
 
         base_patterns = [
             rf"The word {most_associated} {to_} {category} is {answer}",
+            rf"The word {most_associated} {to_} {category} would be {answer}",
             rf"The word {most_associated} {to_} {category} {words} is {answer}",
             rf"The {most_associated} word {to_} {category} is {answer}",
             rf"{category} {is_} {most_associated} {to_} {answer}",

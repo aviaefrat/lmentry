@@ -292,7 +292,7 @@ def score_all_predictions(task_names: list[str] = None, model_names: list[str] =
         pool.starmap(score_task_predictions, starargs)
 
 
-def look_through_predictions_dir(model_names: list[str] = None, task_names: list[str] = None):
+def look_through_predictions_dir(model_names: list[str] = None, task_names: list[str] = None, use_vllm: bool = False):
     model_tasks_dict = {}
     if task_names:
         tasks_path_list = [PREDICTIONS_ROOT_DIR.joinpath(task_name) for task_name in task_names]
@@ -310,7 +310,7 @@ def look_through_predictions_dir(model_names: list[str] = None, task_names: list
         if task_name in all_tasks:
             models_path_list =[]
             if model_names:
-                models_path_list = [task_dir.joinpath(f"{model_name}.json") for model_name in model_names]
+                models_path_list = [task_dir.joinpath(f"{model_name}.json") if not use_vllm else task_dir.joinpath(f"{model_name}.vllm.json") for model_name in model_names]
                 # Check
                 checked_models_path_list = set(models_path_list)
                 for model_path in models_path_list:
@@ -335,7 +335,7 @@ def look_through_predictions_dir(model_names: list[str] = None, task_names: list
 
 
 def flexible_scoring(task_names: list[str] = None, model_names: list[str] = None,
-                     num_processes: int = 1, forced_scoring: bool=False):
+                     num_processes: int = 1, use_vllm: bool=False, forced_scoring: bool=False):
     if not TASKS_DATA_DIR.exists():
         logging.error(f"LMentry tasks data not found at {TASKS_DATA_DIR}. aborting.\n")
         return
@@ -344,7 +344,8 @@ def flexible_scoring(task_names: list[str] = None, model_names: list[str] = None
         return
 
     model_tasks_dict = look_through_predictions_dir(model_names=model_names,
-                                                    task_names=task_names)
+                                                    task_names=task_names,
+                                                    use_vllm=use_vllm)
 
     for model, tasks in tqdm(model_tasks_dict.items(), desc="Score models"):
         logging.info(f"scoring LMentry predictions for {model}")

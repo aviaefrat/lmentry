@@ -108,12 +108,18 @@ class LMentryScorer:
 
     @staticmethod
     def get_shared_patterns(target):
+        
+        delimiter = r"(:|-)"
+        constructions = r"(this is|it is|it's)"
+        linking = r"(obviously|certainly|definitely|plainly|of course|undoubtedly)"
+        specific = r"(letter|number|word|sentence)"
 
         patterns = [
-            rf"{target} is the answer",
-            rf"The answer is {target}",
-            rf"The correct answer is {target}",
-            rf"Answer: {target}"
+            rf"['\"]?{target}['\"]? is the answer",
+            rf"The answer is ['\"]?{target}['\"]?",
+            rf"The correct answer is ['\"]?{target}['\"]?",
+            rf"Answer(\s|){delimiter}(\s|)['\"]?{target}['\"]?",
+            rf"{linking},(\s|)?{constructions}(\s|)?(the)?(\s|)?({specific})?(\s|)?['\"]?{target}['\"]?",
         ]
         return [p.format(target=target) for p in patterns]
 

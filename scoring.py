@@ -21,6 +21,8 @@ def parse_arguments():
   parser.add_argument("-n", "--num-procs", type=int, default=1,
                       help="The number of processes to use when scoring the predictions. "
                            "Can be up to the number of models you want to evaluate * 41.")
+  parser.add_argument('--use_vllm', type=bool, default=False,
+                      help="Whether to score vLLM predictions.")
   parser.add_argument("-f", "--forced_scoring", action="store_true", default=False,
                       help="If scoring has been done for specified task it skips it. This flag allows to redo ready scoring")
   return parser.parse_args()
@@ -36,6 +38,7 @@ def main():
     task_names=task_names,
     model_names=model_names,
     num_processes=args.num_procs,
+    use_vllm=args.use_vllm,
     forced_scoring=args.forced_scoring
   )
 
