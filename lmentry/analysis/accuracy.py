@@ -310,7 +310,7 @@ def look_through_predictions_dir(model_names: list[str] = None, task_names: list
         if task_name in all_tasks:
             models_path_list =[]
             if model_names:
-                models_path_list = [task_dir.joinpath(f"{model_name}.json") if not use_vllm else task_dir.joinpath(f"{model_name}.vllm.json") for model_name in model_names]
+                models_path_list = [task_dir.joinpath(f"{model_name}.json") if not use_vllm else task_dir.joinpath(f"{model_name}_vllm.json") for model_name in model_names]
                 # Check
                 checked_models_path_list = set(models_path_list)
                 for model_path in models_path_list:
