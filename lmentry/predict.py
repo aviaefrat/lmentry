@@ -38,6 +38,13 @@ def get_part_from(examples: dict, samples_num: int=None):
         return examples
 
 
+def get_default_output_path(manager, task, use_vllm):
+    postfix = ""
+    if use_vllm:
+        postfix = "_vllm"
+    return task.predictions_dir.joinpath(manager.model_name).with_suffix(f"{postfix}.json")
+
+
 def generate_task_hf_predictions(task_name,
                                  manager: ModelManager = None,
                                  model_name: str="",
@@ -107,7 +114,7 @@ def generate_task_hf_predictions(task_name,
 
     if '/' in manager.model_name:
         manager.model_name = manager.short_name
-    output_path = output_path or task.predictions_dir.joinpath(manager.model_name).with_suffix(".vllm.json" if use_vllm else ".json")
+    output_path = output_path or get_default_output_path(manager, task, use_vllm)
 
     with open(output_path, "w") as f_predictions:
         json.dump(predictions_data, f_predictions, indent=2)
@@ -125,8 +132,7 @@ def generate_all_hf_predictions(task_names: list[str] = None, model_name: str = 
         task = get_task(task_name)
 
         if not force_predict:
-            # TODO(vvchernov): add advanced postfix (like "_vllm_b1000")
-            output_file = task.predictions_dir.joinpath(manager.model_name).with_suffix(".vllm.json" if use_vllm else ".json")
+            output_file = get_default_output_path(manager, task, use_vllm)
 
             if output_file.exists():
                 with open(output_file) as task_json:

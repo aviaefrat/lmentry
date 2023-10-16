@@ -24,8 +24,8 @@ def parse_args():
                            "If set 'None' or the value is bigger than all samples number - all samples will be chosen.")
   parser.add_argument('-ml', '--max_length', type=int, default=DEFAULT_MAX_LENGTH,
                       help="Output max length")
-  parser.add_argument('--use_vllm', type=bool, default=False,
-                      help="Whether to use vLLM inference. ")
+  parser.add_argument('-uv', '--use_vllm', action='store_true', default=False,
+                      help="Whether to use vLLM inference.")
   parser.add_argument('-fp', '--force_predict', type=bool, default=False,
                       help="Whether to force regenerate predictions.")
 
