@@ -18,7 +18,7 @@ def parse_arguments():
   parser.add_argument("-r", "--ref_model_name", type=str, default="vicuna-7b-v1-3-q0f16",
                       help="Name of reference model. It is assumed that the model is original, "
                            "uses high-precision data type and has better accuracy")
-  parser.add_argument('-p', '--probe_model_names', nargs="+", type=str, default="vicuna-7b-v1-3-q4f16_0",
+  parser.add_argument('-p', '--probe_model_names', nargs="+", type=str, default=["vicuna-7b-v1-3-q4f16_0"],
                       help=f"Names of probe models. If the number of the probe models is bigger than one "
                            "it iteratively compares the reference model with each from the list.")
   parser.add_argument('-t', '--task_names', nargs="+", type=str, default=get_tasks_names("7b"),

@@ -117,6 +117,16 @@ class LMentryScorer:
         ]
         return [p.format(target=target) for p in patterns]
 
+    @staticmethod
+    def get_shared_patterns_ru(target):
+
+        patterns = [
+            rf"Ответ {target}",
+            rf"Правильный ответ {target}",
+            rf"Ответ: {target}"
+        ]
+        return [p.format(target=target) for p in patterns]
+
     def get_patterns(self, base_patterns):
 
         # the x-fixes are the outer loop in order to yield all the non-x-fixed patterns first (thus
