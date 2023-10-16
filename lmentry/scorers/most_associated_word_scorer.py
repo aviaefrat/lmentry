@@ -22,17 +22,16 @@ class MostAssociatedWordScorer(LMentryScorer):
 
         to_ = r"(to|with)"
         most_associated = r"(one )?most( commonly)? (associated|related)"
-        is_ = r"(is|are)"  # for words like "pants"
+        is_ = r"(is|are|would be)"  # for words like "pants"
 
         base_patterns = [
-            rf"The word {most_associated} {to_} {category} is {answer}",
-            rf"The word {most_associated} {to_} {category} would be {answer}",
-            rf"The word {most_associated} {to_} {category} {words} is {answer}",
-            rf"The {most_associated} word {to_} {category} is {answer}",
+            rf"The word {most_associated} {to_} {category} {is_} {answer}",
+            rf"The word {most_associated} {to_} {category} {words} {is_} {answer}",
+            rf"The {most_associated} word {to_} {category} {is_} {answer}",
             rf"{category} {is_} {most_associated} {to_} {answer}",
             rf"{answer} {is_} the {most_associated} {to_} {category}",
             rf"{answer} {is_} the word {most_associated} {to_} {category}",
-            rf"The word that relates to {category} the most is {answer}",
+            rf"The word that relates to {category} the most {is_} {answer}",
             rf"{answer} relates to {category} the most",
         ]
         # swap answer and category

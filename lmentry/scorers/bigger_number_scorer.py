@@ -26,7 +26,6 @@ class BiggerNumberScorer(LMentryScorer):
             rf"The {bigger} is {answer}",
             rf"{distractor}(\s|)<(\s|){answer}",
             rf"{answer}(\s|)>(\s|){distractor}",
-            rf"The answer is {answer}",
             rf"The number that is {bigger} than {distractor} is {answer}.",
         ]
         # replace bigger with smaller and swap answer and distractor
