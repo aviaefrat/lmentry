@@ -46,6 +46,8 @@ def parse_arguments():
                       help="If scoring has been done for specified task it skips it. This flag allows to redo ready scoring")
   parser.add_argument("-c", "--certainty", action="store_true", default=False,
                       help="Conservative accuracy evaluation. The answer is considered correct only if it is absolutely certain")
+  parser.add_argument('-uv', '--use_vllm', action='store_true', default=False,
+                      help="Whether to use vLLM inference.")
   return parser.parse_args()
 
 
@@ -75,6 +77,7 @@ def main():
       batch_size=args.batch_size,
       device=args.device,
       samples_num=args.samples_num,
+      use_vllm=args.use_vllm,
     )
     logging.info(f"Prediction for {model_names[0]} model finished")
     # Probe_model
@@ -86,6 +89,7 @@ def main():
       batch_size=args.batch_size,
       device=args.device,
       samples_num=args.samples_num,
+      use_vllm=args.use_vllm,
     )
     logging.info(f"Prediction for {model_names[1]} model finished")
 
