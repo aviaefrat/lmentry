@@ -97,6 +97,7 @@ def main():
       task_names=task_names,
       model_names=model_names,
       num_processes=args.num_procs,
+      use_vllm=args.use_vllm,
       forced_scoring=args.forced_scoring,
     )
 

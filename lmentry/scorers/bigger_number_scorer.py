@@ -24,6 +24,9 @@ class BiggerNumberScorer(LMentryScorer):
             rf"{answer} is the {bigger} number",
             rf"The {bigger} number is {answer}",
             rf"The {bigger} is {answer}",
+            rf"{distractor}(\s|)<(\s|){answer}",
+            rf"{answer}(\s|)>(\s|){distractor}",
+            rf"The number that is {bigger} than {distractor} is {answer}.",
         ]
         # replace bigger with smaller and swap answer and distractor
         more_base_patterns = [
