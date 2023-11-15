@@ -27,14 +27,10 @@ for meta, pred in zip(metadata.values(), predictions.values()):
     for k, v in meta['metadata'].items():
         if not isinstance(v, str):
             continue
-        pred = re.sub(f'\W{v}\W', k, pred)
+        pred = re.sub(fr'\W{v}\W', k, pred)
     res[pred] = res.get(pred, 0) + 1
 
 with open(f'common_patterns_{task}.csv', 'w') as f:
     writer = csv.writer(f)
     for k, v in sorted(res.items(), key=lambda x: -x[1]):
         writer.writerow([k, v])
-
-
-
-
